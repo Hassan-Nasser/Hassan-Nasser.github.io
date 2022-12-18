@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/static/css/main.85dfd7b2.css",
+    "main.js": "/static/js/main.0eee0441.js",
+    "static/media/Multiplayer.png": "/static/media/Multiplayer.cf745757bcd691fc2572.png",
+    "static/media/AR&VR.png": "/static/media/AR&VR.d323ad0ba71319981077.png",
+    "static/media/Unity.png": "/static/media/Unity.660982af4d24e51c8574.png",
+    "static/media/Upwork.png": "/static/media/Upwork.a5473d90b2c390a24f67.png",
+    "static/media/ProfilePicture.jpg": "/static/media/ProfilePicture.1867a6fe21e7a8ea3933.jpg",
+    "static/media/Blenda Script.otf": "/static/media/Blenda Script.184c67447026dce1ee5f.otf",
+    "static/media/Unreal.png": "/static/media/Unreal.197dfa054fdf40f2d57d.png",
+    "static/media/Prototype.ttf": "/static/media/Prototype.be9924a47c44090561d7.ttf",
+    "static/media/Montserrat-Regular.ttf": "/static/media/Montserrat-Regular.e20d5327f1a05620c084.ttf",
+    "static/media/google-play.png": "/static/media/google-play.be5f794ce26995268470.png",
+    "static/media/no-video.png": "/static/media/no-video.a2162f007f008a081285.png",
+    "static/media/revicons.eot": "/static/media/revicons.a77de540a38981833f9e.eot",
+    "static/media/revicons.ttf": "/static/media/revicons.57fd05d4ae650374c8de.ttf",
+    "static/media/Timeline.ttf": "/static/media/Timeline.03ddbb5188ed1b39dc74.ttf",
+    "static/media/revicons.woff": "/static/media/revicons.e8746a624ed098489406.woff",
+    "index.html": "/index.html",
+    "main.85dfd7b2.css.map": "/static/css/main.85dfd7b2.css.map",
+    "main.0eee0441.js.map": "/static/js/main.0eee0441.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.85dfd7b2.css",
+    "static/js/main.0eee0441.js"
+  ]
+}
