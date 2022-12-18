@@ -1,0 +1,178 @@
+main {
+	background: #fff;
+	margin: 0 auto;
+	max-width: 680px;
+	padding: 50px 30px;
+}
+
+.view {
+	p {
+		line-height: 1.4;
+		font-size: 16px;
+		margin-bottom: 30px;
+	}
+}
+
+
+code {
+	background: #f4f6fc;
+	border-radius: 5px;
+	color: #2d4284;
+	font-family: monospace;
+	padding: 4px 8px;
+}
+
+.placeholder {
+	background: #f4f6fc;
+	border-radius: 5px;
+	height: 15vh;
+	min-height: 100px;
+	margin-bottom: 30px;
+
+	&.medium {
+		height: 30vh;
+	}
+
+	&.large {
+		height: 45vh;
+	}
+}
+
+.modal__backdrop {
+	background: rgba(0, 0, 0, .65);
+	bottom: 0;
+	left: 0;
+	overflow: auto;
+	position: fixed;
+	right: 0;
+	top: 0;
+	z-index: 200;
+	overflow: hidden;
+	height: 100%;
+	width: 100vw;
+}
+
+.modalbackdrop {
+	bottom: 0;
+	left: 0;
+	overflow: auto;
+	position: fixed;
+	right: 0;
+	top: 0;
+	z-index: 201;
+	overflow: hidden;
+	height: 100%;
+	width: 100%;
+}
+
+.modal__container {
+	background: #fff;
+	border-radius: 5px;
+	max-width: 100%;
+	margin: 33px auto;
+	padding: 15px;
+	width: 60%;
+	z-index: 2000;
+	position: fixed;
+	top: 0;
+}
+
+.modal__title {
+	display: inline-block;
+	font-weight: 600;
+	font-size: 1.4em;
+}
+
+.close-btn {
+	position: absolute;
+	display: block;
+	top: 0;
+	right: 0;
+	transform: translate(-100%, 40%);
+	font-size: 1.8rem;
+	cursor: pointer;
+
+}
+
+iframe {
+	width: 90%;
+	height: 18em;
+	position: relative;
+	margin: 0 auto;
+	overflow: hidden;
+}
+
+iframe:focus {
+	outline: none;
+	overflow: hidden;
+}
+
+iframe[seamless] {
+	display: block;
+	overflow: hidden;
+}
+
+.video {
+	display: block;
+	width: 80%;
+	height: 100%;
+	margin: 0 auto;
+	text-align: center;
+
+
+}
+
+.view {
+	background-color: rgb(207, 207, 207);
+	border-radius: 8px;
+	padding: 10px;
+	box-sizing: border-box;
+	height: auto;
+	position: relative;
+	top: 5px;
+}
+
+
+.view p {
+	line-height: 1.5rem;
+}
+
+.google-play-icon {
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 30px;
+	height: 30px;
+}
+
+.google-play-link {
+	cursor: pointer;
+	position: relative;
+	display: inline-block;
+	margin-top: 2px;
+}
+
+@media screen and (max-width: 960px) {
+	.modal__title {
+		font-size: 1.2em;
+	}
+
+	.modal__container {
+		width: 90%;
+	}
+
+	.video {
+		width: 100%;
+		height: 70%;
+	}
+
+	.view {
+		p {
+			margin-bottom: 0;
+			font-size: 16px;
+			line-height: 1.35;
+		}
+	}
+
+
+}

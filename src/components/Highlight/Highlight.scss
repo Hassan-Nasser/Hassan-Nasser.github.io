@@ -1,0 +1,81 @@
+input[type="range"]::-webkit-slider-runnable-track {
+  width: 300px;
+  height: 2px;
+  background: #ddd;
+  border: none;
+  border-radius: 3px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  border: none;
+  height: 5px;
+  width: 15%;
+  border-radius: 0%;
+  background: #000;
+  margin-top: -4px;
+}
+
+input[type="range"]:focus {
+  outline: none;
+}
+
+input[type="range"]:focus::-webkit-slider-runnable-track {
+  background: #ccc;
+}
+
+.carousel-container-with-scrollbar {
+  padding-left: 20px;
+  padding-bottom: 20px;
+}
+
+.custom-slider__input {
+  width: 100%;
+}
+
+.slider-image-item {
+  padding: 20px 20px 20px 20px;
+}
+
+.react-multi-carousel-item {
+  height: 250px;
+}
+
+.Modal-Style .modal-content {
+  background-color: black;
+  color: white;
+}
+
+.react-multi-carousel-list.carousel-container-with-scrollbar {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+
+}
+
+.highlight-work {
+  width: 70%;
+  margin: auto;
+}
+
+footer {
+  margin: 15px;
+}
+
+.slider {
+  width: 60% !important;
+  background: rgba($color: #504e4e, $alpha: 0);
+  color: #fff;
+  line-height: 1;
+  padding: 10px 20px;
+  white-space: normal;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+}
+
+@media only screen and (max-width: 600px) {
+  .slider {
+    width: 100% !important;
+    padding: 4px !important;
+  }
+}

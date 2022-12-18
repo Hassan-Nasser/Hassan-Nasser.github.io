@@ -1,0 +1,31 @@
+.tag {
+  height: 20px;
+  // align-items: center;
+  background-color: dodgerblue;
+  color: white;
+  margin: 2px;
+  // display: inline-block;
+  padding: 0.25em 0.4em;
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+  float: left;
+  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.tag-container {
+  width: 100%;
+  position: absolute;
+  top: 10em;
+}
+
+.tag-container-modal {
+  width: 90%;
+  position: relative;
+  top:0;
+  display: inline-block;
+}

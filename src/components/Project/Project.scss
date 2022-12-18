@@ -1,0 +1,156 @@
+
+.hightlight-header-position {
+  position: absolute;
+  bottom: 17%;
+  width: -webkit-fill-available;
+  display: flex;
+  justify-content: center;
+}
+
+.normal-header-position {
+  width: -webkit-fill-available;
+  display: block;
+  position: absolute;
+  bottom: 1em;
+}
+
+.box.style2 .image {
+  position: relative;
+  left: 2em;
+  top: 2em;
+  margin: -4em 0 4em -4em;
+  width: auto;
+}
+
+.transparent {
+  background-color: Transparent;
+  background-image: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+}
+
+.pbox {
+  .project-name {
+    margin-bottom: 0.25em;
+    font-size: 1.4em;
+    color: #004b97;
+  }
+
+  .image {
+    &.centered {
+      margin-bottom: 1em;
+    }
+
+    &.featured {
+      // position: relative;
+      // left: 20px;
+      // top: 20px;
+      // margin: -50px 0 50px -40px;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &.style1 {
+    max-width: 32em;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  &.style2 {
+    max-width: 32em;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+
+.image {
+  display: inline-block;
+  position: relative;
+  text-align: center;
+
+  img {
+    display: block;
+    width: 100%;
+    // height: 70%;
+    border-radius: 7px;
+    object-fit: cover;
+  }
+
+  &.fit {
+    width: 100%;
+  }
+
+  &.left {
+    float: left;
+    margin: 0 2em 2em 0;
+  }
+
+  &.centered {
+    display: block;
+    margin: 0 0 2em 0;
+
+    img {
+      margin: 0 auto;
+      width: auto;
+    }
+  }
+}
+
+.description {
+  width: 100%;
+  max-height: 134px;
+  margin: 4px, 4px;
+  padding: 4px;
+  text-align: left;
+  padding: 5px;
+  text-align: justify;
+}
+
+.project-image {
+  height: 10em;
+  position: absolute;
+  top: 0;
+  display: block;
+}
+
+.image {
+  display: inline-block;
+  position: relative;
+
+  img {
+    width: 100%;
+  }
+
+  &.fit {
+    width: 100%;
+  }
+
+  &.left {
+    float: left;
+    margin: 0 2em 2em 0;
+  }
+
+  &.centered {
+    display: block;
+    margin: 0 0 2em 0;
+
+    img {
+      margin: 0 auto;
+      width: auto;
+    }
+  }
+}
+
+.project-cover {
+  width: 298px;
+  height: 188px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}

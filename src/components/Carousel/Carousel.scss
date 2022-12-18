@@ -1,0 +1,9 @@
+
+@media only screen and (max-width: 600px) {
+    .nav.left {
+        transform: translateX(-11%) translatey(-100%) !important;
+    }
+    .nav.right {
+        transform: translateX(20%) translatey(-100%);
+    }
+}

@@ -1,0 +1,210 @@
+
+input,
+textarea,
+select {
+  font-family: "Open Sans", sans-serif;
+  line-height: 1.85em;
+  color: #888;
+  font-weight: 300;
+  font-size: 13pt;
+  line-height: 1.75em;
+  font-size: 10pt;
+  letter-spacing: 0;
+}
+
+form input[type="text"],
+form input[type="email"],
+form select,
+form textarea {
+  -moz-transition: background 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  -webkit-transition: background 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  -ms-transition: background 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  transition: background 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  display: block;
+  border: 0;
+  padding: 0.5em;
+  font-size: 1em;
+  border-radius: 8px;
+  border: solid 1px #ddd;
+  background: #fff;
+  color: #bbb;
+  box-shadow: inset 0px 2px 3px 1px rgba(0, 0, 0, 0.05),
+    0px 1px 0px 0px rgba(255, 255, 255, 0.025);
+  width: 100%;
+  margin: 0.33em 0;
+}
+
+form input[type="text"]:focus,
+form input[type="email"]:focus,
+form select:focus,
+form textarea:focus {
+  background: #fafafa;
+  box-shadow: inset 0px 2px 5px 0px rgba(0, 0, 0, 0.05),
+    0px 1px 0px 0px rgba(255, 255, 255, 0.025), inset 0px 0px 2px 1px #43bff0;
+}
+
+form textarea {
+  height: em;
+}
+
+form .actions:last-child {
+  margin-bottom: 0;
+}
+
+form ::-webkit-input-placeholder {
+  color: #555 !important;
+}
+
+form :-moz-placeholder {
+  color: #555 !important;
+}
+
+form ::-moz-placeholder {
+  color: #555 !important;
+}
+
+form :-ms-input-placeholder {
+  color: #555 !important;
+}
+
+form ::-moz-focus-inner {
+  border: 0;
+}
+
+.wrapper.style4 form input[type="text"],
+.wrapper.style4 form input[type="email"],
+.wrapper.style4 form input[type="password"],
+.wrapper.style4 form select,
+.wrapper.style4 form textarea {
+  border: none;
+  background: #282828;
+}
+
+.wrapper.style4 form input[type="email"]:focus,
+.wrapper.style4 form input[type="text"]:focus,
+.wrapper.style4 form input[type="password"]:focus,
+.wrapper.style4 form select:focus,
+.wrapper.style4 form textarea:focus {
+  background: #252525;
+}
+
+ul.actions li {
+  display: inline-block;
+  margin: 0 0 0 1em;
+  padding-left: 0;
+}
+
+ul.actions li:first-child {
+  margin-left: 0;
+}
+
+form .actions:last-child {
+  margin-bottom: 0;
+}
+
+ul.social {
+  cursor: default;
+  margin: 0;
+  list-style: none;
+  padding-left: 0;
+}
+
+ul.social li {
+  position: relative;
+  display: inline-block;
+  margin: 0 0.7em;
+  top: 0;
+  padding-left: 0;
+}
+
+ul.social li a {
+  -moz-transition: top 0.2s ease-in-out;
+  -webkit-transition: top 0.2s ease-in-out;
+  -ms-transition: top 0.2s ease-in-out;
+  transition: top 0.2s ease-in-out;
+  display: flex;
+  width: 45px;
+  height: 45px;
+  border-radius: 6px;
+  top: 0;
+  position: relative;
+}
+
+
+ul.social li a.fa-twitter {
+  background-color: #2daae4;
+}
+
+ul.social li a.fa-facebook-f {
+  background-color: #3c5a98;
+}
+
+ul.social li a.fa-linkedin-in {
+  background-color: #0A66C2;
+}
+
+ul.social li a.fa-github {
+  background-color: #0D1117;
+}
+
+svg.svg-inline--fa.fa-youtube.fa-w-18.fa-2x {
+  color: #FF0000;
+}
+
+svg.svg-inline--fa.fa-github.fa-w-16.fa-2x {
+  color: black;
+}
+
+ul.social li a:hover {
+  top: -5px;
+}
+
+ul.social li a:hover:before {
+  background-color: transparent;
+}
+
+.contact-container {
+  // margin: 0 9%;
+  margin-left: 9%;
+  margin-right: 9%;
+  height: 100vh;
+}
+
+@media screen and (max-width: 576px) {
+
+  .contact-container {
+    padding-top: 4em;
+  }
+
+  form textarea {
+    height: 3em;
+  }
+
+  ul.social li {
+    margin: 0 0.3em;
+  }
+}
+
+@media screen and (min-width: 576px) {
+
+  .contact-container {
+    padding: 4em 0;
+  }
+
+}
+
+.submit {
+  width: 100%;
+}
+
+.upwork {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 35px;
+  height: 35px;
+}
+
+.linkedin {
+  background-color: #0A66C2;
+}

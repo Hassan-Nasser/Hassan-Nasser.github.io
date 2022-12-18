@@ -1,0 +1,165 @@
+* {
+  border: 0;
+  box-sizing: border-box;
+  color: inherit;
+  font-size: 1rem;
+  margin: 0;
+  padding: 0;
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Old versions of Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+}
+
+html {
+  overflow: auto;
+}
+
+body {
+  background-color: #333;
+  // color: rgba(255, 255, 255, 0.9);
+  font-family: Helvetica, Arial, "Quicksand", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 18px;
+  scroll-behavior: smooth;
+  margin: 0;
+  height: 100%;
+}
+
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+
+@media screen {
+  body {
+    font-size: 70%
+  }
+}
+
+/*** RESPONSIVE ***/
+/* MOBILE */
+@media screen and (max-width: 576px) {
+  // body::-webkit-scrollbar {
+  //   width: 0px;
+  //   background: transparent;
+  //   display: none;
+  //   // overflow-x: hidden;
+  // }
+}
+
+header {
+  text-align: center;
+}
+
+.center {
+  text-align: center;
+}
+
+.link {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.height-100 {
+  height: 100%;
+}
+
+.padding-top-8 {
+  padding-top: 5em;
+}
+.padding-top-1 {
+  padding-top: 0.3em;
+}
+.margin-1 {
+  margin: 0 0.2em;
+}
+
+.white {
+  color: white;
+}
+
+.black{
+  color: black;
+}
+
+.custom-grey{
+  color: #b6b6b6;
+}
+.pointer{
+  cursor: pointer;
+}
+
+.font-1 {
+  font-size: 0.9em;
+}
+
+.font-2 {
+  font-size: 1.4em;
+}
+
+.font-3 {
+  font-size: 2.2em;
+}
+
+.font-4 {
+  font-size: 1.3em;
+  line-height: 1.4;
+}
+.font-5{
+font-size: 1.2em;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+
+@font-face {
+  font-family: "prototype";
+  src: local('prototype'), url("./Fonts/Prototype.ttf") format('woff');
+}
+
+@font-face {
+  font-family: "montserrat";
+  src: local('montserrat'), url("./Fonts/Montserrat-Regular.ttf") format('woff');
+}
+
+
+@font-face {
+  font-family: "blenda";
+  src: local('blenda'), url("./Fonts/Blenda\ Script.otf") format('woff');
+}
+
+
+@font-face {
+  font-family: "timeline";
+  src: local('timeline'), url("./Fonts/Timeline.ttf") format('woff');
+}
+
+.timeline {
+  font-family: timeline;
+}
+
+.blenda {
+  font-family: blenda;
+}
+
+.montserrat {
+  font-family: montserrat;
+}
+
+.prototype {
+  font-family: prototype;
+}

@@ -1,0 +1,71 @@
+.image-review-cover {
+    display: inline-block;
+    position: relative;
+    width: 90%;
+
+    img {
+        width: 100%;
+        display: block;
+        border-radius: 7px;
+    }
+}
+
+.review-subject {
+    margin-bottom: 0.8rem;
+    margin-top: 0.8rem;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    padding: 4px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-right: 6px;
+}
+
+
+@media screen and (max-width: 770px) {
+    .review-subject {
+        font-size: 0.8em;
+    }
+
+    .review-swiper {
+        width: 90%;
+        height: 90%;
+
+        .swiper-button-next,
+        .swiper-button-prev {
+            display: none !important;
+        }
+    }
+}
+
+@media screen and (min-width: 576px) {
+    .review-swiper {
+        width: 90%;
+        height: 90%;
+
+    }
+
+    .swiper-button-next,
+    .swiper-button-prev {
+        color: #000 !important;
+    }
+}
+
+
+.swiper-slide {
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.swiper-android .swiper-slide,
+.swiper-wrapper {
+    align-items: center;
+}
+
+.swiper-pagination-clickable .swiper-pagination-bullet {
+    background-color: white;
+}
