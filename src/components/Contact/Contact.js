@@ -6,8 +6,8 @@ import {
   faLinkedin,
   faYoutube
 } from "@fortawesome/free-brands-svg-icons";
+import { faCircleCheck, faXmarkCircle } from "@fortawesome/free-regular-svg-icons";
 import emailjs from "emailjs-com";
-import Swal from "sweetalert2";
 import Upwork from '../../images/Upwork.png';
 
 class Contact extends Component {
@@ -18,6 +18,8 @@ class Contact extends Component {
       name: "",
       subject: "",
       message: "",
+      formMessage: "",
+      showMoal: false
     };
   }
 
@@ -26,33 +28,29 @@ class Contact extends Component {
 
     emailjs
       .sendForm(
-        "service_r20v2oq",
-        "template_ut7ulbk",
+        "service_5sbg461",
+        "template_72566fi",
         event.target,
-        "user_nIYi5nzBdXtnfE7x9yLNv"
+        "2cEwS245KctmSdEhH"
       )
       .then(
         (result) => {
-          Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: "Your message has been send",
-            showConfirmButton: false,
-            timer: 1500,
-          });
+          this.setState({ showMoal: true, formMessage: "Your message have been sent successfully." })
+          setTimeout(() => this.setState({ showMoal: false }), 4000)
           this.setState({ message: "", name: "", subject: "", email: "" });
         },
         (error) => {
-          Swal.fire({
-            position: "top-end",
-            icon: "error",
-            title: "Your message doesn't send,Please try again.",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          // console.log("error, = ", error.text);
+          // Swal.fire({
+          //   position: "top-end",
+          //   icon: "error",
+          //   title: "Your message doesn't send,Please try again.",
+          //   showConfirmButton: false,
+          //   timer: 1500,
+          // });
+          this.setState({ showMoal: true, formMessage: "Your message doesn't send,Please try again." })
+          console.log("error, = ", error.text);
         }
-      ).catch(err=>console.log(err))
+      ).catch(err => console.log(err))
   };
   handleChange = (type, e) => {
     e.preventDefault();
@@ -95,7 +93,7 @@ class Contact extends Component {
                   <input
                     type="email"
                     name="email"
-                    id="email" 
+                    id="email"
                     className="disable"
                     required
                     placeholder="Email"
@@ -210,6 +208,12 @@ class Contact extends Component {
             </ul>
           </div>
         </div>
+        {this.state.showMoal && (
+          <div className="form-modal row d-flex justify-content-center">
+            <div className="row check-icon"><FontAwesomeIcon icon={faCircleCheck} /></div>
+            <div className="row form-message">Your message have been sent successfully. </div>
+          </div>
+        )}
 
       </div>
     );

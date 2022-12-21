@@ -38,7 +38,6 @@ const Review = () => {
 
         <Swiper
           className="review-swiper"
-          na
           modules={[Navigation, Pagination,A11y]}
           spaceBetween={100}
           loop={true}

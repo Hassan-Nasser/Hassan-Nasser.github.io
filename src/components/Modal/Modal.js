@@ -60,8 +60,6 @@ const Modal = ({ project, closeModal }) => {
                         ref={iframeContainer}
                         title={project.name}
                         src={project.url ? project.url : NoVideo}
-                        frameBorder="0"
-                        scrolling="no"
                         seamless="seamless"
                         allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
