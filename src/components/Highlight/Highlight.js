@@ -11,6 +11,7 @@ import { db } from "../../config/firebase";
 import Modal from "../Modal/Modal";
 import AppContext from "../AppContext";
 import NoImage from '../../images/no-image.png';
+import Arrow from '../../images/Arrow.png';
 
 const storage = getStorage();
 
@@ -27,6 +28,7 @@ class Highlight extends Component {
       projectImage: "",
       value: 0,
       isModalOpen: false,
+      firstClick: localStorage.getItem("firstClick") === null ? false : localStorage.getItem("firstClick"),
       projectsCover: [{
         original: require("../../images/grey.png"),
         thumbnail: require("../../images/grey.png"),
@@ -41,6 +43,7 @@ class Highlight extends Component {
 
   componentDidMount() {
     this.getProjects();
+    // localStorage.clear();
   }
 
 
@@ -68,6 +71,12 @@ class Highlight extends Component {
 
 
   showModal = (e) => {
+    if (this.state.firstClick === false) {
+      this.setState({ firstClick: true }, () => {
+        localStorage.setItem("firstClick", true);
+      })
+    };
+
     let selectedProject = {};
     selectedProject = this.getSelectedProject(e.target.alt);
     this.setShow(selectedProject);
@@ -91,12 +100,11 @@ class Highlight extends Component {
     return pp;
   }
 
-
   render() {
     const { setIsModal } = this.context
     return (
 
-      <div className="container">
+      <div className="container highlight-container">
         <div className=" d-flex justify-content-center">
           <header>
             <h2 className="prototype white">Career Highlight</h2>
@@ -105,10 +113,14 @@ class Highlight extends Component {
             </p>
           </header>
         </div>
+        {!this.state.firstClick && (
+          <div>
+            <div className="arrow" style={{ backgroundImage: "url(" + Arrow + ")" }}></div>
+            <span className="click-text montserrat font-2">Click to open</span>
+          </div>
 
-        <div
-          className="container-fluid slider"
-        >
+        )}
+        <div className="container-fluid slider" >
           <ImageGallery items={this.state.projectsCover}
             thumbnailPosition="bottom"
             showFullscreenButton={false}

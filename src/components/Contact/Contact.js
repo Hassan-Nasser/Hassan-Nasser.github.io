@@ -19,7 +19,9 @@ class Contact extends Component {
       subject: "",
       message: "",
       formMessage: "",
-      showMoal: false
+      showMoal: false,
+      success: false,
+      fail: false
     };
   }
 
@@ -37,7 +39,7 @@ class Contact extends Component {
         (result) => {
           this.setState({ showMoal: true, formMessage: "Your message have been sent successfully." })
           setTimeout(() => this.setState({ showMoal: false }), 4000)
-          this.setState({ message: "", name: "", subject: "", email: "" });
+          this.setState({ message: "", name: "", subject: "", email: "", success: true });
         },
         (error) => {
           // Swal.fire({
@@ -47,7 +49,7 @@ class Contact extends Component {
           //   showConfirmButton: false,
           //   timer: 1500,
           // });
-          this.setState({ showMoal: true, formMessage: "Your message doesn't send,Please try again." })
+          this.setState({ showMoal: true, formMessage: "Your message doesn't send,Please try again.", fail: true })
           console.log("error, = ", error.text);
         }
       ).catch(err => console.log(err))
@@ -210,8 +212,16 @@ class Contact extends Component {
         </div>
         {this.state.showMoal && (
           <div className="form-modal row d-flex justify-content-center">
-            <div className="row check-icon"><FontAwesomeIcon icon={faCircleCheck} /></div>
-            <div className="row form-message">Your message have been sent successfully. </div>
+            <div className="row check-icon">
+              {this.state.success && (
+                <FontAwesomeIcon className="green form-icon" icon={faCircleCheck} />
+              )}
+              {this.state.fail && (
+                <FontAwesomeIcon className="red form-icon" icon={faXmarkCircle} />
+              )}
+
+            </div>
+            <div className="row form-message montserrat">{this.state.formMessage}</div>
           </div>
         )}
 

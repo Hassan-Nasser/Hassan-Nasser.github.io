@@ -110,34 +110,50 @@ $card-size: 23em;
 
 .swiper-container {
   position: relative;
-  // width: 70%;
   margin: 0 auto;
 }
 
 .tag-swipper-button-next {
   width: 20px;
-  // height: 20px;
   margin-top: 0px;
   position: absolute;
-  // top: 50%;
   right: -40px;
-  // width: 45px;
-  // height: 45px;
-  // transform: translateY(-50%);
   font-size: 1.5em;
 }
 
 .tag-swipper-button-prev {
   width: 20px;
-  // height: 20px;
   margin-top: 0px;
   position: absolute;
-  // top: 50%;
   left: -40px;
-  // width: 45px;
-  // height: 45px;
-  // transform: translateY(-50%);
   font-size: 1.5em;
+}
+
+.p-click-text {
+  position: absolute;
+  width: 7em;
+  top: 18em;
+  right: 47%;
+  text-align: center;
+  color: #0062cc;
+  font-style: italic;
+  font-weight: bolder;
+  color: cadetblue;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  z-index: 200;
+}
+
+.p-arrow {
+  position: absolute;
+  top: 24em;
+  right: 40%;
+  z-index: 200;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 140px;
+  height: 100px;
+  transform: rotate(198deg);
 }
 
 @media screen and (max-width: 900px) {
@@ -152,5 +168,16 @@ $card-size: 23em;
   .tag-swipper-button-next {
     display: none;
     background-color: red;
+  }
+  .p-arrow {
+    width: 100px;
+    height: 67px;
+    top: 27.3em;
+    right: 41%;
+  }
+
+  .p-click-text {
+    top: 19em;
+    right: 9em;
   }
 }

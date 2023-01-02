@@ -215,7 +215,6 @@ ul.social li a:hover:before {
   right: 5%;
   text-align: center;
   width: 40%;
-  height: 25%;
   border-radius: 7px;
   display: block;
   z-index: 2000;
@@ -223,8 +222,7 @@ ul.social li a:hover:before {
 
 .check-icon {
   display: block;
-  font-size: 3.5em;
-  color: green;
+  // font-size: 3.5em;
   text-align: center;
 }
 
@@ -232,12 +230,23 @@ ul.social li a:hover:before {
   font-size: 1.6em;
   padding: 20px;
 }
-@media screen and (max-width: 576px) {
-.check-icon{
-  font-size: 1em;
+.form-icon{
+  font-size: 4em;
+  padding: 5px;
 }
+.form-message{
+font-size: 2em;
+}
+
+@media screen and (max-width: 576px) {
+.form-icon{
+  font-size: 3em;
+}
+.form-message{
+  font-size: 1.4em;
+  }
   .form-modal {
-   width: 50%;
+   width: 80%;
    height: 20%;
   }
 

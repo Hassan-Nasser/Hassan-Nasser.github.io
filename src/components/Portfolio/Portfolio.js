@@ -15,6 +15,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight } from "@fortawesome/fontawesome-free-solid";
+import Arrow from '../../images/Arrow.png';
 
 class Portfolio extends Component {
 
@@ -33,7 +34,8 @@ class Portfolio extends Component {
       swiper: null,
       active: 0,
       currentTagIndex: -1,
-      isMobile: false
+      isMobile: false,
+      firstClickPortfolio: localStorage.getItem("firstClickPortfolio") === null ? false : localStorage.getItem("firstClickPortfolio"),
     };
   }
 
@@ -104,6 +106,11 @@ class Portfolio extends Component {
   // }
 
   setShow = (currentProject) => {
+    if (this.state.firstClickPortfolio === false) {
+      this.setState({ firstClickPortfolio: true }, () => {
+        localStorage.setItem("firstClickPortfolio", true);
+      })
+    };
     this.setState({ isModalOpen: true });
     this.setState({ currentProject });
   };
@@ -131,7 +138,7 @@ class Portfolio extends Component {
       return null;
     }
     return (
-      <div className="container">
+      <div className="container relative">
         <div className="row d-flex justify-content-center">
           <header>
             <h2 className="prototype white" >Some of my work</h2>
@@ -141,6 +148,14 @@ class Portfolio extends Component {
             </p>
           </header>
         </div>
+        {!this.state.firstClickPortfolio && (
+          <div>
+            <div className="p-arrow" style={{ backgroundImage: "url(" + Arrow + ")" }}></div>
+            <span className="p-click-text montserrat font-2">Click to open</span>
+          </div>
+
+        )}
+
         {this.state.isModalOpen &&
           <Modal project={this.state.currentProject} closeModal={() => this.closeModal()} />
         }

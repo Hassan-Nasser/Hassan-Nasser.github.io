@@ -79,3 +79,47 @@ footer {
     padding: 4px !important;
   }
 }
+
+.click-text {
+  position: absolute;
+  width: 7em;
+  top: 4em;
+  right: 2%;
+  text-align: center;
+  color: #0062cc;
+  font-style: italic;
+  font-weight: bolder;
+  color: cadetblue;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  z-index: 200;
+}
+
+.arrow {
+  position: absolute;
+  top: 2em;
+  right: 12%;
+  z-index: 200;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 140px;
+  height: 100px;
+  transform: rotate(10deg);
+}
+
+.highlight-container {
+  position: relative;
+}
+
+@media only screen and (max-width: 600px) {
+  .arrow {
+    width: 73px;
+    height: 50px;
+    top: 4.3em;
+    right: 34%;
+  }
+
+  .click-text {
+    top: 4em;
+  }
+}
