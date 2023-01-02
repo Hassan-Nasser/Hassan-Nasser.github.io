@@ -45,7 +45,7 @@ class Portfolio extends Component {
     this.setState({ isLoaded: true });
     window.addEventListener("resize", this.resize.bind(this));
     this.resize();
-    localStorage.clear();
+    // localStorage.clear();
   }
   componentWillUnmount() {
     this.setState({ isLoaded: false });
