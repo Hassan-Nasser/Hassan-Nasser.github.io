@@ -4,11 +4,14 @@
 }
 
 .navbar {
-	background-color: #24262a;
+	background-color: rgba(36, 38, 42, 0.4);
+	backdrop-filter: blur(15px);
+	-webkit-backdrop-filter: blur(15px);
 	font-weight: 600;
 	font-size: 0.875rem;
 	line-height: 2rem;
-	box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.025);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
 .navbar .navbar-brand {
@@ -124,9 +127,12 @@
 
 	.navbar.top-nav-collapse {
 		padding-top: 0.5rem;
-		padding-top: 0.5rem;
-		background-color: #24262a;
-		box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.025);
+		padding-bottom: 0.5rem;
+		background-color: rgba(36, 38, 42, 0.4);
+		backdrop-filter: blur(15px);
+		-webkit-backdrop-filter: blur(15px);
+		border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+		box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 	}
 
 	.offcanvas-collapse {
