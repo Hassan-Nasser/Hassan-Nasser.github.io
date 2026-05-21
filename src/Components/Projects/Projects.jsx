@@ -56,12 +56,12 @@ class Projects extends Component {
                     <div className="work__gallery">
                         <Masonry columns={{ xs: 1, sm: 2, md: 3 }} spacing={2} >
                             {this.state.isLoading ?
-                                ([200, 600, 197, 188, 190, 200, 180].map((h, index) =>  (
+                                ([200, 600, 197, 188, 190, 200, 180].map((h, index) => (
                                     <div
                                         className="work__item" key={index}
                                         style={{ height: h, padding: 0.5 }}>
                                         <div className="set-bg project-profile">
-                                        <Skeleton height={"100%"} width={200} style={{ backgroundColor: '#eaeaea' }} />
+                                            <Skeleton height={"100%"} width={200} style={{ backgroundColor: '#eaeaea' }} />
                                         </div>
                                     </div>
                                 ))
@@ -103,7 +103,7 @@ class Projects extends Component {
                         <Modal project={this.state.currentProject} isOpen={this.state.isOpen} onClose={() => this.setState({ isOpen: false })} />}
 
                 </div >
-                <hr />
+                <div style={{ height: '4rem' }}></div>
             </div>
         )
     }
