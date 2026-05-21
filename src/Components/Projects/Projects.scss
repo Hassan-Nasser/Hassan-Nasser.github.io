@@ -10,7 +10,9 @@
 .work {
     overflow: hidden; 
     padding-top: 4.75rem;
-    background: transparent;
+    background: rgba(255, 255, 255, 0.05);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.02);
 }
 
 .work__gallery {

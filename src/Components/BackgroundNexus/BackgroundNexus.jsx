@@ -1,7 +1,26 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const BackgroundNexus = () => {
   const canvasRef = useRef(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = window.scrollY / (totalHeight || 1);
+      setScrollProgress(progress);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const getBackgroundColor = () => {
+    if (scrollProgress < 0.2) return '#100028'; 
+    if (scrollProgress < 0.4) return '#0c1b3d'; 
+    if (scrollProgress < 0.6) return '#1a1a2e'; 
+    if (scrollProgress < 0.8) return '#0f172a'; 
+    return '#160a2b'; 
+  };
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -215,7 +234,8 @@ const BackgroundNexus = () => {
         pointerEvents: 'none',
         zIndex: -1,
         filter: 'blur(0.15px)',
-        backgroundColor: '#100028', // base color of the page
+        backgroundColor: getBackgroundColor(),
+        transition: 'background-color 1s ease-in-out',
       }}
     />
   );

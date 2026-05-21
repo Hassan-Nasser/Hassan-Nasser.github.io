@@ -57,13 +57,9 @@ export function About(props) {
                                     </p>
                                 </div>
                             </div>
-
                         </div>
-
                     </div>
-
-
-                    <hr />
+                    <div style={{ height: '2rem' }}></div>
                 </div>
             </div>
         </div>
