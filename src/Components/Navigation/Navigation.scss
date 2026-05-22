@@ -28,9 +28,19 @@
 .navbar .logo-text {
 	color: #ffffff;
 	font-weight: 700;
-	font-size: 1.875rem;
-	line-height: 1rem;
+	font-size: 1.5rem;
+	letter-spacing: -0.02em;
 	text-decoration: none;
+	background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 100%);
+	-webkit-background-clip: text;
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+	transition: opacity 0.25s ease;
+
+	&:hover {
+		opacity: 0.9;
+		text-decoration: none;
+	}
 }
 
 .offcanvas-collapse {
@@ -65,16 +75,40 @@
 .navbar .nav-item .nav-link {
 	padding-top: 0.625rem;
 	padding-bottom: 0.625rem;
-	color: #ffffff;
+	color: rgba(255, 255, 255, 0.65);
 	text-decoration: none;
-	transition: all 0.2s ease;
-	font-size: 1.2em;
+	transition: color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+	font-size: 0.925rem;
+	font-weight: 500;
+	letter-spacing: 0.03em;
+	position: relative;
+
+	@media (min-width: 992px) {
+		&::after {
+			content: '';
+			position: absolute;
+			bottom: -4px;
+			left: 0.75rem;
+			right: 0.75rem;
+			height: 2px;
+			background-color: #6366f1;
+			transform: scaleX(0);
+			transform-origin: right;
+			transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		}
+
+		&:hover::after,
+		&.active::after {
+			transform: scaleX(1);
+			transform-origin: left;
+		}
+	}
 }
 
 .navbar .nav-item.dropdown.show .nav-link,
 .navbar .nav-item .nav-link:hover,
 .navbar .nav-item .nav-link.active {
-	color: #9c9ead;
+	color: #ffffff;
 }
 
 
@@ -159,8 +193,8 @@
 	}
 
 	.navbar .nav-item .nav-link {
-		padding-right: 0.625rem;
-		padding-left: 0.625rem;
+		padding-right: 0.75rem;
+		padding-left: 0.75rem;
 	}
 
 }

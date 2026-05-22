@@ -19,7 +19,7 @@ export function Navigation(props) {
     };
     return (
 
-        <nav className={`navbar navbar-expand-lg fixed-top navbar-dark Play ${classs}`}>
+        <nav className={`navbar navbar-expand-lg fixed-top navbar-dark Poppins ${classs}`}>
             <div className="container">
                 <a className="navbar-brand logo-text page-scroll" href="/">Hassan</a>
 

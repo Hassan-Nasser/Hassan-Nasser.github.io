@@ -15,11 +15,11 @@ const BackgroundNexus = () => {
   }, []);
 
   const getBackgroundColor = () => {
-    if (scrollProgress < 0.2) return '#100028'; 
-    if (scrollProgress < 0.4) return '#0c1b3d'; 
-    if (scrollProgress < 0.6) return '#1a1a2e'; 
-    if (scrollProgress < 0.8) return '#0f172a'; 
-    return '#160a2b'; 
+    if (scrollProgress < 0.2) return '#100028';
+    if (scrollProgress < 0.4) return '#0c1b3d';
+    if (scrollProgress < 0.6) return '#1a1a2e';
+    if (scrollProgress < 0.8) return '#0f172a';
+    return '#160a2b';
   };
 
   useEffect(() => {
@@ -31,11 +31,10 @@ const BackgroundNexus = () => {
 
     let animationFrameId;
     let particles = [];
-    
-    // We'll calculate particle count based on area to maintain density
-    let particleCount = 150; 
+
+    let particleCount = 150;
     const connectionDistance = 180;
-    const triangleDistance = 110; 
+    const triangleDistance = 110;
     const mouse = { x: -2000, y: -2000, viewportY: -2000, radius: 250 };
 
     class Particle {
@@ -60,7 +59,7 @@ const BackgroundNexus = () => {
         const dx = mouse.x - this.x;
         const dy = currentMouseY - this.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
-        
+
         if (distance < mouse.radius) {
           const force = (mouse.radius - distance) / mouse.radius;
           this.size = this.baseSize + (force * 2.5);
@@ -86,33 +85,28 @@ const BackgroundNexus = () => {
         } else {
           context.fillStyle = 'rgba(59, 130, 246, 0.4)';
         }
-        
+
         context.fill();
         context.restore();
       }
     }
 
     const init = () => {
-      // Optimiziation: Fixed to viewport rather than full document height
-      // This prevents creating massive canvases on long pages, drastically improving mobile performance.
       const dpr = window.devicePixelRatio || 1;
-      // Cap the DPR to 2 to prevent excessive pixel rendering on modern mobile displays
       const effectiveDpr = Math.min(dpr, 2);
 
       const width = window.innerWidth;
       const height = window.innerHeight;
-      
+
       canvas.width = width * effectiveDpr;
       canvas.height = height * effectiveDpr;
-      
+
       ctx.scale(effectiveDpr, effectiveDpr);
 
-      // Adjust particle count relative to screen area to maintain density
       const densityFactor = (width * height) / (1920 * 1080);
       particleCount = Math.floor(180 * densityFactor);
-      // Cap particle count for very large screens or small screens
       particleCount = Math.max(50, Math.min(particleCount, 250));
-      
+
       particles = [];
       for (let i = 0; i < particleCount; i++) {
         particles.push(new Particle(width, height));
@@ -120,15 +114,13 @@ const BackgroundNexus = () => {
     };
 
     const animate = () => {
-      // For fixed viewport, currentMouseY is just mouse.viewportY.
-      // But we still track viewportY for consistency
       const currentMouseY = mouse.viewportY;
-      
+
       const width = window.innerWidth;
       const height = window.innerHeight;
 
       ctx.clearRect(0, 0, width, height);
-      
+
       particles.forEach((p, index) => {
         p.update(width, height, currentMouseY);
         p.draw(ctx, currentMouseY);
@@ -145,17 +137,17 @@ const BackgroundNexus = () => {
             const mdx = mouse.x - midX;
             const mdy = currentMouseY - midY;
             const mDist = Math.sqrt(mdx * mdx + mdy * mdy);
-            
+
             ctx.beginPath();
             let opacity = 0.18 * (1 - dist / connectionDistance);
-            
+
             if (mDist < mouse.radius) {
-                opacity += (1 - mDist / mouse.radius) * 0.25;
-                ctx.lineWidth = 1.2;
-                ctx.strokeStyle = `rgba(147, 197, 253, ${opacity})`;
+              opacity += (1 - mDist / mouse.radius) * 0.25;
+              ctx.lineWidth = 1.2;
+              ctx.strokeStyle = `rgba(147, 197, 253, ${opacity})`;
             } else {
-                ctx.lineWidth = 0.6;
-                ctx.strokeStyle = `rgba(59, 130, 246, ${opacity})`;
+              ctx.lineWidth = 0.6;
+              ctx.strokeStyle = `rgba(59, 130, 246, ${opacity})`;
             }
 
             ctx.moveTo(p.x, p.y);
@@ -163,25 +155,25 @@ const BackgroundNexus = () => {
             ctx.stroke();
 
             if (dist < triangleDistance) {
-                for (let k = j + 1; k < particles.length; k++) {
-                    const p3 = particles[k];
-                    const dx2 = p2.x - p3.x;
-                    const dy2 = p2.y - p3.y;
-                    const dist2 = Math.sqrt(dx2 * dx2 + dy2 * dy2);
-                    const dx3 = p.x - p3.x;
-                    const dy3 = p.y - p3.y;
-                    const dist3 = Math.sqrt(dx3 * dx3 + dy3 * dy3);
+              for (let k = j + 1; k < particles.length; k++) {
+                const p3 = particles[k];
+                const dx2 = p2.x - p3.x;
+                const dy2 = p2.y - p3.y;
+                const dist2 = Math.sqrt(dx2 * dx2 + dy2 * dy2);
+                const dx3 = p.x - p3.x;
+                const dy3 = p.y - p3.y;
+                const dist3 = Math.sqrt(dx3 * dx3 + dy3 * dy3);
 
-                    if (dist2 < triangleDistance && dist3 < triangleDistance) {
-                        ctx.beginPath();
-                        const triOpacity = 0.04 * (1 - dist / triangleDistance);
-                        ctx.fillStyle = `rgba(59, 130, 246, ${triOpacity})`;
-                        ctx.moveTo(p.x, p.y);
-                        ctx.lineTo(p2.x, p2.y);
-                        ctx.lineTo(p3.x, p3.y);
-                        ctx.fill();
-                    }
+                if (dist2 < triangleDistance && dist3 < triangleDistance) {
+                  ctx.beginPath();
+                  const triOpacity = 0.04 * (1 - dist / triangleDistance);
+                  ctx.fillStyle = `rgba(59, 130, 246, ${triOpacity})`;
+                  ctx.moveTo(p.x, p.y);
+                  ctx.lineTo(p2.x, p2.y);
+                  ctx.lineTo(p3.x, p3.y);
+                  ctx.fill();
                 }
+              }
             }
           }
         }
@@ -209,8 +201,7 @@ const BackgroundNexus = () => {
     window.addEventListener('resize', handleResize);
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('touchmove', handleTouchMove);
-    
-    // Initial initialization
+
     init();
     animate();
 
