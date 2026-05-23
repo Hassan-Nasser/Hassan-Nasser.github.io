@@ -1,58 +1,224 @@
 .basic-1 {
-	padding-top: 4.75rem;
-	background: linear-gradient(180deg, rgba(20, 10, 36, 0.15) 0%, rgba(14, 8, 28, 0.18) 100%);
-	border-top: 1px solid rgba(255, 255, 255, 0.05);
-	border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-	backdrop-filter: blur(2px);
-	-webkit-backdrop-filter: blur(2px);
+    padding: 6rem 0;
+    background: linear-gradient(180deg, rgba(20, 10, 36, 0.15) 0%, rgba(14, 8, 28, 0.18) 100%);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    position: relative;
+    overflow: hidden;
 }
 
-.basic-1 .text-container {
+// Experience Title
+.experience-section-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    color: #ffffff;
+    text-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+    margin-bottom: 0.5rem;
+}
+
+// Glow bar under title
+.title-glow-bar {
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #8b5cf6, #ec4899);
+    margin: 0 auto;
+    border-radius: 999px;
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+}
+
+// Experience Timeline Wrapper
+.experience-timeline {
+    position: relative;
+    padding-left: 3rem;
+    margin-top: 4rem;
+}
+
+// Vertical Line Track
+.timeline-track {
+    position: absolute;
+    left: 1.5rem; // Centered in the 3rem left-padding space of the timeline container
+    transform: translateX(-50%);
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(
+        180deg, 
+        rgba(139, 92, 246, 0.6) 0%, 
+        rgba(59, 130, 246, 0.15) 60%, 
+        rgba(255, 255, 255, 0.02) 100%
+    );
+}
+
+// Timeline Item
+.timeline-item {
+    position: relative;
+    margin-bottom: 3.5rem;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    // Hover interactive effects tied to parent timeline-item
+    &:hover {
+        .timeline-marker {
+            background: #ec4899;
+            box-shadow: 0 0 16px #ec4899;
+            transform: translateX(-50%) scale(1.2);
+            border-color: #1a082e;
+        }
+
+        .timeline-card {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 255, 255, 0.12);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.4), 
+                0 0 20px rgba(139, 92, 246, 0.1);
+            transform: translateY(-4px) translateX(4px);
+        }
+    }
+}
+
+// Glowing dot on timeline track
+.timeline-marker {
+    position: absolute;
+    left: -1.5rem; // Aligned exactly on top of the 1.5rem track offset
+    top: 2.15rem; // Aligns vertically with the card title / header
+    transform: translateX(-50%);
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #8b5cf6;
+    border: 3.5px solid #100624; // Blends with background
+    box-shadow: 0 0 12px #8b5cf6;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 5;
+}
+
+// Translucent Premium Glassmorphic Card
+.timeline-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 2.25rem;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+// Calendar time tag pill
+.timeline-time {
+    display: inline-flex;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #a78bfa;
+    background: rgba(139, 92, 246, 0.1);
+    border: 1px solid rgba(139, 92, 246, 0.25);
+    border-radius: 9999px;
+    padding: 0.35rem 0.9rem;
+    margin-bottom: 1.25rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+// Job Title
+.timeline-job-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.52rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0 0 0.35rem 0;
+    letter-spacing: -0.01em;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+// Company Metadata
+.timeline-company {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #94a3b8;
+    display: block;
+    margin-bottom: 1.25rem;
+    font-style: italic;
+}
+
+// Role Description Paragraph
+.timeline-description {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: #cbd5e1;
+    margin: 0;
     text-align: left;
-	color: white;
 }
 
-.basic-1 .time {
-	margin-bottom: 0.5rem;
-	color: #0b36a8;
-	font-weight: 600;
-	font-size: 0.875rem;
-	line-height: 1.5rem;
-}
+// Absolute Mobile Responsiveness
+@media (max-width: 768px) {
+    .basic-1 {
+        padding: 4.5rem 0;
+    }
 
-.basic-1 h6 {
-	margin-bottom: 0.125rem;
-}
+    .experience-section-title {
+        font-size: 1.75rem;
+        letter-spacing: 0.1em;
+    }
 
-/* Min-width 1200px */
-@media (min-width: 1200px) {
-	/* About */
-	.basic-1 .text-container.first {
-		margin-right: 2rem;
-	}
+    .experience-timeline {
+        padding-left: 2rem;
+        margin-top: 2.5rem;
+    }
 
-	.basic-1 .text-container.second {
-		margin-right: 1rem;
-		margin-left: 1rem;
-	}
+    .timeline-track {
+        left: 1rem; // Centered in the 2rem left-padding space on mobile
+        transform: translateX(-50%);
+    }
 
-	.basic-1 .text-container.third {
-		margin-left: 2rem;
-	}
-	/* end of about */
+    .timeline-marker {
+        left: -1rem; // Aligned exactly over the 1rem track offset on mobile
+        top: 1.75rem;
+        width: 14px;
+        height: 14px;
+        border-width: 2.5px;
+    }
 
+    .timeline-card {
+        padding: 1.65rem;
+        border-radius: 12px;
+    }
 
+    .timeline-time {
+        font-size: 0.72rem;
+        padding: 0.3rem 0.8rem;
+        margin-bottom: 1rem;
+    }
 
-}
+    .timeline-job-title {
+        font-size: 1.25rem;
+        margin-bottom: 0.25rem;
+    }
 
-.job-title{
-	color: #0b36a8;
-}
-.company{
-	margin-left: 2px;
-	font-style: italic;
-    color: royalblue;
-}
-.job-description{
-	margin-left: 10px;
+    .timeline-company {
+        font-size: 0.85rem;
+        margin-bottom: 1rem;
+    }
+
+    .timeline-description {
+        font-size: 0.88rem;
+        line-height: 1.7;
+    }
+
+    .timeline-item:hover {
+        .timeline-card {
+            transform: translateY(-2px) translateX(2px);
+        }
+    }
 }

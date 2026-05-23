@@ -337,10 +337,12 @@ const Projects = () => {
                 )}
             </div>
 
-            <div className="container text-center mt-5">
-                <Link className="see-more-projects-btn" to="/portfolio?tag=All">
-                    See More Projects <ChevronRight size={18} className="btn-arrow" />
-                </Link>
+            <div className={`see-more-section ${projects.length % 2 === 0 ? 'bg-even' : 'bg-odd'}`}>
+                <div className="container text-center">
+                    <Link className="see-more-projects-btn" to="/portfolio?tag=All">
+                        See More Projects <ChevronRight size={18} className="btn-arrow" />
+                    </Link>
+                </div>
             </div>
         </div>
     );

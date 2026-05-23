@@ -2,7 +2,7 @@
 // Section Title & Layout
 .work {
     background: linear-gradient(180deg, rgba(12, 27, 61, 0.15) 0%, rgba(22, 16, 48, 0.18) 50%, rgba(15, 23, 42, 0.22) 100%);
-    padding: 6rem 0;
+    padding: 6rem 0 0 0;
     position: relative;
     overflow: hidden;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
@@ -44,6 +44,10 @@
     transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
                 opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1);
     will-change: transform, opacity;
+
+    &:last-child {
+        border-bottom: none;
+    }
 
     &.reveal-hidden {
         opacity: 0;
@@ -536,6 +540,21 @@
     }
 }
 
+// Bottom "See More Projects" CTA Section
+.see-more-section {
+    width: 100%;
+    padding: 3rem 0 4.5rem 0;
+    transition: background-color 0.3s ease;
+
+    &.bg-even {
+        background: rgba(255, 255, 255, 0.01);
+    }
+
+    &.bg-odd {
+        background: transparent;
+    }
+}
+
 // Bottom "See More Projects" CTA Button
 .see-more-projects-btn {
     display: inline-flex;
@@ -597,6 +616,10 @@
                 flex-direction: column;
             }
         }
+    }
+
+    .see-more-section {
+        padding: 2rem 0 3.5rem 0;
     }
 
     .project-row-inner {
