@@ -40,39 +40,79 @@
 // Vertical Line Track
 .timeline-track {
     position: absolute;
-    left: 1.5rem; // Centered in the 3rem left-padding space of the timeline container
+    left: 1.5rem;
     transform: translateX(-50%);
     top: 0;
     bottom: 0;
     width: 2px;
-    background: linear-gradient(
-        180deg, 
-        rgba(139, 92, 246, 0.6) 0%, 
-        rgba(59, 130, 246, 0.15) 60%, 
-        rgba(255, 255, 255, 0.02) 100%
-    );
+    background: linear-gradient(180deg,
+            rgba(139, 92, 246, 0.6) 0%,
+            rgba(59, 130, 246, 0.15) 60%,
+            rgba(255, 255, 255, 0.02) 100%);
 }
 
 // Timeline Item
 .timeline-item {
     position: relative;
     margin-bottom: 3.5rem;
-    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
-                opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: transform, opacity;
 
     &:last-child {
         margin-bottom: 0;
     }
 
-    &.reveal-hidden {
+    // Glowing dot on timeline track (pops in directly at pinpoint)
+    .timeline-marker {
+        position: absolute;
+        left: -1.5rem;
+        top: 0.65rem;
+        transform: translateX(-50%) scale(0);
         opacity: 0;
-        transform: translateX(-45px); // Slide in from the left (timeline side)
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #8b5cf6;
+        border: 3.5px solid #100624;
+        box-shadow: 0 0 12px #8b5cf6;
+        transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1),
+            opacity 0.8s ease,
+            background-color 0.4s ease,
+            box-shadow 0.4s ease,
+            border-color 0.4s ease;
+        z-index: 5;
     }
 
+    // Translucent Premium Glassmorphic Card (removed container styles so text integrates directly)
+    .timeline-card {
+        background: none;
+        border: none;
+        border-radius: 0;
+        padding: 0;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        box-shadow: none;
+        position: relative;
+        overflow: visible;
+        text-align: left;
+
+        // Card slides and fades in from the left
+        opacity: 0;
+        transform: translateX(-35px);
+        transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+            opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: transform, opacity;
+    }
+
+    // Revealed scroll states
     &.revealed {
-        opacity: 1;
-        transform: translateX(0);
+        .timeline-marker {
+            opacity: 1;
+            transform: translateX(-50%) scale(1);
+        }
+
+        .timeline-card {
+            opacity: 1;
+            transform: translateX(0);
+        }
     }
 
     // Hover interactive effects tied to parent timeline-item
@@ -93,37 +133,6 @@
             text-shadow: 0 0 12px rgba(167, 139, 250, 0.4);
         }
     }
-}
-
-// Glowing dot on timeline track
-.timeline-marker {
-    position: absolute;
-    left: -1.5rem; // Aligned exactly on top of the 1.5rem track offset
-    top: 0.65rem; // Aligns vertically with the center of the timeline-time pill
-    transform: translateX(-50%);
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: #8b5cf6;
-    border: 3.5px solid #100624; // Blends with background
-    box-shadow: 0 0 12px #8b5cf6;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    z-index: 5;
-}
-
-// Translucent Premium Glassmorphic Card (removed container styles so text integrates directly)
-.timeline-card {
-    background: none;
-    border: none;
-    border-radius: 0;
-    padding: 0;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    box-shadow: none;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    position: relative;
-    overflow: visible;
-    text-align: left;
 }
 
 // Calendar time tag pill
@@ -193,13 +202,13 @@
     }
 
     .timeline-track {
-        left: 1rem; // Centered in the 2rem left-padding space on mobile
+        left: 1rem;
         transform: translateX(-50%);
     }
 
     .timeline-marker {
-        left: -1rem; // Aligned exactly over the 1rem track offset on mobile
-        top: 0.55rem; // Aligns vertically with center of time pill on mobile
+        left: -1rem;
+        top: 0.55rem;
         width: 14px;
         height: 14px;
         border-width: 2.5px;

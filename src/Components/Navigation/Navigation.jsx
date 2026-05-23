@@ -40,7 +40,7 @@ export function Navigation(props) {
 
                             setShowNavbar(false)
                         }}>
-                            <HashLink smooth className="nav-link page-scroll" to="/#profile">Profile</HashLink>
+                            <HashLink smooth className="nav-link page-scroll" to="/#profile">Experience</HashLink>
 
                         </li>
                         {/* <li className="nav-item" onClick={() => setShowNavbar(false)}>
