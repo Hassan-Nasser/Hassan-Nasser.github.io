@@ -223,10 +223,8 @@ const BackgroundNexus = () => {
         width: '100vw',
         height: '100vh',
         pointerEvents: 'none',
-        zIndex: -1,
+        zIndex: 2,
         filter: 'blur(0.15px)',
-        backgroundColor: getBackgroundColor(),
-        transition: 'background-color 1s ease-in-out',
       }}
     />
   );
