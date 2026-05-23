@@ -161,10 +161,9 @@ const ProjectRow = ({ project }) => {
                                         />
                                     )}
                                     <div className="video-play-overlay">
-                                        <div className="play-button-circle">
+                                        <div className="play-button-youtube">
                                             <Play size={32} fill="white" className="play-icon-triangle" />
                                         </div>
-                                        <span className="play-overlay-text">WATCH GAMEPLAY TRAILER</span>
                                     </div>
                                 </div>
                             )
