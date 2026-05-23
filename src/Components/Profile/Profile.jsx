@@ -2,6 +2,7 @@ import React from 'react';
 import { HashLink } from "react-router-hash-link";
 import { ChevronRight, Terminal } from 'lucide-react';
 import './Profile.scss';
+import profilePic from '../../images/profile-Picture.jpg';
 
 export function Profile(props) {
     return (
@@ -13,9 +14,9 @@ export function Profile(props) {
                     <div className="portrait-wrapper">
                         {/* Main Portrait Slab */}
                         <div className="portrait-slab">
-                            <div className="image-area">
+                            <div className="image-area" style={{"--glitch-img": `url("${profilePic}")`}}>
                                 <img
-                                    src="https://api.dicebear.com/7.x/avataaars/svg?seed=Hassan&backgroundColor=0f172a&mood=serious&accessories=eyepatch"
+                                    src={profilePic}
                                     alt="Subject Hassan"
                                     className="profile-avatar"
                                 />
@@ -34,8 +35,8 @@ export function Profile(props) {
 
                     <div className="name-group">
                         <h1 className="name-title">
-                            <span className="first-name">HASSAN</span>
-                            <span className="last-name">NASSER</span>
+                            <span className="first-name glitch-text" data-text="HASSAN">HASSAN</span>
+                            <span className="last-name glitch-text" data-text="NASSER">NASSER</span>
                         </h1>
 
                     </div>
