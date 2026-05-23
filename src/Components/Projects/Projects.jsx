@@ -4,7 +4,7 @@ import { db } from "../../config/firebase";
 import { collection, getDoc, getDocs, query, where } from "firebase/firestore";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import { Link } from 'react-router-dom';
-import { Play, Maximize2, X, ExternalLink, ChevronRight, Gamepad2 } from "lucide-react";
+import { Play, Maximize2, X, ExternalLink, ChevronRight } from "lucide-react";
 
 const projectMetaDetails = {
     "Forest Knight": {
@@ -92,9 +92,6 @@ const ProjectRow = ({ project }) => {
                 {/* Left Side: Name, Description, Meta & Action buttons */}
                 <div className="project-info-side">
                     <div className="project-header">
-                        <div className="game-icon-wrapper animate-pulse">
-                            <Gamepad2 size={24} className="game-icon" />
-                        </div>
                         <div className="project-title-group">
                             <h2 className="project-title">{project.name}</h2>
                             <div className="project-sub-meta">
