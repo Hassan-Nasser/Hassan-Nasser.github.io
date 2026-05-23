@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Navigation.scss";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { HashLink } from "react-router-hash-link";
+import logoGif from "../../images/logo-Animated.gif";
 
 export function Navigation(props) {
     const [classs, setClasss] = useState('');
@@ -21,7 +22,10 @@ export function Navigation(props) {
 
         <nav className={`navbar navbar-expand-lg fixed-top navbar-dark Poppins ${classs}`}>
             <div className="container">
-                <a className="navbar-brand logo-text page-scroll" href="/">Hassan</a>
+                <a className="navbar-brand page-scroll nav-brand-wrapper" href="/">
+                    <img src={logoGif} alt="Hassan Nasser" className="nav-logo-gif" />
+                    <span className="nav-brand-text">Hassan</span>
+                </a>
 
                 <button className="navbar-toggler p-0 border-0" onClick={handleShowNavbar} type="button" data-toggle="offcanvas">
                     <span className="navbar-toggler-icon"></span>
