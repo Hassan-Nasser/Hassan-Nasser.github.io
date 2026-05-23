@@ -11,10 +11,10 @@ export function Home(props) {
     return (
         <>
             <Profile />
-            <About />
             <Projects />
-            <Services />  
-            <Testimonial />
+            <About />
+            {/* <Services /> */}
+            {/* <Testimonial /> */}
             <Contacts />
         </>
     );
