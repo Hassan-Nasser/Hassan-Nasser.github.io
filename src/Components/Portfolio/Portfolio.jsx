@@ -35,7 +35,7 @@ class Portfolio extends Component {
     componentDidMount() {
         this.getAllTags();
         const tagName = window.location.hash.split('=')[1] || "All";
-        console.log("tagname = ",tagName);
+        console.log("tagname = ", tagName);
         if (tagName === "All") {
             this.getAllProject();
             return;
@@ -91,7 +91,6 @@ class Portfolio extends Component {
             return
         }
         const [key, value] = Object.entries(tagsJson).find(([key, value]) => value.index == index) || [];
-        console.log(key, value); // Output: "key2" "value2"
         this.props.navigate(`/portfolio?tag=${key}`)
         this.getProjectWithTag(tag.id)
     }

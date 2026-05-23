@@ -57,9 +57,22 @@
 .timeline-item {
     position: relative;
     margin-bottom: 3.5rem;
+    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
+                opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity;
 
     &:last-child {
         margin-bottom: 0;
+    }
+
+    &.reveal-hidden {
+        opacity: 0;
+        transform: translateX(-45px); // Slide in from the left (timeline side)
+    }
+
+    &.revealed {
+        opacity: 1;
+        transform: translateX(0);
     }
 
     // Hover interactive effects tied to parent timeline-item
@@ -72,12 +85,12 @@
         }
 
         .timeline-card {
-            background: rgba(255, 255, 255, 0.04);
-            border-color: rgba(255, 255, 255, 0.12);
-            box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.4), 
-                0 0 20px rgba(139, 92, 246, 0.1);
-            transform: translateY(-4px) translateX(4px);
+            transform: translateX(8px);
+        }
+
+        .timeline-job-title {
+            color: #a78bfa;
+            text-shadow: 0 0 12px rgba(167, 139, 250, 0.4);
         }
     }
 }
@@ -86,7 +99,7 @@
 .timeline-marker {
     position: absolute;
     left: -1.5rem; // Aligned exactly on top of the 1.5rem track offset
-    top: 2.15rem; // Aligns vertically with the card title / header
+    top: 0.65rem; // Aligns vertically with the center of the timeline-time pill
     transform: translateX(-50%);
     width: 18px;
     height: 18px;
@@ -98,18 +111,19 @@
     z-index: 5;
 }
 
-// Translucent Premium Glassmorphic Card
+// Translucent Premium Glassmorphic Card (removed container styles so text integrates directly)
 .timeline-card {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 16px;
-    padding: 2.25rem;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    background: none;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: none;
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     position: relative;
-    overflow: hidden;
+    overflow: visible;
+    text-align: left;
 }
 
 // Calendar time tag pill
@@ -138,6 +152,7 @@
     margin: 0 0 0.35rem 0;
     letter-spacing: -0.01em;
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 
 // Company Metadata
@@ -184,21 +199,21 @@
 
     .timeline-marker {
         left: -1rem; // Aligned exactly over the 1rem track offset on mobile
-        top: 1.75rem;
+        top: 0.55rem; // Aligns vertically with center of time pill on mobile
         width: 14px;
         height: 14px;
         border-width: 2.5px;
     }
 
     .timeline-card {
-        padding: 1.65rem;
-        border-radius: 12px;
+        padding: 0;
+        border-radius: 0;
     }
 
     .timeline-time {
         font-size: 0.72rem;
         padding: 0.3rem 0.8rem;
-        margin-bottom: 1rem;
+        margin-bottom: 0.75rem;
     }
 
     .timeline-job-title {
@@ -208,7 +223,7 @@
 
     .timeline-company {
         font-size: 0.85rem;
-        margin-bottom: 1rem;
+        margin-bottom: 0.75rem;
     }
 
     .timeline-description {
@@ -218,7 +233,7 @@
 
     .timeline-item:hover {
         .timeline-card {
-            transform: translateY(-2px) translateX(2px);
+            transform: translateX(4px);
         }
     }
 }

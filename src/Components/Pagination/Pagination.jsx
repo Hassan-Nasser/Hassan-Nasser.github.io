@@ -84,28 +84,17 @@ export const Pagination = React.forwardRef((props, ref) => {
         }
 
         else if (currentPage > 4 && currentPage < numOfButtons.length - 2) {
-            // from 5 to 8 -> (10 - 2)
             const sliced1 = numOfButtons.slice(currentPage - 2, currentPage)
-            // sliced1 (5-2, 5) -> [4,5] 
             const sliced2 = numOfButtons.slice(currentPage, currentPage + 1)
-            // sliced1 (5, 5+1) -> [6]
             tempNumberOfButtons = ([1, dotsLeft, ...sliced1, ...sliced2, dotsRight, numOfButtons.length])
-            // [1, '...', 4, 5, 6, '...', 10]
         }
 
         else if (currentPage > numOfButtons.length - 3) {
-            // > 7
             const sliced = numOfButtons.slice(numOfButtons.length - 4)
-            // slice(10-4) 
             tempNumberOfButtons = ([1, dotsLeft, ...sliced])
         }
 
         else if (currentPage === dotsInitial) {
-            // [1, 2, 3, 4, "...", 10].length = 6 - 3  = 3 
-            // arrOfCurrButtons[3] = 4 + 1 = 5
-            // or 
-            // [1, 2, 3, 4, 5, "...", 10].length = 7 - 3 = 4
-            // [1, 2, 3, 4, 5, "...", 10][4] = 5 + 1 = 6
             SetCurrentPage(arrOfCurrButtons[arrOfCurrButtons.length - 3] + 1)
         }
         else if (currentPage === dotsRight) {
@@ -132,7 +121,7 @@ export const Pagination = React.forwardRef((props, ref) => {
                                 key={index} className="col-lg-4 col-md-6 col-sm-6 mix branding ">
                                 <div className="portfolio__item">
                                     <div className="portfolio__item__video set-bg">
-                                    <Skeleton height={270} width={270} style={{ backgroundColor: '#eaeaea' }} />
+                                        <Skeleton height={270} width={270} style={{ backgroundColor: '#eaeaea' }} />
                                     </div>
                                     <div className="portfolio__item__text">
                                         <Skeleton width={70} style={{ backgroundColor: '#eaeaea' }} />

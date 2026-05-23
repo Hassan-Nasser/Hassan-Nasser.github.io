@@ -31,7 +31,7 @@ class Testimonial extends Component {
         const allTestimonial = allDocs.docs.map(doc => {
             return doc.data()
         })
-        this.setState({ testimonials: allTestimonial,loading:false })
+        this.setState({ testimonials: allTestimonial, loading: false })
     }
 
     render() {
@@ -67,10 +67,6 @@ class Testimonial extends Component {
                                 type: 'bullets',
                             }}
                             loop={true}
-                            // autoplay={{
-                            //     delay: 5000,
-                            //     disableOnInteraction: false,
-                            // }}
                             modules={[Pagination, Autoplay]}
                             className="mySwiper"
                         >
@@ -83,13 +79,13 @@ class Testimonial extends Component {
                                                 <Skeleton
                                                     circle
                                                     height={50} width={50}
-                                                     style={{ backgroundColor: '#eaeaea' }}
+                                                    style={{ backgroundColor: '#eaeaea' }}
                                                     containerClassName="img-fluid"
                                                 />
                                             </div>
                                             <blockquote className="block-47-quote">
-                                                <p className="Holden font-1 mb-0"> 
-                                                    <Skeleton count={3}  style={{ backgroundColor: '#eaeaea' }}/> 
+                                                <p className="Holden font-1 mb-0">
+                                                    <Skeleton count={3} style={{ backgroundColor: '#eaeaea' }} />
                                                 </p>
                                                 <cite className="block-47-quote-author TechnaSans font-2">
                                                     <Skeleton

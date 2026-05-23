@@ -1,8 +1,45 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./About.scss";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarDays } from "@fortawesome/free-regular-svg-icons";
+
+const TimelineItem = ({ children }) => {
+    const elementRef = useRef(null);
+    const [isIntersecting, setIsIntersecting] = useState(false);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setIsIntersecting(true);
+                    observer.unobserve(entry.target);
+                }
+            },
+            {
+                threshold: 0.15,
+                rootMargin: "0px 0px -50px 0px"
+            }
+        );
+        if (elementRef.current) {
+            observer.observe(elementRef.current);
+        }
+        return () => {
+            if (elementRef.current) {
+                observer.unobserve(elementRef.current);
+            }
+        };
+    }, []);
+
+    return (
+        <div 
+            ref={elementRef} 
+            className={`timeline-item ${isIntersecting ? "revealed" : "reveal-hidden"}`}
+        >
+            {children}
+        </div>
+    );
+};
 
 export function About(props) {
     return (
@@ -24,7 +61,7 @@ export function About(props) {
                             <div className="timeline-track"></div>
 
                             {/* Timeline Item 1 */}
-                            <div className="timeline-item">
+                            <TimelineItem>
                                 <div className="timeline-marker"></div>
                                 <div className="timeline-card">
                                     <div className="timeline-time">
@@ -36,10 +73,10 @@ export function About(props) {
                                         Worked with market-leading companies developing large-scale mobile games and AR apps, delivering innovative solutions and exceptional user experiences.
                                     </p>
                                 </div>
-                            </div>
+                            </TimelineItem>
 
                             {/* Timeline Item 2 */}
-                            <div className="timeline-item">
+                            <TimelineItem>
                                 <div className="timeline-marker"></div>
                                 <div className="timeline-card">
                                     <div className="timeline-time">
@@ -51,10 +88,10 @@ export function About(props) {
                                         Played a pivotal role in optimizing 'Forest Knight' network architecture for large-scale mobile gaming, supporting hundreds of thousands of players.
                                     </p>
                                 </div>
-                            </div>
+                            </TimelineItem>
 
                             {/* Timeline Item 3 */}
-                            <div className="timeline-item">
+                            <TimelineItem>
                                 <div className="timeline-marker"></div>
                                 <div className="timeline-card">
                                     <div className="timeline-time">
@@ -66,10 +103,10 @@ export function About(props) {
                                         Led the development of 'Millionaire Deal - Card Game,' a multiplayer card game with unique collectible cards, focusing on enhancing gameplay mechanics and player engagement.
                                     </p>
                                 </div>
-                            </div>
+                            </TimelineItem>
 
                             {/* Timeline Item 4 */}
-                            <div className="timeline-item">
+                            <TimelineItem>
                                 <div className="timeline-marker"></div>
                                 <div className="timeline-card">
                                     <div className="timeline-time">
@@ -81,7 +118,7 @@ export function About(props) {
                                         Developed a wide range of hyper-casual games, AR experiences, and multiplayer games.
                                     </p>
                                 </div>
-                            </div>
+                            </TimelineItem>
                         </div>
                     </div>
                 </div>

@@ -46,7 +46,6 @@
 .offcanvas-collapse {
 	position: fixed;
 	top: 2.9rem;
-	/* adjusts the height between the top of the page and the offcanvas menu */
 	bottom: 0;
 	left: 100%;
 	width: 100%;
@@ -111,10 +110,6 @@
 	color: #ffffff;
 }
 
-
-
-
-
 @keyframes fadeDropdown {
 	0% {
 		opacity: 0;
@@ -135,7 +130,6 @@
 
 @media (min-width: 992px) {
 
-	/* General Styles */
 	.h2-heading {
 		width: 35.25rem;
 		margin-right: auto;
@@ -148,10 +142,6 @@
 		margin-left: auto;
 	}
 
-	/* end of general styles */
-
-
-	/* Navigation */
 	.navbar {
 		padding-top: 1.75rem;
 		background-color: transparent;
@@ -201,21 +191,14 @@
 
 @media (min-width: 1200px) {
 
-	/* General Styles */
 	.h1-large {
 		font-size: 3.75rem;
 		line-height: 4.625rem;
 	}
 
-	/* end of general styles */
-
-
-	/* Navigation */
 	.navbar .container {
 		max-width: 1330px;
 	}
-
-	/* end of navigation */
 }
 
 @media (max-width: 600px) {

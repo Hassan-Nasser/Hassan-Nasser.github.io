@@ -6,7 +6,6 @@ import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import { Link } from 'react-router-dom';
 import { Play, Maximize2, X, ExternalLink, ChevronRight, Gamepad2 } from "lucide-react";
 
-// Premium metadata tailored to match a professional game developer portfolio
 const projectMetaDetails = {
     "Forest Knight": {
         role: "Lead Game Developer | Architecture & Systems",
@@ -34,17 +33,13 @@ const ProjectRow = ({ project }) => {
     const hasVideo = !!project.url;
     const hasThumbnail = !!project.profile;
 
-    // Carousel screenshot tracking: 
-    // 1. If a video exists, project.profile is the custom preview banner and NOT listed in screenshots carousel.
-    // 2. If no video exists, project.profile is treated as a regular screenshot.
     const screenshots = hasVideo ? [] : [project.profile].filter(Boolean);
 
-    const [activeType, setActiveType] = useState(hasVideo ? "video" : "image"); // "video" or "image"
+    const [activeType, setActiveType] = useState(hasVideo ? "video" : "image");
     const [activeImg, setActiveImg] = useState("");
     const [isPlayingVideo, setIsPlayingVideo] = useState(false);
     const [lightboxOpen, setLightboxOpen] = useState(false);
-    
-    // Intersection Observer for scroll-fade animations
+
     const elementRef = useRef(null);
     const [isIntersecting, setIsIntersecting] = useState(false);
 
@@ -72,34 +67,28 @@ const ProjectRow = ({ project }) => {
         buttonText: "Launch App"
     };
 
-    // Clean dynamic total count of thumbnails in carousel.
-    // The carousel should only appear if there is at least one secondary screenshot to select.
     const showCarousel = screenshots.length > 0;
 
-    // Set initial active image when project.profile loads
     useEffect(() => {
         if (project.profile) {
             setActiveImg(project.profile);
         }
     }, [project.profile]);
 
-    // Strip autoplay parameters from the YouTube URL
     const baseVideoUrl = project.url
         ? project.url.replace("?autoplay=1", "").replace("&autoplay=1", "")
         : "";
-
-    // If plays via custom preview thumbnail cover, force autoplay=1 to achieve seamless 1-click play experience
     const videoUrl = isPlayingVideo
         ? `${baseVideoUrl}${baseVideoUrl.includes("?") ? "&" : "?"}autoplay=1`
         : baseVideoUrl;
 
     return (
-        <div 
+        <div
             ref={elementRef}
             className={`project-row ${isIntersecting ? "revealed" : "reveal-hidden"}`}
         >
             <div className="project-row-inner container">
-                
+
                 {/* Left Side: Name, Description, Meta & Action buttons */}
                 <div className="project-info-side">
                     <div className="project-header">
@@ -128,20 +117,20 @@ const ProjectRow = ({ project }) => {
 
                     <div className="project-actions">
                         {project.googlePlay && (
-                            <a 
-                                href={project.googlePlay} 
-                                target="_blank" 
-                                rel="noopener noreferrer" 
+                            <a
+                                href={project.googlePlay}
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 className="btn-glass-action"
                             >
                                 {meta.buttonText} <ExternalLink size={16} className="action-icon" />
                             </a>
                         )}
                         {project.url && !project.url.includes("youtube.com") && !project.url.includes("youtu.be") && !project.googlePlay && (
-                            <a 
-                                href={project.url} 
-                                target="_blank" 
-                                rel="noopener noreferrer" 
+                            <a
+                                href={project.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 className="btn-glass-action"
                             >
                                 {meta.buttonText} <ExternalLink size={16} className="action-icon" />
@@ -156,9 +145,9 @@ const ProjectRow = ({ project }) => {
                         {activeType === "video" && hasVideo ? (
                             (!hasThumbnail || isPlayingVideo) ? (
                                 <div className="video-wrapper">
-                                    <iframe 
+                                    <iframe
                                         className="media-iframe"
-                                        src={videoUrl} 
+                                        src={videoUrl}
                                         title={`${project.name} Video Trailer`}
                                         frameBorder="0"
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -166,13 +155,12 @@ const ProjectRow = ({ project }) => {
                                     />
                                 </div>
                             ) : (
-                                // Video Preview Thumbnail overlay with play icon (simulates YT preview banner)
                                 <div className="video-preview-wrapper" onClick={() => setIsPlayingVideo(true)}>
                                     {project.profile && (
-                                        <img 
-                                            className="media-active-img" 
-                                            src={project.profile} 
-                                            alt={`${project.name} Video Thumbnail`} 
+                                        <img
+                                            className="media-active-img"
+                                            src={project.profile}
+                                            alt={`${project.name} Video Thumbnail`}
                                         />
                                     )}
                                     <div className="video-play-overlay">
@@ -185,10 +173,10 @@ const ProjectRow = ({ project }) => {
                             )
                         ) : (
                             <div className="image-wrapper" onClick={() => setLightboxOpen(true)}>
-                                <img 
-                                    className="media-active-img animate-fade-in" 
-                                    src={activeImg} 
-                                    alt={`${project.name} active display`} 
+                                <img
+                                    className="media-active-img animate-fade-in"
+                                    src={activeImg}
+                                    alt={`${project.name} active display`}
                                 />
                                 <div className="image-overlay">
                                     <Maximize2 size={24} className="maximize-icon" />
@@ -202,15 +190,15 @@ const ProjectRow = ({ project }) => {
                     {showCarousel && (
                         <div className="media-thumbnails">
                             {hasVideo && (
-                                <button 
+                                <button
                                     className={`thumbnail-btn ${activeType === "video" ? "active" : ""}`}
                                     onClick={() => {
                                         setActiveType("video");
-                                        setIsPlayingVideo(false); // Return to preview banner first
+                                        setIsPlayingVideo(false);
                                     }}
                                 >
-                                    <div 
-                                        className="thumb-image" 
+                                    <div
+                                        className="thumb-image"
                                         style={{ backgroundImage: `url(${project.profile})` }}
                                     >
                                         <div className="thumb-video-icon">
@@ -221,7 +209,7 @@ const ProjectRow = ({ project }) => {
                             )}
 
                             {screenshots.map((src, idx) => (
-                                <button 
+                                <button
                                     key={idx}
                                     className={`thumbnail-btn ${activeType === "image" && activeImg === src ? "active" : ""}`}
                                     onClick={() => {
@@ -229,8 +217,8 @@ const ProjectRow = ({ project }) => {
                                         setActiveImg(src);
                                     }}
                                 >
-                                    <div 
-                                        className="thumb-image" 
+                                    <div
+                                        className="thumb-image"
                                         style={{ backgroundImage: `url(${src})` }}
                                     />
                                 </button>
@@ -276,7 +264,7 @@ const Projects = () => {
                             console.error(`Error fetching profile image for ${doc.data().name}:`, err);
                             data.profile = "";
                         }
-                        
+
                         try {
                             data.tags = await Promise.all(
                                 doc.data().tags.map(async (tagRef) => {
@@ -293,7 +281,6 @@ const Projects = () => {
                     })
                 );
 
-                // Sort projects based on order if defined
                 projectList.sort((a, b) => {
                     const orderA = parseInt(a.order || 999);
                     const orderB = parseInt(b.order || 999);
@@ -324,7 +311,6 @@ const Projects = () => {
 
             <div className="projects-list-container">
                 {isLoading ? (
-                    // Clean glassmorphic skeletons during load
                     <div className="container py-5 text-center">
                         <div className="spinner-border text-info" role="status">
                             <span className="visually-hidden">Loading Projects...</span>
