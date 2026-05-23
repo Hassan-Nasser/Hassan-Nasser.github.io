@@ -1,111 +1,349 @@
-import { Component, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./Projects.scss";
 import { db } from "../../config/firebase";
 import { collection, getDoc, getDocs, query, where } from "firebase/firestore";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
-import Masonry from '@mui/lab/Masonry';
 import { Link } from 'react-router-dom';
-import { faPlay } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Modal from "../Modal/Modal";
-import Skeleton from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
+import { Play, Maximize2, X, ExternalLink, ChevronRight, Gamepad2 } from "lucide-react";
 
-class Projects extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            projects: [],
-            storage: getStorage(),
-            isOpen: false,
-            isLoading: true,
-            currentProject: {}
-        };
+// Premium metadata tailored to match a professional game developer portfolio
+const projectMetaDetails = {
+    "Forest Knight": {
+        role: "Lead Game Developer | Architecture & Systems",
+        platforms: "Android | iOS",
+        buttonText: "Google Play Store"
+    },
+    "Arena Rumble": {
+        role: "Senior Game Developer | Multiplayer & Core Systems",
+        platforms: "PC | Web",
+        buttonText: "Play Demo"
+    },
+    "Millionaires Deal": {
+        role: "Senior Unity Developer | Card Mechanics & UI",
+        platforms: "Android | iOS",
+        buttonText: "Google Play Store"
+    },
+    "Virtual Market Metaverse": {
+        role: "Lead Metaverse Architect | 3D WebGL & Systems",
+        platforms: "PC | VR | Web",
+        buttonText: "Launch WebGL App"
     }
-    componentDidMount() {
-        this.getProjectProfile();
-    }
+};
 
-    getProjectProfile = async () => {
-        const projectsCol = query(collection(db, 'projects'), where("spotlight", "==", true));
-        const allDocs = await getDocs(projectsCol);
+const ProjectRow = ({ project }) => {
+    const hasVideo = !!project.url;
+    const hasThumbnail = !!project.profile;
 
-        const projects = await Promise.all(
-            allDocs.docs.map(async (doc) => {
-                let data = doc.data();
-                data.profile = await getDownloadURL(ref(getStorage(), `${doc.data().name}.jpg`));
-                data.tags = await Promise.all(doc.data().tags.map(async (tag) => await (await getDoc(tag)).data()));
-                return data
-            })
-        );
-        const heights = [200, 600, 197, 188, 190, 200, 180];
-        const projectWithHeights = projects.map((p, index) => ({ ...p, height: heights[index] }))
-        this.setState({ projects: projectWithHeights, isLoading: false });
-    }
+    // Carousel screenshot tracking: 
+    // 1. If a video exists, project.profile is the custom preview banner and NOT listed in screenshots carousel.
+    // 2. If no video exists, project.profile is treated as a regular screenshot.
+    const screenshots = hasVideo ? [] : [project.profile].filter(Boolean);
 
+    const [activeType, setActiveType] = useState(hasVideo ? "video" : "image"); // "video" or "image"
+    const [activeImg, setActiveImg] = useState("");
+    const [isPlayingVideo, setIsPlayingVideo] = useState(false);
+    const [lightboxOpen, setLightboxOpen] = useState(false);
+    
+    // Intersection Observer for scroll-fade animations
+    const elementRef = useRef(null);
+    const [isIntersecting, setIsIntersecting] = useState(false);
 
-    render() {
+    useEffect(() => {
+        const observer = new IntersectionObserver(([entry]) => {
+            if (entry.isIntersecting) {
+                setIsIntersecting(true);
+                observer.unobserve(entry.target);
+            }
+        }, {
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
+        });
 
-        return (
-            <div className="work" id="portfolio">
-                <div className=" container">
-                    <div className="row">
-                        <h3 className="TechnaSans center font-3 white">Stuff I worked on </h3>
+        if (elementRef.current) {
+            observer.observe(elementRef.current);
+        }
+
+        return () => observer.disconnect();
+    }, []);
+
+    const meta = projectMetaDetails[project.name] || {
+        role: "Senior Game Developer",
+        platforms: "PC | Mobile",
+        buttonText: "Launch App"
+    };
+
+    // Clean dynamic total count of thumbnails in carousel.
+    // The carousel should only appear if there is at least one secondary screenshot to select.
+    const showCarousel = screenshots.length > 0;
+
+    // Set initial active image when project.profile loads
+    useEffect(() => {
+        if (project.profile) {
+            setActiveImg(project.profile);
+        }
+    }, [project.profile]);
+
+    // Strip autoplay parameters from the YouTube URL
+    const baseVideoUrl = project.url
+        ? project.url.replace("?autoplay=1", "").replace("&autoplay=1", "")
+        : "";
+
+    // If plays via custom preview thumbnail cover, force autoplay=1 to achieve seamless 1-click play experience
+    const videoUrl = isPlayingVideo
+        ? `${baseVideoUrl}${baseVideoUrl.includes("?") ? "&" : "?"}autoplay=1`
+        : baseVideoUrl;
+
+    return (
+        <div 
+            ref={elementRef}
+            className={`project-row ${isIntersecting ? "revealed" : "reveal-hidden"}`}
+        >
+            <div className="project-row-inner container">
+                
+                {/* Left Side: Name, Description, Meta & Action buttons */}
+                <div className="project-info-side">
+                    <div className="project-header">
+                        <div className="game-icon-wrapper animate-pulse">
+                            <Gamepad2 size={24} className="game-icon" />
+                        </div>
+                        <div className="project-title-group">
+                            <h2 className="project-title">{project.name}</h2>
+                            <div className="project-sub-meta">
+                                <span className="project-role">{meta.role}</span>
+                                <span className="meta-separator">|</span>
+                                <span className="project-platforms">({meta.platforms})</span>
+                            </div>
+                        </div>
                     </div>
-                    <div className="work__gallery">
-                        <Masonry columns={{ xs: 1, sm: 2, md: 3 }} spacing={2} >
-                            {this.state.isLoading ?
-                                ([200, 600, 197, 188, 190, 200, 180].map((h, index) => (
-                                    <div
-                                        className="work__item" key={index}
-                                        style={{ height: h, padding: 0.5 }}>
-                                        <div className="set-bg project-profile">
-                                            <Skeleton height={"100%"} width={200} style={{ backgroundColor: '#eaeaea' }} />
+
+                    <p className="project-desc">{project.description}</p>
+
+                    <div className="project-tags">
+                        {project.tags && project.tags.map((tag, idx) => (
+                            <span key={idx} className="project-tag-badge">
+                                {tag.name}
+                            </span>
+                        ))}
+                    </div>
+
+                    <div className="project-actions">
+                        {project.googlePlay && (
+                            <a 
+                                href={project.googlePlay} 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                className="btn-glass-action"
+                            >
+                                {meta.buttonText} <ExternalLink size={16} className="action-icon" />
+                            </a>
+                        )}
+                        {project.url && !project.url.includes("youtube.com") && !project.url.includes("youtu.be") && !project.googlePlay && (
+                            <a 
+                                href={project.url} 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                className="btn-glass-action"
+                            >
+                                {meta.buttonText} <ExternalLink size={16} className="action-icon" />
+                            </a>
+                        )}
+                    </div>
+                </div>
+
+                {/* Right Side: Media (Video Display + Screenshots Carousel similar to Steam Store) */}
+                <div className="project-media-side">
+                    <div className="main-media-display">
+                        {activeType === "video" && hasVideo ? (
+                            (!hasThumbnail || isPlayingVideo) ? (
+                                <div className="video-wrapper">
+                                    <iframe 
+                                        className="media-iframe"
+                                        src={videoUrl} 
+                                        title={`${project.name} Video Trailer`}
+                                        frameBorder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                    />
+                                </div>
+                            ) : (
+                                // Video Preview Thumbnail overlay with play icon (simulates YT preview banner)
+                                <div className="video-preview-wrapper" onClick={() => setIsPlayingVideo(true)}>
+                                    {project.profile && (
+                                        <img 
+                                            className="media-active-img" 
+                                            src={project.profile} 
+                                            alt={`${project.name} Video Thumbnail`} 
+                                        />
+                                    )}
+                                    <div className="video-play-overlay">
+                                        <div className="play-button-circle">
+                                            <Play size={32} fill="white" className="play-icon-triangle" />
+                                        </div>
+                                        <span className="play-overlay-text">WATCH GAMEPLAY TRAILER</span>
+                                    </div>
+                                </div>
+                            )
+                        ) : (
+                            <div className="image-wrapper" onClick={() => setLightboxOpen(true)}>
+                                <img 
+                                    className="media-active-img animate-fade-in" 
+                                    src={activeImg} 
+                                    alt={`${project.name} active display`} 
+                                />
+                                <div className="image-overlay">
+                                    <Maximize2 size={24} className="maximize-icon" />
+                                    <span className="overlay-text">CLICK TO ZOOM</span>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Horizontal Steam-style media selector thumbnails — ONLY render if there is a carousel */}
+                    {showCarousel && (
+                        <div className="media-thumbnails">
+                            {hasVideo && (
+                                <button 
+                                    className={`thumbnail-btn ${activeType === "video" ? "active" : ""}`}
+                                    onClick={() => {
+                                        setActiveType("video");
+                                        setIsPlayingVideo(false); // Return to preview banner first
+                                    }}
+                                >
+                                    <div 
+                                        className="thumb-image" 
+                                        style={{ backgroundImage: `url(${project.profile})` }}
+                                    >
+                                        <div className="thumb-video-icon">
+                                            <Play size={18} fill="white" className="play-ico" />
                                         </div>
                                     </div>
-                                ))
-                                )
-                                :
-                                (<>
-                                    {this.state.projects.map((project, index) => (
-                                        <div
-                                            onClick={() => {
-                                                this.setState({ isOpen: true });
-                                                this.setState({ currentProject: project });
-                                            }}
-                                            className="work__item pointer" key={index}
-                                            style={{ height: project.height, padding: 0.5 }}>
-                                            <div className="set-bg project-profile" style={{ backgroundImage: `url(${project.profile})` }} >
-                                                <a className="play-btn" >
-                                                    <FontAwesomeIcon icon={faPlay} /></a>
-                                                <div className="work__item__hover">
-                                                    <h4>{project.name}</h4>
-                                                    <ul>
-                                                        {project.tags.map((tag, index) =>
-                                                            <li className="montserrat" key={index}>{tag.name}</li>
-                                                        )}
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    ))
-                                    }</>)
-                            }
+                                </button>
+                            )}
 
+                            {screenshots.map((src, idx) => (
+                                <button 
+                                    key={idx}
+                                    className={`thumbnail-btn ${activeType === "image" && activeImg === src ? "active" : ""}`}
+                                    onClick={() => {
+                                        setActiveType("image");
+                                        setActiveImg(src);
+                                    }}
+                                >
+                                    <div 
+                                        className="thumb-image" 
+                                        style={{ backgroundImage: `url(${src})` }}
+                                    />
+                                </button>
+                            ))}
+                        </div>
+                    )}
+                </div>
 
-                        </Masonry >
-                    </div>
-
-                    <Link className=" primary-btn" to="/portfolio?tag=All">See More Projects </Link>
-
-                    {this.state.isOpen &&
-                        <Modal project={this.state.currentProject} isOpen={this.state.isOpen} onClose={() => this.setState({ isOpen: false })} />}
-
-                </div >
-                <div style={{ height: '4rem' }}></div>
             </div>
-        )
-    }
-}
+
+            {/* Lightbox full-screen modal */}
+            {lightboxOpen && (
+                <div className="lightbox-modal" onClick={() => setLightboxOpen(false)}>
+                    <div className="lightbox-content animate-zoom-in" onClick={(e) => e.stopPropagation()}>
+                        <button className="lightbox-close-btn" onClick={() => setLightboxOpen(false)}>
+                            <X size={28} />
+                        </button>
+                        <img className="lightbox-img" src={activeImg} alt={`${project.name} Fullscreen`} />
+                        <div className="lightbox-caption">{project.name} - Gameplay Screenshot</div>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+};
+
+const Projects = () => {
+    const [projects, setProjects] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const getSpotlightProjects = async () => {
+            try {
+                const projectsCol = query(collection(db, "projects"), where("spotlight", "==", true));
+                const allDocs = await getDocs(projectsCol);
+
+                const projectList = await Promise.all(
+                    allDocs.docs.map(async (doc) => {
+                        let data = doc.data();
+                        try {
+                            data.profile = await getDownloadURL(ref(getStorage(), `${doc.data().name}.jpg`));
+                        } catch (err) {
+                            console.error(`Error fetching profile image for ${doc.data().name}:`, err);
+                            data.profile = "";
+                        }
+                        
+                        try {
+                            data.tags = await Promise.all(
+                                doc.data().tags.map(async (tagRef) => {
+                                    const tagDoc = await getDoc(tagRef);
+                                    return tagDoc.data();
+                                })
+                            );
+                        } catch (err) {
+                            console.error(`Error fetching tags for ${doc.data().name}:`, err);
+                            data.tags = [];
+                        }
+
+                        return data;
+                    })
+                );
+
+                // Sort projects based on order if defined
+                projectList.sort((a, b) => {
+                    const orderA = parseInt(a.order || 999);
+                    const orderB = parseInt(b.order || 999);
+                    return orderA - orderB;
+                });
+
+                setProjects(projectList);
+            } catch (error) {
+                console.error("Error loading projects from Firestore:", error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        getSpotlightProjects();
+    }, []);
+
+    return (
+        <div className="work" id="portfolio">
+            <div className="container">
+                <div className="row text-center mb-5">
+                    <div className="col-12">
+                        <h2 className="projects-section-title">PROJECTS I'VE WORKED ON</h2>
+                        <div className="title-glow-bar"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="projects-list-container">
+                {isLoading ? (
+                    // Clean glassmorphic skeletons during load
+                    <div className="container py-5 text-center">
+                        <div className="spinner-border text-info" role="status">
+                            <span className="visually-hidden">Loading Projects...</span>
+                        </div>
+                    </div>
+                ) : (
+                    projects.map((project, index) => (
+                        <ProjectRow key={index} project={project} />
+                    ))
+                )}
+            </div>
+
+            <div className="container text-center mt-5">
+                <Link className="see-more-projects-btn" to="/portfolio?tag=All">
+                    See More Projects <ChevronRight size={18} className="btn-arrow" />
+                </Link>
+            </div>
+        </div>
+    );
+};
+
 export default Projects;
