@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./Navigation.scss";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { HashLink } from "react-router-hash-link";
@@ -6,21 +6,44 @@ import logoGif from "../../images/logo-Animated.gif";
 
 export function Navigation(props) {
     const [classs, setClasss] = useState('');
-    const [showNavbar, setShowNavbar] = React.useState(false);
+    const [showNavbar, setShowNavbar] = useState(false);
+    const navRef = useRef(null);
 
     useEffect(() => {
-        window.addEventListener('scroll', () => {
+        const handleScroll = () => {
             setClasss(window.scrollY > 300 ? "top-nav-collapse" : "");
-        })
-    }, [])
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (navRef.current && !navRef.current.contains(event.target)) {
+                setShowNavbar(false);
+            }
+        };
+
+        if (showNavbar) {
+            document.addEventListener("mousedown", handleClickOutside);
+            document.addEventListener("touchstart", handleClickOutside);
+        } else {
+            document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener("touchstart", handleClickOutside);
+        }
+        
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener("touchstart", handleClickOutside);
+        };
+    }, [showNavbar]);
 
     const handleShowNavbar = () => {
-
         setShowNavbar(!showNavbar);
     };
-    return (
 
-        <nav className={`navbar navbar-expand-lg fixed-top navbar-dark Poppins ${classs}`}>
+    return (
+        <nav ref={navRef} className={`navbar navbar-expand-lg fixed-top navbar-dark Poppins ${classs}`}>
             <div className="container">
                 <a className="navbar-brand page-scroll nav-brand-wrapper" href="/">
                     <img src={logoGif} alt="Hassan Nasser" className="nav-logo-gif" />
