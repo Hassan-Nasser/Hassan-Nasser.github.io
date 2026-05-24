@@ -343,16 +343,16 @@
 			display: flex;
 			gap: 1.5rem;
 			width: 100%;
-			flex-direction: column;
-			align-items: center;
+			flex-wrap: wrap;
+			justify-content: center;
 
 			@media (min-width: 1024px) {
-				flex-direction: row;
+				justify-content: flex-start;
 				align-items: stretch;
 			}
 
 			.exp-item {
-				flex: 1;
+				flex: 1 1 14rem;
 				display: flex;
 				align-items: center;
 				gap: 1rem;
