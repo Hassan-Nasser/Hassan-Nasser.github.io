@@ -206,17 +206,25 @@
         transform: translateX(-50%);
     }
 
-    .timeline-marker {
-        left: -1rem;
-        top: 0.55rem;
-        width: 14px;
-        height: 14px;
-        border-width: 2.5px;
-    }
+    .timeline-item {
+        .timeline-marker {
+            left: -1rem;
+            top: 0.55rem;
+            width: 14px;
+            height: 14px;
+            border-width: 2.5px;
+        }
 
-    .timeline-card {
-        padding: 0;
-        border-radius: 0;
+        .timeline-card {
+            padding: 0;
+            border-radius: 0;
+        }
+
+        &:hover {
+            .timeline-card {
+                transform: translateX(4px);
+            }
+        }
     }
 
     .timeline-time {
@@ -238,11 +246,5 @@
     .timeline-description {
         font-size: 0.88rem;
         line-height: 1.7;
-    }
-
-    .timeline-item:hover {
-        .timeline-card {
-            transform: translateX(4px);
-        }
     }
 }
