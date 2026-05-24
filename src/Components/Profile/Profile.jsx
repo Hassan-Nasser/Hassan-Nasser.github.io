@@ -87,12 +87,12 @@ export function Profile(props) {
                                 <Terminal size={18} className="terminal-icon" />
                             </div>
                             <p className="bio-text">
-                                Crafting captivating worlds and immersive experiences.
+                                Senior Developer with years of experience building game systems and interactive software.
                             </p>
                         </div>
 
                         <p className="intro-description">
-                            From casual games to multiplayer epics, and pushing boundaries with interactive AR/VR applications on Unity and Unreal Engine.
+                            Experienced in building mobile titles, scalable multiplayer systems, and AR/VR applications using Unity and Unreal Engine.
                         </p>
 
                         <div className="dev-experience">
