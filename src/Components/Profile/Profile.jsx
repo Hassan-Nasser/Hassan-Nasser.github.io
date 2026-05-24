@@ -6,10 +6,9 @@ import './Profile.scss';
 import profilePic from '../../images/profile-Picture.jpg';
 import unityIcon from '../../images/icons/Unity.png';
 import unrealIcon from '../../images/icons/Unreal.png';
-import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
 export function Profile(props) {
-    const [resumeUrl, setResumeUrl] = useState(null);
+    const resumeUrl = "/Hassan_Nasser.pdf";
     const [isResumeOpen, setIsResumeOpen] = useState(false);
     const [isPdfLoaded, setIsPdfLoaded] = useState(false);
 
@@ -18,13 +17,6 @@ export function Profile(props) {
         setIsResumeOpen(true);
     };
 
-    useEffect(() => {
-        const storage = getStorage();
-        const pdfRef = ref(storage, "Docs/Hassan_Nasser.pdf");
-        getDownloadURL(pdfRef)
-            .then(url => setResumeUrl(url))
-            .catch(err => console.error("Error fetching resume URL:", err));
-    }, []);
     const unityYears = useMemo(() => {
         const start = new Date(2017, 5, 1);
         const now = new Date();
