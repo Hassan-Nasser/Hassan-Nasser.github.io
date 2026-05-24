@@ -1,12 +1,30 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { HashLink } from "react-router-hash-link";
-import { ChevronRight, Terminal } from 'lucide-react';
+import { ChevronRight, Terminal, X, FileText, Loader2 } from 'lucide-react';
 import './Profile.scss';
 import profilePic from '../../images/profile-Picture.jpg';
 import unityIcon from '../../images/icons/Unity.png';
 import unrealIcon from '../../images/icons/Unreal.png';
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
 export function Profile(props) {
+    const [resumeUrl, setResumeUrl] = useState(null);
+    const [isResumeOpen, setIsResumeOpen] = useState(false);
+    const [isPdfLoaded, setIsPdfLoaded] = useState(false);
+
+    const handleOpenResume = () => {
+        setIsPdfLoaded(false);
+        setIsResumeOpen(true);
+    };
+
+    useEffect(() => {
+        const storage = getStorage();
+        const pdfRef = ref(storage, "Docs/Hassan_Nasser.pdf");
+        getDownloadURL(pdfRef)
+            .then(url => setResumeUrl(url))
+            .catch(err => console.error("Error fetching resume URL:", err));
+    }, []);
     const unityYears = useMemo(() => {
         const start = new Date(2017, 5, 1);
         const now = new Date();
@@ -94,11 +112,42 @@ export function Profile(props) {
                             <HashLink smooth className="btn-glass-portal" to="/#portfolio">
                                 EXPLORE PROJECTS <ChevronRight size={18} className="btn-arrow" />
                             </HashLink>
+                            <button className="btn-glass-portal btn-resume" onClick={handleOpenResume}>
+                                RESUME <FileText size={18} className="btn-arrow" />
+                            </button>
                         </div>
                     </div>
                 </div>
 
             </div>
+
+            {isResumeOpen && resumeUrl && createPortal(
+                <div className="resume-modal-overlay" onClick={() => setIsResumeOpen(false)}>
+                    
+                    <button className="resume-close-btn-outside" onClick={() => setIsResumeOpen(false)}>
+                        <X size={32} />
+                    </button>
+
+                    {!isPdfLoaded && (
+                        <div className="resume-loader">
+                            <Loader2 size={48} className="spinner" />
+                        </div>
+                    )}
+
+                    <div 
+                        className={`resume-modal-content ${isPdfLoaded ? 'animate-zoom-in' : 'hidden-state'}`} 
+                        onClick={e => e.stopPropagation()}
+                    >
+                        <iframe 
+                            src={resumeUrl} 
+                            className="resume-iframe" 
+                            title="Resume" 
+                            onLoad={() => setIsPdfLoaded(true)}
+                        />
+                    </div>
+                </div>,
+                document.body
+            )}
         </header>
     );
 }
