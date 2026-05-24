@@ -583,7 +583,7 @@
 
         &:nth-child(even) {
             .project-row-inner {
-                flex-direction: column;
+                flex-direction: column-reverse;
             }
         }
     }
@@ -593,7 +593,7 @@
     }
 
     .project-row-inner {
-        flex-direction: column;
+        flex-direction: column-reverse;
         gap: 2.5rem;
     }
 
