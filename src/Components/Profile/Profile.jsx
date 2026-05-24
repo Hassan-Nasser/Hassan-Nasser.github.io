@@ -45,24 +45,27 @@ export function Profile(props) {
         return Math.max(1, years);
     }, []);
 
+    const Portrait = () => (
+        <div className="portrait-wrapper">
+            <div className="portrait-slab">
+                <div className="image-area" style={{ "--glitch-img": `url("${profilePic}")` }}>
+                    <img
+                        src={profilePic}
+                        alt="Subject Hassan"
+                        className="profile-avatar"
+                    />
+                </div>
+            </div>
+        </div>
+    );
+
     return (
         <header id="home" className="header-manifest">
             <div className="manifest-grid">
 
-                {/* Tactical Subject Profile - Top on Mobile, Right on Desktop */}
-                <div className="profile-column-right animate-zoom-in">
-                    <div className="portrait-wrapper">
-                        {/* Main Portrait Slab */}
-                        <div className="portrait-slab">
-                            <div className="image-area" style={{ "--glitch-img": `url("${profilePic}")` }}>
-                                <img
-                                    src={profilePic}
-                                    alt="Subject Hassan"
-                                    className="profile-avatar"
-                                />
-                            </div>
-                        </div>
-                    </div>
+                {/* Tactical Subject Profile - Right on Desktop, Hidden on Mobile */}
+                <div className="profile-column-right animate-zoom-in desktop-only">
+                    <Portrait />
                 </div>
 
                 {/* Identity & Name - Bottom on Mobile, Left on Desktop */}
@@ -79,6 +82,10 @@ export function Profile(props) {
                             <span className="last-name glitch-text" data-text="NASSER">NASSER</span>
                         </h1>
 
+                    </div>
+
+                    <div className="mobile-only mobile-portrait-container animate-zoom-in">
+                        <Portrait />
                     </div>
 
                     <div className="bio-block-container">

@@ -39,9 +39,9 @@
 		}
 	}
 
-	// Right Column (Tactical Profile Box) - Rendered first in JSX, stacks on top on mobile
+	// Right Column (Tactical Profile Box) - Rendered first in JSX, stacks on bottom on mobile
 	.profile-column-right {
-		order: 1;
+		order: 2;
 		display: flex;
 		justify-content: center;
 		position: relative;
@@ -54,9 +54,9 @@
 		}
 	}
 
-	// Left Column (Text & Bio) - Stacks on bottom on mobile
+	// Left Column (Text & Bio) - Stacks on top on mobile
 	.profile-column-left {
-		order: 2;
+		order: 1;
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
@@ -146,6 +146,12 @@
 		align-items: center;
 		gap: 1rem;
 		margin-bottom: 2rem;
+		width: 100%;
+		justify-content: center;
+
+		@media (min-width: 1024px) {
+			justify-content: flex-start;
+		}
 
 		.line {
 			width: 1.5rem;
@@ -178,7 +184,7 @@
 			letter-spacing: 0;
 			text-transform: uppercase;
 			margin: 0;
-			text-align: left;
+			text-align: center;
 			-webkit-font-smoothing: antialiased;
 			-moz-osx-font-smoothing: grayscale;
 			text-rendering: optimizeLegibility;
@@ -189,6 +195,7 @@
 
 			@media (min-width: 1024px) {
 				font-size: 7rem;
+				text-align: left;
 			}
 
 			.first-name {
@@ -200,6 +207,12 @@
 				transition: color 400ms ease, text-shadow 400ms ease;
 				animation: text-glitch-entrance-main 0.8s cubic-bezier(0.25, 1, 0.5, 1) both;
 				animation-delay: 0.1s;
+				position: relative;
+				left: -0.3em;
+
+				@media (min-width: 1024px) {
+					left: 0;
+				}
 			}
 
 			.last-name {
@@ -215,9 +228,16 @@
 				-webkit-text-fill-color: transparent;
 				filter: drop-shadow(0 2px 8px rgba(59, 130, 246, 0.25));
 				margin-top: 0;
-				padding-left: 0.75em; // Stylized indent
+				padding-left: 0;
+				position: relative;
+				left: 0.3em;
 				animation: text-glitch-entrance-main 0.8s cubic-bezier(0.25, 1, 0.5, 1) both;
 				animation-delay: 0.25s;
+
+				@media (min-width: 1024px) {
+					padding-left: 0.75em;
+					left: 0;
+				}
 			}
 
 			.glitch-text {
@@ -880,4 +900,26 @@
 	to {
 		transform: rotate(360deg);
 	}
+}
+
+// Layout Helper Classes
+.desktop-only {
+    display: none !important;
+    @media (min-width: 1024px) {
+        display: flex !important;
+    }
+}
+
+.mobile-only {
+    display: flex !important;
+    @media (min-width: 1024px) {
+        display: none !important;
+    }
+}
+
+.mobile-portrait-container {
+    width: 100%;
+    margin-bottom: 2rem;
+    margin-top: 1rem;
+    justify-content: center;
 }
