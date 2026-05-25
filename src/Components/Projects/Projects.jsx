@@ -12,6 +12,28 @@ let memoryHighlightsCache = null;
 const CACHE_KEY_PROJECTS = "portfolio_projects_cache_v3";
 const CACHE_KEY_HIGHLIGHTS = "portfolio_highlights_cache_v3";
 
+let globalPrefetchPromise = null;
+
+const initiatePrefetch = () => {
+    if (!globalPrefetchPromise) {
+        // Start the network request immediately, outside the React lifecycle
+        globalPrefetchPromise = Promise.all([
+            getDocs(collection(db, "projects")),
+            getDocs(collection(db, "highlights")),
+            getDocs(collection(db, "tags"))
+        ]).catch(err => {
+            console.error("Prefetch failed", err);
+            // Allow retry if it fails
+            globalPrefetchPromise = null;
+            throw err;
+        });
+    }
+    return globalPrefetchPromise;
+};
+
+// Trigger the prefetch the absolute millisecond this file is parsed by the browser
+initiatePrefetch();
+
 const ProjectRow = ({ project: initialProject }) => {
     const [project, setProject] = useState(initialProject);
     const hasVideo = !!project.url;
@@ -285,6 +307,46 @@ const ProjectRow = ({ project: initialProject }) => {
     );
 };
 
+const computeSpotlight = (projCache, highCache) => {
+    const highlightNames = [];
+    highCache.forEach(h => {
+        if (h.name && !highlightNames.includes(h.name)) highlightNames.push(h.name);
+        if (h.id && h.id !== 'highlights' && h.id !== 'default' && !highlightNames.includes(h.id)) highlightNames.push(h.id);
+        
+        Object.values(h).forEach(val => {
+            if (Array.isArray(val)) {
+                val.forEach(v => {
+                    if (typeof v === 'string' && !highlightNames.includes(v)) highlightNames.push(v);
+                });
+            }
+        });
+    });
+
+    let spotlightProjects = projCache.filter(p => highlightNames.includes(p.name) || highlightNames.includes(p.id));
+
+    if (spotlightProjects.length === 0) {
+        spotlightProjects = projCache.filter(p => p.spotlight);
+    }
+
+    spotlightProjects.sort((a, b) => {
+        let indexA = highlightNames.indexOf(a.name);
+        if (indexA === -1) indexA = highlightNames.indexOf(a.id);
+        
+        let indexB = highlightNames.indexOf(b.name);
+        if (indexB === -1) indexB = highlightNames.indexOf(b.id);
+        
+        if (indexA !== -1 && indexB !== -1) return indexA - indexB;
+        if (indexA !== -1) return -1;
+        if (indexB !== -1) return 1;
+
+        const orderA = parseInt(a.order || 999);
+        const orderB = parseInt(b.order || 999);
+        return orderA - orderB;
+    });
+
+    return spotlightProjects;
+};
+
 const Projects = () => {
     const [projects, setProjects] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -292,92 +354,62 @@ const Projects = () => {
     useEffect(() => {
         const getSpotlightProjects = async () => {
             try {
-                if (!memoryProjectsCache || !memoryHighlightsCache) {
+                // 1. Instantly load from cache if available
+                let cachedProjects = memoryProjectsCache;
+                let cachedHighlights = memoryHighlightsCache;
+
+                if (!cachedProjects || !cachedHighlights) {
                     const localProjects = localStorage.getItem(CACHE_KEY_PROJECTS);
                     const localHighlights = localStorage.getItem(CACHE_KEY_HIGHLIGHTS);
 
                     if (localProjects && localHighlights) {
-                        memoryProjectsCache = JSON.parse(localProjects);
-                        memoryHighlightsCache = JSON.parse(localHighlights);
-                    } else {
-                        const [projectsSnap, highlightsSnap, tagsSnap] = await Promise.all([
-                            getDocs(collection(db, "projects")),
-                            getDocs(collection(db, "highlights")),
-                            getDocs(collection(db, "tags"))
-                        ]);
-
-                        const tagsDict = {};
-                        tagsSnap.docs.forEach(d => {
-                            tagsDict[d.id] = { id: d.id, ...d.data() };
-                            if (d.ref && d.ref.path) {
-                                tagsDict[d.ref.path] = tagsDict[d.id];
-                            }
-                        });
-
-                        memoryProjectsCache = projectsSnap.docs.map(d => {
-                            const data = d.data();
-                            data.id = d.id;
-                            if (data.tags && Array.isArray(data.tags)) {
-                                data.tags = data.tags.map(t => {
-                                    const tagData = tagsDict[t.id] || tagsDict[t.path];
-                                    if (tagData) {
-                                        return tagData;
-                                    }
-                                    if (t.path) return { _refPath: t.path };
-                                    return t;
-                                });
-                            }
-                            return data;
-                        });
-
-                        memoryHighlightsCache = highlightsSnap.docs.map(d => ({ id: d.id, ...d.data() }));
-
-                        localStorage.setItem(CACHE_KEY_PROJECTS, JSON.stringify(memoryProjectsCache));
-                        localStorage.setItem(CACHE_KEY_HIGHLIGHTS, JSON.stringify(memoryHighlightsCache));
+                        cachedProjects = JSON.parse(localProjects);
+                        cachedHighlights = JSON.parse(localHighlights);
+                        memoryProjectsCache = cachedProjects;
+                        memoryHighlightsCache = cachedHighlights;
                     }
                 }
 
-                // Robust extraction of highlight names preserving order
-                const highlightNames = [];
-                memoryHighlightsCache.forEach(h => {
-                    if (h.name && !highlightNames.includes(h.name)) highlightNames.push(h.name);
-                    if (h.id && h.id !== 'highlights' && h.id !== 'default' && !highlightNames.includes(h.id)) highlightNames.push(h.id);
-                    
-                    // In case highlights is a document with an array of strings
-                    Object.values(h).forEach(val => {
-                        if (Array.isArray(val)) {
-                            val.forEach(v => {
-                                if (typeof v === 'string' && !highlightNames.includes(v)) highlightNames.push(v);
-                            });
-                        }
-                    });
-                });
-
-                let spotlightProjects = memoryProjectsCache.filter(p => highlightNames.includes(p.name) || highlightNames.includes(p.id));
-
-                if (spotlightProjects.length === 0) {
-                    spotlightProjects = memoryProjectsCache.filter(p => p.spotlight);
+                if (cachedProjects && cachedHighlights) {
+                    const spotlightProjects = computeSpotlight(cachedProjects, cachedHighlights);
+                    setProjects(spotlightProjects);
+                    setIsLoading(false);
                 }
 
-                spotlightProjects.sort((a, b) => {
-                    let indexA = highlightNames.indexOf(a.name);
-                    if (indexA === -1) indexA = highlightNames.indexOf(a.id);
-                    
-                    let indexB = highlightNames.indexOf(b.name);
-                    if (indexB === -1) indexB = highlightNames.indexOf(b.id);
-                    
-                    if (indexA !== -1 && indexB !== -1) {
-                        return indexA - indexB;
-                    }
-                    if (indexA !== -1) return -1;
-                    if (indexB !== -1) return 1;
+                // 2. Fetch fresh data using the prefetch promise (or start a new one if it failed)
+                const [projectsSnap, highlightsSnap, tagsSnap] = await initiatePrefetch();
 
-                    const orderA = parseInt(a.order || 999);
-                    const orderB = parseInt(b.order || 999);
-                    return orderA - orderB;
+                const tagsDict = {};
+                tagsSnap.docs.forEach(d => {
+                    tagsDict[d.id] = { id: d.id, ...d.data() };
+                    if (d.ref && d.ref.path) {
+                        tagsDict[d.ref.path] = tagsDict[d.id];
+                    }
                 });
 
-                setProjects(spotlightProjects);
+                const freshProjects = projectsSnap.docs.map(d => {
+                    const data = d.data();
+                    data.id = d.id;
+                    if (data.tags && Array.isArray(data.tags)) {
+                        data.tags = data.tags.map(t => {
+                            const tagData = tagsDict[t.id] || tagsDict[t.path];
+                            if (tagData) return tagData;
+                            if (t.path) return { _refPath: t.path };
+                            return t;
+                        });
+                    }
+                    return data;
+                });
+
+                const freshHighlights = highlightsSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+
+                memoryProjectsCache = freshProjects;
+                memoryHighlightsCache = freshHighlights;
+                localStorage.setItem(CACHE_KEY_PROJECTS, JSON.stringify(freshProjects));
+                localStorage.setItem(CACHE_KEY_HIGHLIGHTS, JSON.stringify(freshHighlights));
+
+                const freshSpotlightProjects = computeSpotlight(freshProjects, freshHighlights);
+                setProjects(freshSpotlightProjects);
             } catch (error) {
                 console.error("Error loading projects from Firestore:", error);
             } finally {
