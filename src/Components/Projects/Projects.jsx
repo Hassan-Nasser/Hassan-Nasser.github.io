@@ -1,35 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./Projects.scss";
 import { db } from "../../config/firebase";
-import { collection, getDoc, getDocs, query, where } from "firebase/firestore";
+import { collection, getDoc, getDocs, query, where, doc } from "firebase/firestore";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import { Link } from 'react-router-dom';
 import { Play, Maximize2, X, ExternalLink, ChevronRight } from "lucide-react";
 
-const projectMetaDetails = {
-    "Forest Knight": {
-        role: "Lead Game Developer | Architecture & Systems",
-        platforms: "Android | iOS",
-        buttonText: "Google Play Store"
-    },
-    "Arena Rumble": {
-        role: "Senior Game Developer | Multiplayer & Core Systems",
-        platforms: "PC | Web",
-        buttonText: "Play Demo"
-    },
-    "Millionaires Deal": {
-        role: "Senior Unity Developer | Card Mechanics & UI",
-        platforms: "Android | iOS",
-        buttonText: "Google Play Store"
-    },
-    "Virtual Market Metaverse": {
-        role: "Lead Metaverse Architect | 3D WebGL & Systems",
-        platforms: "PC | VR | Web",
-        buttonText: "Launch WebGL App"
-    }
-};
+let memoryProjectsCache = null;
+let memoryHighlightsCache = null;
 
-const ProjectRow = ({ project }) => {
+const CACHE_KEY_PROJECTS = "portfolio_projects_cache_v3";
+const CACHE_KEY_HIGHLIGHTS = "portfolio_highlights_cache_v3";
+
+const ProjectRow = ({ project: initialProject }) => {
+    const [project, setProject] = useState(initialProject);
     const hasVideo = !!project.url;
     const hasThumbnail = !!project.profile;
 
@@ -61,10 +45,70 @@ const ProjectRow = ({ project }) => {
         return () => observer.disconnect();
     }, []);
 
-    const meta = projectMetaDetails[project.name] || {
-        role: "Senior Game Developer",
-        platforms: "PC | Mobile",
-        buttonText: "Launch App"
+    useEffect(() => {
+        let isMounted = true;
+        if (isIntersecting) {
+            const needsImage = project.profile === undefined;
+            const needsTags = project.tags && project.tags.some(t => t._refPath);
+
+            if (needsImage || needsTags) {
+                const loadData = async () => {
+                    let updatedProject = { ...project };
+                    let updated = false;
+
+                    if (needsImage) {
+                        try {
+                            const url = await getDownloadURL(ref(getStorage(), `${updatedProject.name}.jpg`));
+                            updatedProject.profile = url;
+                            updated = true;
+                        } catch (err) {
+                            console.error(`Error fetching profile image for ${updatedProject.name}:`, err);
+                            updatedProject.profile = ""; 
+                            updated = true;
+                        }
+                    }
+
+                    if (needsTags) {
+                        try {
+                            const fetchedTags = await Promise.all(
+                                updatedProject.tags.map(async (t) => {
+                                    if (t._refPath) {
+                                        const tagDoc = await getDoc(doc(db, t._refPath));
+                                        return tagDoc.exists() ? tagDoc.data() : { name: "Unknown" };
+                                    }
+                                    return t;
+                                })
+                            );
+                            updatedProject.tags = fetchedTags;
+                            updated = true;
+                        } catch (err) {
+                            console.error(`Error fetching tags for ${updatedProject.name}:`, err);
+                            updatedProject.tags = [];
+                            updated = true;
+                        }
+                    }
+
+                    if (isMounted && updated) {
+                        setProject(updatedProject);
+                        if (memoryProjectsCache) {
+                            const idx = memoryProjectsCache.findIndex(p => p.name === updatedProject.name);
+                            if (idx !== -1) {
+                                memoryProjectsCache[idx] = updatedProject;
+                                localStorage.setItem(CACHE_KEY_PROJECTS, JSON.stringify(memoryProjectsCache));
+                            }
+                        }
+                    }
+                };
+                loadData();
+            }
+        }
+        return () => { isMounted = false; };
+    }, [isIntersecting, project.profile, project.tags, project.name]);
+
+    const meta = {
+        role: project.role || project.jobTitle || "Senior Game Developer",
+        platforms: project.platforms || project.platform || "PC | Mobile",
+        buttonText: project.buttonText || (project.googlePlay ? "Google Play Store" : "Launch App")
     };
 
     const showCarousel = screenshots.length > 0;
@@ -248,42 +292,92 @@ const Projects = () => {
     useEffect(() => {
         const getSpotlightProjects = async () => {
             try {
-                const projectsCol = query(collection(db, "projects"), where("spotlight", "==", true));
-                const allDocs = await getDocs(projectsCol);
+                if (!memoryProjectsCache || !memoryHighlightsCache) {
+                    const localProjects = localStorage.getItem(CACHE_KEY_PROJECTS);
+                    const localHighlights = localStorage.getItem(CACHE_KEY_HIGHLIGHTS);
 
-                const projectList = await Promise.all(
-                    allDocs.docs.map(async (doc) => {
-                        let data = doc.data();
-                        try {
-                            data.profile = await getDownloadURL(ref(getStorage(), `${doc.data().name}.jpg`));
-                        } catch (err) {
-                            console.error(`Error fetching profile image for ${doc.data().name}:`, err);
-                            data.profile = "";
+                    if (localProjects && localHighlights) {
+                        memoryProjectsCache = JSON.parse(localProjects);
+                        memoryHighlightsCache = JSON.parse(localHighlights);
+                    } else {
+                        const [projectsSnap, highlightsSnap, tagsSnap] = await Promise.all([
+                            getDocs(collection(db, "projects")),
+                            getDocs(collection(db, "highlights")),
+                            getDocs(collection(db, "tags"))
+                        ]);
+
+                        const tagsDict = {};
+                        tagsSnap.docs.forEach(d => {
+                            tagsDict[d.id] = { id: d.id, ...d.data() };
+                            if (d.ref && d.ref.path) {
+                                tagsDict[d.ref.path] = tagsDict[d.id];
+                            }
+                        });
+
+                        memoryProjectsCache = projectsSnap.docs.map(d => {
+                            const data = d.data();
+                            data.id = d.id;
+                            if (data.tags && Array.isArray(data.tags)) {
+                                data.tags = data.tags.map(t => {
+                                    const tagData = tagsDict[t.id] || tagsDict[t.path];
+                                    if (tagData) {
+                                        return tagData;
+                                    }
+                                    if (t.path) return { _refPath: t.path };
+                                    return t;
+                                });
+                            }
+                            return data;
+                        });
+
+                        memoryHighlightsCache = highlightsSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+
+                        localStorage.setItem(CACHE_KEY_PROJECTS, JSON.stringify(memoryProjectsCache));
+                        localStorage.setItem(CACHE_KEY_HIGHLIGHTS, JSON.stringify(memoryHighlightsCache));
+                    }
+                }
+
+                // Robust extraction of highlight names preserving order
+                const highlightNames = [];
+                memoryHighlightsCache.forEach(h => {
+                    if (h.name && !highlightNames.includes(h.name)) highlightNames.push(h.name);
+                    if (h.id && h.id !== 'highlights' && h.id !== 'default' && !highlightNames.includes(h.id)) highlightNames.push(h.id);
+                    
+                    // In case highlights is a document with an array of strings
+                    Object.values(h).forEach(val => {
+                        if (Array.isArray(val)) {
+                            val.forEach(v => {
+                                if (typeof v === 'string' && !highlightNames.includes(v)) highlightNames.push(v);
+                            });
                         }
+                    });
+                });
 
-                        try {
-                            data.tags = await Promise.all(
-                                doc.data().tags.map(async (tagRef) => {
-                                    const tagDoc = await getDoc(tagRef);
-                                    return tagDoc.data();
-                                })
-                            );
-                        } catch (err) {
-                            console.error(`Error fetching tags for ${doc.data().name}:`, err);
-                            data.tags = [];
-                        }
+                let spotlightProjects = memoryProjectsCache.filter(p => highlightNames.includes(p.name) || highlightNames.includes(p.id));
 
-                        return data;
-                    })
-                );
+                if (spotlightProjects.length === 0) {
+                    spotlightProjects = memoryProjectsCache.filter(p => p.spotlight);
+                }
 
-                projectList.sort((a, b) => {
+                spotlightProjects.sort((a, b) => {
+                    let indexA = highlightNames.indexOf(a.name);
+                    if (indexA === -1) indexA = highlightNames.indexOf(a.id);
+                    
+                    let indexB = highlightNames.indexOf(b.name);
+                    if (indexB === -1) indexB = highlightNames.indexOf(b.id);
+                    
+                    if (indexA !== -1 && indexB !== -1) {
+                        return indexA - indexB;
+                    }
+                    if (indexA !== -1) return -1;
+                    if (indexB !== -1) return 1;
+
                     const orderA = parseInt(a.order || 999);
                     const orderB = parseInt(b.order || 999);
                     return orderA - orderB;
                 });
 
-                setProjects(projectList);
+                setProjects(spotlightProjects);
             } catch (error) {
                 console.error("Error loading projects from Firestore:", error);
             } finally {
