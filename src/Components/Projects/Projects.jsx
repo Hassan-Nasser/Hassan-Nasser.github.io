@@ -12,21 +12,25 @@ let memoryHighlightsCache = null;
 const CACHE_KEY_PROJECTS = "portfolio_projects_cache_v3";
 const CACHE_KEY_HIGHLIGHTS = "portfolio_highlights_cache_v3";
 
+const RAW_JSON_URL = "https://raw.githubusercontent.com/aya-abdallah/hassan-portfolio/master/projects.json";
+
 let globalPrefetchPromise = null;
 
 const initiatePrefetch = () => {
     if (!globalPrefetchPromise) {
-        // Start the network request immediately, outside the React lifecycle
-        globalPrefetchPromise = Promise.all([
-            getDocs(collection(db, "projects")),
-            getDocs(collection(db, "highlights")),
-            getDocs(collection(db, "tags"))
-        ]).catch(err => {
-            console.error("Prefetch failed", err);
-            // Allow retry if it fails
-            globalPrefetchPromise = null;
-            throw err;
-        });
+        globalPrefetchPromise = fetch(`${RAW_JSON_URL}?t=${Date.now()}`)
+            .then(res => {
+                if (!res.ok) throw new Error("JSON fetch failed");
+                return res.json();
+            })
+            .catch(err => {
+                console.error("Prefetch from GitHub failed, falling back to Firestore:", err);
+                return Promise.all([
+                    getDocs(collection(db, "projects")),
+                    getDocs(collection(db, "highlights")),
+                    getDocs(collection(db, "tags"))
+                ]);
+            });
     }
     return globalPrefetchPromise;
 };
@@ -377,31 +381,57 @@ const Projects = () => {
                 }
 
                 // 2. Fetch fresh data using the prefetch promise (or start a new one if it failed)
-                const [projectsSnap, highlightsSnap, tagsSnap] = await initiatePrefetch();
+                const fetchedData = await initiatePrefetch();
 
-                const tagsDict = {};
-                tagsSnap.docs.forEach(d => {
-                    tagsDict[d.id] = { id: d.id, ...d.data() };
-                    if (d.ref && d.ref.path) {
-                        tagsDict[d.ref.path] = tagsDict[d.id];
+                let freshProjects = [];
+                let freshHighlights = [];
+
+                if (!Array.isArray(fetchedData) && fetchedData.projects && fetchedData.projects.length > 0) {
+                    // Loaded successfully from JSON
+                    freshProjects = fetchedData.projects;
+                    freshHighlights = fetchedData.highlights || [];
+                } else {
+                    // Fallback to Firestore parsing
+                    let projectsSnap, highlightsSnap, tagsSnap;
+                    if (Array.isArray(fetchedData) && fetchedData.length === 3) {
+                        [projectsSnap, highlightsSnap, tagsSnap] = fetchedData;
+                    } else {
+                        [projectsSnap, highlightsSnap, tagsSnap] = await Promise.all([
+                            getDocs(collection(db, "projects")),
+                            getDocs(collection(db, "highlights")),
+                            getDocs(collection(db, "tags"))
+                        ]);
                     }
-                });
 
-                const freshProjects = projectsSnap.docs.map(d => {
-                    const data = d.data();
-                    data.id = d.id;
-                    if (data.tags && Array.isArray(data.tags)) {
-                        data.tags = data.tags.map(t => {
-                            const tagData = tagsDict[t.id] || tagsDict[t.path];
-                            if (tagData) return tagData;
-                            if (t.path) return { _refPath: t.path };
-                            return t;
-                        });
-                    }
-                    return data;
-                });
+                    const tagsDict = {};
+                    tagsSnap.docs.forEach(d => {
+                        tagsDict[d.id] = { id: d.id, ...d.data() };
+                        if (d.ref && d.ref.path) {
+                            tagsDict[d.ref.path] = tagsDict[d.id];
+                        }
+                    });
 
-                const freshHighlights = highlightsSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+                    freshProjects = projectsSnap.docs.map(d => {
+                        const data = d.data();
+                        data.id = d.id;
+                        if (data.tags && Array.isArray(data.tags)) {
+                            data.tags = data.tags.map(t => {
+                                const tagData = tagsDict[t.id] || tagsDict[t.path];
+                                if (tagData) return tagData;
+                                if (t.path) return { _refPath: t.path };
+                                return t;
+                            });
+                        }
+                        return data;
+                    });
+
+                    freshHighlights = highlightsSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+
+                    // Print to console so the user can easily copy-paste to projects.json
+                    console.log("=== COPY THIS ENTIRE JSON OBJECT TO projects.json ===");
+                    console.log(JSON.stringify({ highlights: freshHighlights, projects: freshProjects }, null, 2));
+                    console.log("======================================================");
+                }
 
                 memoryProjectsCache = freshProjects;
                 memoryHighlightsCache = freshHighlights;
