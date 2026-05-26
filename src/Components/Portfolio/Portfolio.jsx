@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./Portfolio.scss";
-import { Pagination } from "../Pagination/Pagination";
-import { getDownloadURL, getStorage, ref } from "firebase/storage";
+import { ProjectRow } from "../Projects/Projects";
+import "../Projects/Projects.scss";
 import { withRouter } from "../../config/withRouter";
 
 const projectModules = import.meta.glob("../../data/projects/*.json", { eager: true });
@@ -15,7 +15,6 @@ class Portfolio extends Component {
             projects: [],
             selected: "All",
         };
-        this.child = React.createRef();
     }
 
     componentDidMount() {
@@ -46,24 +45,8 @@ class Portfolio extends Component {
         }
     }
 
-    fetchProfilesForProjects = async (projectsToProcess) => {
-        const projectList = await Promise.all(projectsToProcess.map(async (project) => {
-            const p = { ...project };
-            try {
-                if(!p.profile) {
-                   p.profile = await getDownloadURL(ref(getStorage(), `${p.name}.jpg`));
-                }
-            } catch (err) {
-                console.error("Could not fetch profile image for", p.name);
-            }
-            return p;
-        }));
-        this.setState({ projects: projectList });
-        this.child.current?.SetLoading(false);
-    }
-
     getAllProject = () => {
-        this.fetchProfilesForProjects(localProjects);
+        this.setState({ projects: localProjects });
     }
 
     getProjectWithTag = (tagName) => {
@@ -71,7 +54,7 @@ class Portfolio extends Component {
             (p.genres && p.genres.includes(tagName)) || 
             (p.platforms && p.platforms.includes(tagName))
         );
-        this.fetchProfilesForProjects(filtered);
+        this.setState({ projects: filtered });
     }
 
     onTagClick = (tagName) => {
@@ -96,27 +79,22 @@ class Portfolio extends Component {
                                     className={`TechnaSans ${this.state.selected === "All" ? "active" : ""}`}
                                     onClick={() => {
                                         this.onTagClick("All");
-                                        this.child.current?.resetCurrentPage();
-                                        this.child.current?.SetLoading(true);
                                     }}>All</li>
                                 {this.state.tags && this.state.tags.map((tag, index) =>
                                     <li key={index}
                                         className={`TechnaSans ${this.state.selected === tag.name ? "active" : ""}`}
                                         onClick={() => {
                                             this.onTagClick(tag.name);
-                                            this.child.current?.resetCurrentPage();
-                                            this.child.current?.SetLoading(true);
                                         }} >{tag.name}</li>
                                 )}
                             </ul>
                         </div>
                     </div>
 
-                    <div className="row portfolio__gallery">
-                        {this.state.projects && (
-                            <Pagination projectsProps={this.state.projects} ref={this.child} />
-                        )}
-
+                    <div className="projects-list-container portfolio-override-container">
+                        {this.state.projects && this.state.projects.map((project, index) => (
+                            <ProjectRow key={project.name || index} project={project} />
+                        ))}
                     </div>
                 </div>
             </section>

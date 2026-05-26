@@ -8,7 +8,7 @@ const projectModules = import.meta.glob("../../data/projects/*.json", { eager: t
 const projectsDataRaw = Object.values(projectModules).map(m => m.default || m);
 import highlightsDataRaw from "../../data/highlights.json";
 
-const ProjectRow = ({ project: initialProject }) => {
+export const ProjectRow = ({ project: initialProject }) => {
     const [project, setProject] = useState(initialProject);
     const hasVideo = !!project.url;
     const hasThumbnail = !!project.profile;
@@ -45,9 +45,7 @@ const ProjectRow = ({ project: initialProject }) => {
         let isMounted = true;
         if (isIntersecting) {
             const needsImage = project.profile === undefined;
-            const needsTags = project.tags && project.tags.some(t => t._refPath);
-
-            if (needsImage || needsTags) {
+            if (needsImage) {
                 const loadData = async () => {
                     let updatedProject = { ...project };
                     let updated = false;
@@ -60,26 +58,6 @@ const ProjectRow = ({ project: initialProject }) => {
                         } catch (err) {
                             console.error(`Error fetching profile image for ${updatedProject.name}:`, err);
                             updatedProject.profile = ""; 
-                            updated = true;
-                        }
-                    }
-
-                    if (needsTags) {
-                        try {
-                            const fetchedTags = await Promise.all(
-                                updatedProject.tags.map(async (t) => {
-                                    if (t._refPath) {
-                                        const tagDoc = await getDoc(doc(db, t._refPath));
-                                        return tagDoc.exists() ? tagDoc.data() : { name: "Unknown" };
-                                    }
-                                    return t;
-                                })
-                            );
-                            updatedProject.tags = fetchedTags;
-                            updated = true;
-                        } catch (err) {
-                            console.error(`Error fetching tags for ${updatedProject.name}:`, err);
-                            updatedProject.tags = [];
                             updated = true;
                         }
                     }
