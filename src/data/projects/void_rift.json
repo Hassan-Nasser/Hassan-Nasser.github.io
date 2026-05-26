@@ -1,8 +1,17 @@
 {
   "id": "Void Rift",
-  "description": "Multiplayer Co-op, player vs player game",
   "name": "Void Rift",
-  "url": "https://youtu.be/daMawZSQKQc",
-  "genres": [],
-  "platforms": []
+  "url": "https://www.youtube.com/embed/daMawZSQKQc?autoplay=1",
+  "description": "Multiplayer Co-op, player vs player game.",
+  "genres": [
+    "Multiplayer",
+    "PvP",
+    "Co-op",
+    "MOBA"
+  ],
+  "platforms": [
+    "Mobile",
+    "Android",
+    "IOS"
+  ]
 }

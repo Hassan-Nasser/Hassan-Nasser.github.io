@@ -2,7 +2,13 @@
   "id": "Arena Rumble",
   "name": "Arena Rumble",
   "url": "https://www.youtube.com/embed/lBUrOBcgukw?autoplay=1",
-  "description": "Multiplayer turn based strategy game with collectable cards. Collect cards and build you team of 4 strong fighters. Battle in 1v1 fights and gain rewards, loots and chests. Ranked seasons, Unlockable cards, Unlockable characters and much more with in depth economy system with virtual currencies",
-  "genres": [],
-  "platforms": []
+  "description": "Multiplayer turn based strategy game with collectable cards. \nCollect cards and build you team of 4 strong fighters.\nBattle in 1v1 fights and gain rewards, loots and chests.\nRanked seasons, Unlockable cards, Unlockable characters and much more with in depth economy system with virtual currencies",
+  "genres": [
+    "Multiplayer",
+    "Turn Based",
+    "Collectible Cards"
+  ],
+  "platforms": [
+    "Mobile"
+  ]
 }

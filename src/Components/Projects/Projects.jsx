@@ -10,12 +10,14 @@ import highlightsDataRaw from "../../data/highlights.json";
 
 export const ProjectRow = ({ project: initialProject }) => {
     const [project, setProject] = useState(initialProject);
-    const hasVideo = !!project.url;
+    const isCollection = !!project.isCollection;
+    const hasVideo = !!project.url || isCollection;
     const hasThumbnail = !!project.profile;
 
-    const screenshots = hasVideo ? [] : [project.profile].filter(Boolean);
+    const screenshots = project.url ? [] : [project.profile].filter(Boolean);
 
-    const [activeType, setActiveType] = useState(hasVideo ? "video" : "image");
+    const [activeType, setActiveType] = useState(isCollection ? "grid1" : (project.url ? "video" : "image"));
+    const [activeSubProject, setActiveSubProject] = useState(null);
     const [activeImg, setActiveImg] = useState("");
     const [isPlayingVideo, setIsPlayingVideo] = useState(false);
     const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -44,13 +46,42 @@ export const ProjectRow = ({ project: initialProject }) => {
     useEffect(() => {
         let isMounted = true;
         if (isIntersecting) {
-            const needsImage = project.profile === undefined;
-            if (needsImage) {
-                const loadData = async () => {
-                    let updatedProject = { ...project };
-                    let updated = false;
+            if (isCollection) {
+                const needsImages = project.subProjects.some(sp => !sp.profile);
+                if (needsImages) {
+                    const loadData = async () => {
+                        let updatedProject = { ...project };
+                        const updatedSubProjects = await Promise.all(
+                            updatedProject.subProjects.map(async (sp) => {
+                                if (!sp.profile) {
+                                    try {
+                                        const url = await getDownloadURL(ref(getStorage(), `${sp.name}.jpg`));
+                                        return { ...sp, profile: url };
+                                    } catch (err) {
+                                        return { ...sp, profile: "" };
+                                    }
+                                }
+                                return sp;
+                            })
+                        );
+                        updatedProject.subProjects = updatedSubProjects;
+                        
+                        // Cache the fetched URLs back into the global source object
+                        if (initialProject && initialProject.subProjects) {
+                            initialProject.subProjects = updatedSubProjects;
+                        }
 
-                    if (needsImage) {
+                        if (isMounted) setProject(updatedProject);
+                    };
+                    loadData();
+                }
+            } else {
+                const needsImage = project.profile === undefined;
+                if (needsImage) {
+                    const loadData = async () => {
+                        let updatedProject = { ...project };
+                        let updated = false;
+
                         try {
                             const url = await getDownloadURL(ref(getStorage(), `${updatedProject.name}.jpg`));
                             updatedProject.profile = url;
@@ -60,13 +91,13 @@ export const ProjectRow = ({ project: initialProject }) => {
                             updatedProject.profile = ""; 
                             updated = true;
                         }
-                    }
 
-                    if (isMounted && updated) {
-                        setProject(updatedProject);
-                    }
-                };
-                loadData();
+                        if (isMounted && updated) {
+                            setProject(updatedProject);
+                        }
+                    };
+                    loadData();
+                }
             }
         }
         return () => { isMounted = false; };
@@ -80,7 +111,7 @@ export const ProjectRow = ({ project: initialProject }) => {
         buttonText: project.buttonText || "View Project",
     };
 
-    const showCarousel = screenshots.length > 0;
+    const showCarousel = screenshots.length > 0 || isCollection;
 
     useEffect(() => {
         if (project.profile) {
@@ -88,8 +119,18 @@ export const ProjectRow = ({ project: initialProject }) => {
         }
     }, [project.profile]);
 
-    const baseVideoUrl = project.url
-        ? project.url.replace("?autoplay=1", "").replace("&autoplay=1", "")
+    let currentVideoUrl = "";
+    let currentThumbnail = "";
+    if (isCollection && activeSubProject) {
+        currentVideoUrl = activeSubProject.url;
+        currentThumbnail = activeSubProject.profile;
+    } else {
+        currentVideoUrl = project.url;
+        currentThumbnail = project.profile;
+    }
+
+    const baseVideoUrl = currentVideoUrl
+        ? currentVideoUrl.replace("?autoplay=1", "").replace("&autoplay=1", "")
         : "";
     const videoUrl = isPlayingVideo
         ? `${baseVideoUrl}${baseVideoUrl.includes("?") ? "&" : "?"}autoplay=1`
@@ -157,8 +198,29 @@ export const ProjectRow = ({ project: initialProject }) => {
                 {/* Right Side: Media (Video Display + Screenshots Carousel similar to Steam Store) */}
                 <div className="project-media-side">
                     <div className="main-media-display">
-                        {activeType === "video" && hasVideo ? (
-                            (!hasThumbnail || isPlayingVideo) ? (
+                        {isCollection && (activeType === "grid1" || activeType === "grid2") ? (
+                            <div className="collection-grid animate-fade-in">
+                                {project.subProjects.slice(activeType === "grid1" ? 0 : 10, activeType === "grid1" ? 10 : 20).map((sp, idx) => (
+                                    <div 
+                                        key={idx} 
+                                        className="grid-cell"
+                                        style={{ backgroundImage: `url(${sp.profile})` }}
+                                        onClick={() => {
+                                            setActiveSubProject(sp);
+                                            setActiveType("video");
+                                            setIsPlayingVideo(true);
+                                        }}
+                                    >
+                                        {!sp.profile && <div className="loading-pulse" />}
+                                        <div className="grid-cell-overlay">
+                                            <span className="grid-cell-title">{sp.name}</span>
+                                            <Play size={24} className="grid-cell-play" />
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        ) : activeType === "video" && hasVideo ? (
+                            (!currentThumbnail || isPlayingVideo) ? (
                                 <div className="video-wrapper">
                                     <iframe
                                         className="media-iframe"
@@ -171,10 +233,10 @@ export const ProjectRow = ({ project: initialProject }) => {
                                 </div>
                             ) : (
                                 <div className="video-preview-wrapper" onClick={() => setIsPlayingVideo(true)}>
-                                    {project.profile && (
+                                    {currentThumbnail && (
                                         <img
                                             className="media-active-img"
-                                            src={project.profile}
+                                            src={currentThumbnail}
                                             alt={`${project.name} Video Thumbnail`}
                                         />
                                     )}
@@ -203,40 +265,85 @@ export const ProjectRow = ({ project: initialProject }) => {
                     {/* Horizontal Steam-style media selector thumbnails — ONLY render if there is a carousel */}
                     {showCarousel && (
                         <div className="media-thumbnails">
-                            {hasVideo && (
-                                <button
-                                    className={`thumbnail-btn ${activeType === "video" ? "active" : ""}`}
-                                    onClick={() => {
-                                        setActiveType("video");
-                                        setIsPlayingVideo(false);
-                                    }}
-                                >
-                                    <div
-                                        className="thumb-image"
-                                        style={{ backgroundImage: `url(${project.profile})` }}
+                            {isCollection ? (
+                                <>
+                                    <button
+                                        className={`thumbnail-btn ${activeType === "grid1" ? "active" : ""}`}
+                                        onClick={() => setActiveType("grid1")}
                                     >
-                                        <div className="thumb-video-icon">
-                                            <Play size={18} fill="white" className="play-ico" />
+                                        <div className="thumb-image grid-thumb-icon">
+                                            <div className="mini-grid">
+                                                {project.subProjects.slice(0, 10).map((sp, i) => (
+                                                    <div key={i} className="mini-grid-cell" style={{ backgroundImage: `url(${sp.profile})` }}></div>
+                                                ))}
+                                            </div>
                                         </div>
-                                    </div>
-                                </button>
-                            )}
+                                    </button>
+                                    {project.subProjects.length > 10 && (
+                                        <button
+                                            className={`thumbnail-btn ${activeType === "grid2" ? "active" : ""}`}
+                                            onClick={() => setActiveType("grid2")}
+                                        >
+                                            <div className="thumb-image grid-thumb-icon">
+                                                <div className="mini-grid">
+                                                    {project.subProjects.slice(10, 20).map((sp, i) => (
+                                                        <div key={i} className="mini-grid-cell" style={{ backgroundImage: `url(${sp.profile})` }}></div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        </button>
+                                    )}
+                                    {activeType === "video" && activeSubProject && (
+                                        <button className={`thumbnail-btn active`}>
+                                            <div
+                                                className="thumb-image"
+                                                style={{ backgroundImage: `url(${activeSubProject.profile})` }}
+                                            >
+                                                <div className="thumb-video-icon">
+                                                    <Play size={18} fill="white" className="play-ico" />
+                                                </div>
+                                            </div>
+                                        </button>
+                                    )}
+                                </>
+                            ) : (
+                                <>
+                                    {project.url && (
+                                        <button
+                                            className={`thumbnail-btn ${activeType === "video" ? "active" : ""}`}
+                                            onClick={() => {
+                                                setActiveType("video");
+                                                setIsPlayingVideo(false);
+                                            }}
+                                        >
+                                            <div
+                                                className="thumb-image"
+                                                style={{ backgroundImage: `url(${project.profile})` }}
+                                            >
+                                                <div className="thumb-video-icon">
+                                                    <Play size={18} fill="white" className="play-ico" />
+                                                </div>
+                                            </div>
+                                        </button>
+                                    )}
 
-                            {screenshots.map((src, idx) => (
-                                <button
-                                    key={idx}
-                                    className={`thumbnail-btn ${activeType === "image" && activeImg === src ? "active" : ""}`}
-                                    onClick={() => {
-                                        setActiveType("image");
-                                        setActiveImg(src);
-                                    }}
-                                >
-                                    <div
-                                        className="thumb-image"
-                                        style={{ backgroundImage: `url(${src})` }}
-                                    />
-                                </button>
-                            ))}
+                                    {screenshots.map((src, idx) => (
+                                        <button
+                                            key={idx}
+                                            className={`thumbnail-btn ${activeType === "image" && activeImg === src ? "active" : ""}`}
+                                            onClick={() => {
+                                                setActiveType("image");
+                                                setActiveImg(src);
+                                            }}
+                                        >
+                                            <div
+                                                className="thumb-image"
+                                                style={{ backgroundImage: `url(${src})` }}
+                                            />
+                                        </button>
+                                    ))}
+                                </>
+                            )}
                         </div>
                     )}
                 </div>
