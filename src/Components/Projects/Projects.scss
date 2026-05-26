@@ -38,7 +38,7 @@
 
 /* Mobile Performance Optimization: Disable backdrop-filter only on massive elements */
 @media (max-width: 768px) {
-    .work, .lightbox-modal, .lightbox-content {
+    .lightbox-modal, .lightbox-content {
         -webkit-backdrop-filter: none !important;
         backdrop-filter: none !important;
     }
