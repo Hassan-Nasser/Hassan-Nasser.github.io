@@ -224,6 +224,7 @@ const BackgroundNexus = () => {
         height: '100vh',
         pointerEvents: 'none',
         zIndex: 2,
+        WebkitFilter: 'blur(0.15px)',
         filter: 'blur(0.15px)',
       }}
     />

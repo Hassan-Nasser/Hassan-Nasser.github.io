@@ -85,8 +85,8 @@
 			overflow: hidden;
 			box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 			z-index: 3;
-			backdrop-filter: blur(24px);
 			-webkit-backdrop-filter: blur(24px);
+			backdrop-filter: blur(24px);
 			isolation: isolate;
 			width: 100%;
 		}
@@ -449,8 +449,8 @@
 				padding: 1.25rem 3.25rem;
 				border-radius: 9999px;
 				text-decoration: none;
-				backdrop-filter: blur(6px);
 				-webkit-backdrop-filter: blur(6px);
+				backdrop-filter: blur(6px);
 				box-shadow:
 					0 4px 30px rgba(59, 130, 246, 0.15),
 					inset 0 1px 0 rgba(255, 255, 255, 0.35),
@@ -836,8 +836,8 @@
 	position: fixed;
 	inset: 0;
 	background: rgba(2, 6, 23, 0.45);
-	backdrop-filter: blur(6px);
 	-webkit-backdrop-filter: blur(6px);
+	backdrop-filter: blur(6px);
 	z-index: 9999;
 	display: flex;
 	align-items: center;
