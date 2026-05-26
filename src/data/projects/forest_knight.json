@@ -10,6 +10,9 @@
     "Collectible Cards"
   ],
   "platforms": [
-    "Mobile"
-  ]
+    "Mobile",
+    "Android",
+    "IOS"
+  ],
+  "role": "Senior Game Developer"
 }

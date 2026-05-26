@@ -6,6 +6,9 @@
   "genres": [],
   "platforms": [
     "AR",
-    "Mobile"
-  ]
+    "Mobile",
+    "Android",
+    "IOS"
+  ],
+  "role": "Junior Game Developer"
 }

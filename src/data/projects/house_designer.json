@@ -7,7 +7,9 @@
     "Software"
   ],
   "platforms": [
+    "Desktop",
     "AR",
     "VR"
-  ]
+  ],
+  "role": "Intermediate Game Developer"
 }
