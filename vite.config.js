@@ -5,7 +5,6 @@ import svgr from 'vite-plugin-svgr';
 import fs from 'fs';
 import path from 'path';
 
-// Vite plugin to copy index.html to 404.html for GitHub Pages SPA routing
 const copy404Plugin = () => {
   return {
     name: 'copy-404-plugin',

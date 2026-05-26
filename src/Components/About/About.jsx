@@ -65,12 +65,12 @@ export function About(props) {
                                 <div className="timeline-marker"></div>
                                 <div className="timeline-card">
                                     <div className="timeline-time">
-                                        <FontAwesomeIcon icon={faCalendarDays} className="me-2" /> 2018 - Present
+                                        <FontAwesomeIcon icon={faCalendarDays} className="me-2" /> Nov 2022 - Present
                                     </div>
-                                    <h3 className="timeline-job-title">Senior Game Developer</h3>
-                                    <span className="timeline-company">Upwork - Freelance</span>
+                                    <h3 className="timeline-job-title">Game Developer & Software Engineer</h3>
+                                    <span className="timeline-company">Upwork (Freelancer) | Remote</span>
                                     <p className="timeline-description">
-                                        Worked with market-leading companies developing large-scale mobile games and AR apps, delivering innovative solutions and exceptional user experiences.
+                                        Delivered 30+ Unity projects across varied genres, architecting scalable multiplayer backends and complex gameplay systems. Created custom toolkits, commercial platforms, and web-based game hubs to accelerate development cycles.
                                     </p>
                                 </div>
                             </TimelineItem>
@@ -80,12 +80,12 @@ export function About(props) {
                                 <div className="timeline-marker"></div>
                                 <div className="timeline-card">
                                     <div className="timeline-time">
-                                        <FontAwesomeIcon icon={faCalendarDays} className="me-2" /> 2021 - 2022
+                                        <FontAwesomeIcon icon={faCalendarDays} className="me-2" /> Dec 2021 - Nov 2022
                                     </div>
                                     <h3 className="timeline-job-title">Senior Game Developer</h3>
-                                    <span className="timeline-company">Chrono Games</span>
+                                    <span className="timeline-company">Forest Knight (Contract) | Remote</span>
                                     <p className="timeline-description">
-                                        Played a pivotal role in optimizing 'Forest Knight' network architecture for large-scale mobile gaming, supporting hundreds of thousands of players.
+                                        Rebuilt the multiplayer architecture and optimized core gameplay systems for a blockchain-based game with 150,000+ players. Developed robust campaign progression systems while reducing server costs by over 70%.
                                     </p>
                                 </div>
                             </TimelineItem>
@@ -95,12 +95,12 @@ export function About(props) {
                                 <div className="timeline-marker"></div>
                                 <div className="timeline-card">
                                     <div className="timeline-time">
-                                        <FontAwesomeIcon icon={faCalendarDays} className="me-2" /> 2021 - 2022
+                                        <FontAwesomeIcon icon={faCalendarDays} className="me-2" /> Aug 2021 - Sep 2022
                                     </div>
                                     <h3 className="timeline-job-title">Senior Game Developer</h3>
-                                    <span className="timeline-company">Front Tech, LLC – Part Time</span>
+                                    <span className="timeline-company">Front Tech, LLC (Part-time) | Cairo, Egypt</span>
                                     <p className="timeline-description">
-                                        Led the development of 'Millionaire Deal - Card Game,' a multiplayer card game with unique collectible cards, focusing on enhancing gameplay mechanics and player engagement.
+                                        Led the end-to-end development of "Millionaire Deal," a multiplayer turn-based card game. Managed the implementation of core gameplay features, virtual economies, and integrated polished visual assets.
                                     </p>
                                 </div>
                             </TimelineItem>
@@ -110,12 +110,42 @@ export function About(props) {
                                 <div className="timeline-marker"></div>
                                 <div className="timeline-card">
                                     <div className="timeline-time">
-                                        <FontAwesomeIcon icon={faCalendarDays} className="me-2" /> 2020 - 2021
+                                        <FontAwesomeIcon icon={faCalendarDays} className="me-2" /> Feb 2020 - Jul 2021
                                     </div>
-                                    <h3 className="timeline-job-title">Senior Game Developer</h3>
-                                    <span className="timeline-company">Alamat.tech</span>
+                                    <h3 className="timeline-job-title">Intermediate Game Developer</h3>
+                                    <span className="timeline-company">Alamat.tech | Cairo, Egypt</span>
                                     <p className="timeline-description">
-                                        Developed a wide range of hyper-casual games, AR experiences, and multiplayer games.
+                                        Engineered scalable real-time multiplayer systems and ranked matchmaking using Unity and Photon. Built automated asset pipelines that significantly improved the team's iteration speed.
+                                    </p>
+                                </div>
+                            </TimelineItem>
+
+                            {/* Timeline Item 5 */}
+                            <TimelineItem>
+                                <div className="timeline-marker"></div>
+                                <div className="timeline-card">
+                                    <div className="timeline-time">
+                                        <FontAwesomeIcon icon={faCalendarDays} className="me-2" /> Mar 2019 - Feb 2020
+                                    </div>
+                                    <h3 className="timeline-job-title">Junior Game Developer</h3>
+                                    <span className="timeline-company">DASA Studios | Cairo, Egypt</span>
+                                    <p className="timeline-description">
+                                        Contributed to the development and integration of over 10 multiplayer card and board games, linking them to a centralized hub for unified matchmaking and progression.
+                                    </p>
+                                </div>
+                            </TimelineItem>
+
+                            {/* Timeline Item 6 */}
+                            <TimelineItem>
+                                <div className="timeline-marker"></div>
+                                <div className="timeline-card">
+                                    <div className="timeline-time">
+                                        <FontAwesomeIcon icon={faCalendarDays} className="me-2" /> Jun 2017 - Oct 2018
+                                    </div>
+                                    <h3 className="timeline-job-title">Junior Game Developer</h3>
+                                    <span className="timeline-company">NasNav | Cairo, Egypt</span>
+                                    <p className="timeline-description">
+                                        Built interactive AR and 3D applications, including a real estate design app and a fully navigable virtual shopping mall with 360° showrooms.
                                     </p>
                                 </div>
                             </TimelineItem>
