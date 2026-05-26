@@ -1,42 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./Projects.scss";
-import { db } from "../../config/firebase";
-import { collection, getDoc, getDocs, query, where, doc } from "firebase/firestore";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import { Link } from 'react-router-dom';
 import { Play, Maximize2, X, ExternalLink, ChevronRight } from "lucide-react";
 
-let memoryProjectsCache = null;
-let memoryHighlightsCache = null;
-
-const CACHE_KEY_PROJECTS = "portfolio_projects_cache_v3";
-const CACHE_KEY_HIGHLIGHTS = "portfolio_highlights_cache_v3";
-
-const RAW_JSON_URL = "https://raw.githubusercontent.com/aya-abdallah/hassan-portfolio/master/projects.json";
-
-let globalPrefetchPromise = null;
-
-const initiatePrefetch = () => {
-    if (!globalPrefetchPromise) {
-        globalPrefetchPromise = fetch(`${RAW_JSON_URL}?t=${Date.now()}`)
-            .then(res => {
-                if (!res.ok) throw new Error("JSON fetch failed");
-                return res.json();
-            })
-            .catch(err => {
-                console.error("Prefetch from GitHub failed, falling back to Firestore:", err);
-                return Promise.all([
-                    getDocs(collection(db, "projects")),
-                    getDocs(collection(db, "highlights")),
-                    getDocs(collection(db, "tags"))
-                ]);
-            });
-    }
-    return globalPrefetchPromise;
-};
-
-// Trigger the prefetch the absolute millisecond this file is parsed by the browser
-initiatePrefetch();
+import projectsDataRaw from "../../data/projects.json";
+import highlightsDataRaw from "../../data/highlights.json";
 
 const ProjectRow = ({ project: initialProject }) => {
     const [project, setProject] = useState(initialProject);
@@ -129,12 +98,14 @@ const ProjectRow = ({ project: initialProject }) => {
             }
         }
         return () => { isMounted = false; };
-    }, [isIntersecting, project.profile, project.tags, project.name]);
+    }, [isIntersecting, project.profile, project.name]);
 
     const meta = {
-        role: project.role || project.jobTitle || "Senior Game Developer",
-        platforms: project.platforms || project.platform || "PC | Mobile",
-        buttonText: project.buttonText || (project.googlePlay ? "Google Play Store" : "Launch App")
+        role: project.role || "Developer",
+        platforms: project.platforms && project.platforms.length > 0 
+            ? project.platforms.join(' | ') 
+            : "Mobile",
+        buttonText: project.buttonText || "View Project",
     };
 
     const showCarousel = screenshots.length > 0;
@@ -175,9 +146,14 @@ const ProjectRow = ({ project: initialProject }) => {
                     <p className="project-desc">{project.description}</p>
 
                     <div className="project-tags">
-                        {project.tags && project.tags.map((tag, idx) => (
-                            <span key={idx} className="project-tag-badge">
-                                {tag.name}
+                        {project.platforms && project.platforms.map((platformName, idx) => (
+                            <span key={`p-${idx}`} className="project-tag-badge platform-badge">
+                                {platformName}
+                            </span>
+                        ))}
+                        {project.genres && project.genres.map((genreName, idx) => (
+                            <span key={`g-${idx}`} className="project-tag-badge">
+                                {genreName}
                             </span>
                         ))}
                     </div>
@@ -311,26 +287,8 @@ const ProjectRow = ({ project: initialProject }) => {
     );
 };
 
-const computeSpotlight = (projCache, highCache) => {
-    const highlightNames = [];
-    highCache.forEach(h => {
-        if (h.name && !highlightNames.includes(h.name)) highlightNames.push(h.name);
-        if (h.id && h.id !== 'highlights' && h.id !== 'default' && !highlightNames.includes(h.id)) highlightNames.push(h.id);
-        
-        Object.values(h).forEach(val => {
-            if (Array.isArray(val)) {
-                val.forEach(v => {
-                    if (typeof v === 'string' && !highlightNames.includes(v)) highlightNames.push(v);
-                });
-            }
-        });
-    });
-
-    let spotlightProjects = projCache.filter(p => highlightNames.includes(p.name) || highlightNames.includes(p.id));
-
-    if (spotlightProjects.length === 0) {
-        spotlightProjects = projCache.filter(p => p.spotlight);
-    }
+const computeSpotlight = (projCache, highlightNames) => {
+    const spotlightProjects = projCache.filter(p => highlightNames.includes(p.name) || highlightNames.includes(p.id));
 
     spotlightProjects.sort((a, b) => {
         let indexA = highlightNames.indexOf(a.name);
@@ -339,116 +297,21 @@ const computeSpotlight = (projCache, highCache) => {
         let indexB = highlightNames.indexOf(b.name);
         if (indexB === -1) indexB = highlightNames.indexOf(b.id);
         
-        if (indexA !== -1 && indexB !== -1) return indexA - indexB;
-        if (indexA !== -1) return -1;
-        if (indexB !== -1) return 1;
-
-        const orderA = parseInt(a.order || 999);
-        const orderB = parseInt(b.order || 999);
-        return orderA - orderB;
+        return indexA - indexB;
     });
 
     return spotlightProjects;
-};
+};const freshProjects = projectsDataRaw.map(d => {
+    const data = { ...d };
+    data.platforms = data.platforms || [];
+    data.genres = data.genres || [];
+    return data;
+});
+
+const initialSpotlightProjects = computeSpotlight(freshProjects, highlightsDataRaw);
 
 const Projects = () => {
-    const [projects, setProjects] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-
-    useEffect(() => {
-        const getSpotlightProjects = async () => {
-            try {
-                // 1. Instantly load from cache if available
-                let cachedProjects = memoryProjectsCache;
-                let cachedHighlights = memoryHighlightsCache;
-
-                if (!cachedProjects || !cachedHighlights) {
-                    const localProjects = localStorage.getItem(CACHE_KEY_PROJECTS);
-                    const localHighlights = localStorage.getItem(CACHE_KEY_HIGHLIGHTS);
-
-                    if (localProjects && localHighlights) {
-                        cachedProjects = JSON.parse(localProjects);
-                        cachedHighlights = JSON.parse(localHighlights);
-                        memoryProjectsCache = cachedProjects;
-                        memoryHighlightsCache = cachedHighlights;
-                    }
-                }
-
-                if (cachedProjects && cachedHighlights) {
-                    const spotlightProjects = computeSpotlight(cachedProjects, cachedHighlights);
-                    setProjects(spotlightProjects);
-                    setIsLoading(false);
-                }
-
-                // 2. Fetch fresh data using the prefetch promise (or start a new one if it failed)
-                const fetchedData = await initiatePrefetch();
-
-                let freshProjects = [];
-                let freshHighlights = [];
-
-                if (!Array.isArray(fetchedData) && fetchedData.projects && fetchedData.projects.length > 0) {
-                    // Loaded successfully from JSON
-                    freshProjects = fetchedData.projects;
-                    freshHighlights = fetchedData.highlights || [];
-                } else {
-                    // Fallback to Firestore parsing
-                    let projectsSnap, highlightsSnap, tagsSnap;
-                    if (Array.isArray(fetchedData) && fetchedData.length === 3) {
-                        [projectsSnap, highlightsSnap, tagsSnap] = fetchedData;
-                    } else {
-                        [projectsSnap, highlightsSnap, tagsSnap] = await Promise.all([
-                            getDocs(collection(db, "projects")),
-                            getDocs(collection(db, "highlights")),
-                            getDocs(collection(db, "tags"))
-                        ]);
-                    }
-
-                    const tagsDict = {};
-                    tagsSnap.docs.forEach(d => {
-                        tagsDict[d.id] = { id: d.id, ...d.data() };
-                        if (d.ref && d.ref.path) {
-                            tagsDict[d.ref.path] = tagsDict[d.id];
-                        }
-                    });
-
-                    freshProjects = projectsSnap.docs.map(d => {
-                        const data = d.data();
-                        data.id = d.id;
-                        if (data.tags && Array.isArray(data.tags)) {
-                            data.tags = data.tags.map(t => {
-                                const tagData = tagsDict[t.id] || tagsDict[t.path];
-                                if (tagData) return tagData;
-                                if (t.path) return { _refPath: t.path };
-                                return t;
-                            });
-                        }
-                        return data;
-                    });
-
-                    freshHighlights = highlightsSnap.docs.map(d => ({ id: d.id, ...d.data() }));
-
-                    // Print to console so the user can easily copy-paste to projects.json
-                    console.log("=== COPY THIS ENTIRE JSON OBJECT TO projects.json ===");
-                    console.log(JSON.stringify({ highlights: freshHighlights, projects: freshProjects }, null, 2));
-                    console.log("======================================================");
-                }
-
-                memoryProjectsCache = freshProjects;
-                memoryHighlightsCache = freshHighlights;
-                localStorage.setItem(CACHE_KEY_PROJECTS, JSON.stringify(freshProjects));
-                localStorage.setItem(CACHE_KEY_HIGHLIGHTS, JSON.stringify(freshHighlights));
-
-                const freshSpotlightProjects = computeSpotlight(freshProjects, freshHighlights);
-                setProjects(freshSpotlightProjects);
-            } catch (error) {
-                console.error("Error loading projects from Firestore:", error);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        getSpotlightProjects();
-    }, []);
+    const [projects, setProjects] = useState(initialSpotlightProjects);
 
     return (
         <div className="work" id="portfolio">
@@ -460,19 +323,11 @@ const Projects = () => {
                     </div>
                 </div>
             </div>
-
+            
             <div className="projects-list-container">
-                {isLoading ? (
-                    <div className="container py-5 text-center">
-                        <div className="spinner-border text-info" role="status">
-                            <span className="visually-hidden">Loading Projects...</span>
-                        </div>
-                    </div>
-                ) : (
-                    projects.map((project, index) => (
-                        <ProjectRow key={index} project={project} />
-                    ))
-                )}
+                {projects.map((project, index) => (
+                    <ProjectRow key={index} project={project} />
+                ))}
             </div>
 
             <div className={`see-more-section ${projects.length % 2 === 0 ? 'bg-even' : 'bg-odd'}`}>

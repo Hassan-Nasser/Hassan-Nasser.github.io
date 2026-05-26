@@ -1,0 +1,435 @@
+[
+  {
+    "id": "A.M.R.B",
+    "name": "A.M.R.B",
+    "url": "https://www.youtube.com/embed/GOOo-1z1fAo?autoplay=1",
+    "description": "An augmented reality app made as a freelance project, part of a PhD in Innovative ways of teaching to help students of faculty of physical education to learn in more fun and innovative ways.\nThe app contains 35+ 3D animations and videos  and more content will be added for all 4 years students",
+    "genres": [],
+    "platforms": [
+      "AR",
+      "Mobile"
+    ]
+  },
+  {
+    "id": "Arena Rumble",
+    "name": "Arena Rumble",
+    "url": "https://www.youtube.com/embed/lBUrOBcgukw?autoplay=1",
+    "description": "Multiplayer turn based strategy game with collectable cards. Collect cards and build you team of 4 strong fighters. Battle in 1v1 fights and gain rewards, loots and chests. Ranked seasons, Unlockable cards, Unlockable characters and much more with in depth economy system with virtual currencies",
+    "genres": [],
+    "platforms": []
+  },
+  {
+    "id": "Ball Multiplier",
+    "name": "Ball Multiplier",
+    "url": "https://www.youtube.com/embed/BcgUUD3WKDU?autoplay=1",
+    "description": "A hypercasual mobile game, done as a freelance project.",
+    "genres": [
+      "Casual"
+    ],
+    "platforms": [
+      "Mobile"
+    ]
+  },
+  {
+    "id": "Blend Builder",
+    "name": "Blend Builder",
+    "url": "https://youtube.com/embed/mmeKgBz4hvY?autoplay=1",
+    "description": "A hypercasual mobile game, done as a freelance project.",
+    "genres": [
+      "Casual"
+    ],
+    "platforms": [
+      "Mobile"
+    ]
+  },
+  {
+    "id": "Circle Match",
+    "description": "A hypercasual mobile game, done as a freelance project.",
+    "name": "Circle Match",
+    "url": "https://youtube.com/embed/_krgAt7xoFU?autoplay=1",
+    "genres": [
+      "Casual"
+    ],
+    "platforms": [
+      "Mobile"
+    ]
+  },
+  {
+    "id": "Competitrivia",
+    "name": "Competitrivia",
+    "url": "https://youtube.com/embed/R1DNk5gdjIk?autoplay=1",
+    "description": "A hypercasual mobile game, done as a freelance project.",
+    "genres": [
+      "Casual"
+    ],
+    "platforms": [
+      "Mobile"
+    ]
+  },
+  {
+    "id": "Drawing Fight",
+    "description": "A hypercasual mobile game, done as a freelance project.",
+    "url": "https://www.youtube.com/embed/09OtNUt8ueQ?autoplay=1",
+    "name": "Drawing Fight",
+    "genres": [
+      "Casual"
+    ],
+    "platforms": [
+      "Mobile"
+    ]
+  },
+  {
+    "id": "Farm Clearing",
+    "description": "A hypercasual mobile game, done as a freelance project.",
+    "name": "Farm Clearing",
+    "url": "https://youtube.com/embed/xn5islLX-Fo?autoplay=1",
+    "genres": [
+      "Casual"
+    ],
+    "platforms": [
+      "Mobile"
+    ]
+  },
+  {
+    "id": "Forest Knight",
+    "description": "A tactical RPG game set in a fantasy medieval world.\nExplore the adventure mode and fight against the Skeleton Master's reign.\nRecruit unique heroes, each with their abilities and exclusive items.\nBuild your favorite team and defend the city of Chronville against the attackers. Fight for glory against other knights in the arena, explore the underworld, and so much more.",
+    "googlePlay": "https://play.google.com/store/apps/details?id=com.ChronoGames.Forest.Knight&hl=en&gl=US",
+    "name": "Forest Knight",
+    "url": "https://www.youtube.com/embed/EmGmLHfY1v8?autoplay=1",
+    "genres": [
+      "Multiplayer",
+      "Turn Based",
+      "Collectible Cards"
+    ],
+    "platforms": [
+      "Mobile"
+    ]
+  },
+  {
+    "id": "Fruit Runner",
+    "name": "Fruit Runner",
+    "url": "https://youtube.com/embed/X5m3ET6mLMc?autoplay=1",
+    "description": "A hypercasual mobile game, done as a freelance project.",
+    "genres": [
+      "Casual"
+    ],
+    "platforms": [
+      "Mobile"
+    ]
+  },
+  {
+    "id": "Goal Catcher",
+    "description": "A hypercasual mobile game, done as a freelance project.",
+    "name": "Goal Catcher",
+    "url": "https://www.youtube.com/embed/sujuaw3_qEs?autoplay=1",
+    "genres": [
+      "Casual"
+    ],
+    "platforms": [
+      "Mobile"
+    ]
+  },
+  {
+    "id": "Guess-Their-Answers",
+    "description": "A hypercasual mobile game, done as a freelance project.",
+    "name": "Guess Their Answers",
+    "url": "https://www.youtube.com/embed/VuTS5h3Qqi0?autoplay=1",
+    "genres": [
+      "Casual"
+    ],
+    "platforms": [
+      "Mobile"
+    ]
+  },
+  {
+    "id": "Head Smashers",
+    "url": "https://www.youtube.com/embed/lBUrOBcgukw?autoplay=1",
+    "name": "Head Smashers",
+    "description": "Multiplayer turn based strategy game with collectable cards. \nCollect cards and build you team of 4 strong fighters.\nBattle in 1v1 fights and gain rewards, loots and chests.\nRanked seasons, Unlockable cards, Unlockable characters and much more with in depth economy system with virtual currencies",
+    "genres": [
+      "Multiplayer",
+      "Turn Based",
+      "Collectible Cards"
+    ],
+    "platforms": [
+      "Mobile"
+    ]
+  },
+  {
+    "id": "Hlaf Anger",
+    "name": "Half Anger",
+    "url": "https://www.youtube.com/embed/Wu1BcZa9H-Y?autoplay=1",
+    "description": "A hypercasual mobile game, done as a freelance project.",
+    "genres": [
+      "Casual"
+    ],
+    "platforms": [
+      "Mobile"
+    ]
+  },
+  {
+    "id": "House Designer",
+    "name": "House Designer",
+    "url": "https://www.youtube.com/embed/YhcBwb5yHRs?autoplay=1",
+    "description": "A marketing software made as a freelance project for houses realtor to advertise houses more efficient and help people sell and buy houses faster.\nThe end user product is a website with VR and AR visual to view how houses will look like.",
+    "genres": [
+      "Software"
+    ],
+    "platforms": [
+      "AR",
+      "VR"
+    ]
+  },
+  {
+    "id": "In & Out AR Tour",
+    "description": "A 360 Tour app for In & Out Furniture , made as part of marketing project at NASNAV , I worked as a unity developer on the project.",
+    "url": "https://www.youtube.com/embed/e3VO16OFZt0?autoplay=1",
+    "name": "In & Out AR Tour",
+    "genres": [],
+    "platforms": [
+      "VR",
+      "AR",
+      "Mobile"
+    ]
+  },
+  {
+    "id": "Last Hope Opening Cutscene",
+    "description": "Video and soundtrack editing done by me.\nLast Hope is a multiplayer PC and mobile game for senior year graduation project.\nI worked as a unity developer, video editor and 3D animator in the project.",
+    "url": "https://www.youtube.com/embed/F_cWczxgisM?autoplay=1",
+    "name": "Last Hope Opening Cutscene",
+    "genres": [
+      "Multiplayer"
+    ],
+    "platforms": [
+      "Mobile"
+    ]
+  },
+  {
+    "id": "Lumber Ninja",
+    "description": "A hypercasual mobile game, done as a freelance project.",
+    "name": "Lumber Ninja",
+    "url": "https://youtube.com/embed/yCLf5y4OqqQ?autoplay=1",
+    "genres": [
+      "Casual"
+    ],
+    "platforms": [
+      "Mobile"
+    ]
+  },
+  {
+    "id": "Millionaires Deal",
+    "description": "Multiplayer card game, Where you can collect more than 200 cards and play vs players in 1v1 matches or 4 players.Ranked seasons, Unlockable cards, Unlockable characters and much more with in depth economy system with virtual currencies.",
+    "googlePlay": "https://play.google.com/store/apps/details?id=com.FrontTech.millionairedeal&hl=en&gl=US",
+    "name": "Millionaires Deal",
+    "url": "https://youtube.com/embed/CxQfIo3i0-c?autoplay=1",
+    "genres": [
+      "Multiplayer",
+      "Turn Based",
+      "Collectible Cards"
+    ],
+    "platforms": [
+      "Mobile"
+    ]
+  },
+  {
+    "id": "Plate Former",
+    "url": "https://youtube.com/embed/wyPy5FwaPbg?autoplay=1",
+    "name": "Plate Former",
+    "description": "A hypercasual mobile game, done as a freelance project.",
+    "genres": [
+      "Casual"
+    ],
+    "platforms": [
+      "Mobile"
+    ]
+  },
+  {
+    "id": "Ring Roller",
+    "description": "A hypercasual mobile game, done as a freelance project.",
+    "url": "https://youtube.com/embed/zStD-znkqfU?autoplay=1",
+    "name": "Ring Roller",
+    "genres": [
+      "Casual"
+    ],
+    "platforms": [
+      "Mobile"
+    ]
+  },
+  {
+    "id": "Roadtate",
+    "name": "Roadtate",
+    "url": "https://youtube.com/embed/SfVqK4ZNeBs?autoplay=1",
+    "description": "A hypercasual mobile game, done as a freelance project.",
+    "genres": [
+      "Casual"
+    ],
+    "platforms": [
+      "Mobile"
+    ]
+  },
+  {
+    "id": "Rolling Ball",
+    "name": "Rolling Ball",
+    "url": "https://www.youtube.com/embed/lCRThd6Zd8I?autoplay=1",
+    "description": "A hypercasual mobile game, done as a freelance project.",
+    "genres": [
+      "Casual"
+    ],
+    "platforms": [
+      "Mobile"
+    ]
+  },
+  {
+    "id": "Samu Runner",
+    "name": "Samu Runner",
+    "url": "https://youtube.com/embed/cEJ7qqCd_y0?autoplay=1",
+    "description": "A hypercasual mobile game, done as a freelance project.",
+    "genres": [
+      "Casual"
+    ],
+    "platforms": [
+      "Mobile"
+    ]
+  },
+  {
+    "id": "Shizard",
+    "description": "A hypercasual mobile game, done as a freelance project.",
+    "name": "Shizard",
+    "url": "https://youtube.com/embed/gYqpvTg8DFg?autoplay=1",
+    "genres": [
+      "Casual"
+    ],
+    "platforms": [
+      "Mobile"
+    ]
+  },
+  {
+    "id": "Sniffer",
+    "description": "A hypercasual mobile game, done as a freelance project.",
+    "name": "Sniffer",
+    "url": "https://youtube.com/embed/i_2Rfi0K-mI?autoplay=1",
+    "genres": [
+      "Casual"
+    ],
+    "platforms": [
+      "Mobile"
+    ]
+  },
+  {
+    "id": "Socker Judgement",
+    "description": "A hypercasual mobile game, done as a freelance project.",
+    "name": "Socker Judgement",
+    "url": "https://youtube.com/embed/WzwgRZ2-QBs?autoplay=1",
+    "genres": [
+      "Casual"
+    ],
+    "platforms": [
+      "Mobile"
+    ]
+  },
+  {
+    "id": "Spooky Night",
+    "name": "Spooky Night",
+    "url": "https://www.youtube.com/embed/efswIMSTOJ8?autoplay=1",
+    "description": "A hypercasual mobile game, done as a freelance project.",
+    "genres": [
+      "Casual"
+    ],
+    "platforms": [
+      "Mobile"
+    ]
+  },
+  {
+    "id": "Squeeze Climb",
+    "description": "A hypercasual mobile game, done as a freelance project.",
+    "url": "https://youtube.com/embed/YPuoJfmf_zk?autoplay=1",
+    "name": "Squeeze Climb",
+    "genres": [
+      "Casual"
+    ],
+    "platforms": [
+      "Mobile"
+    ]
+  },
+  {
+    "id": "Stinky Rush",
+    "description": "A hypercasual mobile game, done as a freelance project.",
+    "name": "Stinky Rush",
+    "url": "https://youtube.com/embed/1JEWxCqp2OI?autoplay=1",
+    "genres": [
+      "Casual"
+    ],
+    "platforms": [
+      "Mobile"
+    ]
+  },
+  {
+    "id": "Surf n Go",
+    "description": "A hypercasual mobile game, done as a freelance project.",
+    "name": "Surf n Go",
+    "url": "https://youtube.com/embed/SxFoDpVymQs?autoplay=1",
+    "genres": [
+      "Casual"
+    ],
+    "platforms": [
+      "Mobile"
+    ]
+  },
+  {
+    "id": "Throwfest",
+    "description": "A hypercasual mobile game, done as a freelance project.",
+    "name": "Throwfest",
+    "url": "https://youtube.com/embed/dhemryXeoR8?autoplay=1",
+    "genres": [
+      "Casual"
+    ],
+    "platforms": [
+      "Mobile"
+    ]
+  },
+  {
+    "id": "Treadmill Eater",
+    "url": "https://youtube.com/embed/xuUSL2rUBNk?autoplay=1",
+    "name": "Treadmill Eater",
+    "description": "A hypercasual mobile game, done as a freelance project.",
+    "genres": [
+      "Casual"
+    ],
+    "platforms": [
+      "Mobile"
+    ]
+  },
+  {
+    "id": "Virtual Market Metaverse",
+    "url": "https://www.youtube.com/embed/_8VD-rYpTPs?autoplay=1",
+    "name": "Virtual Market Metaverse",
+    "description": "Metaverse for shopping.\nYou can walk around a huge city, Pick up items, chat with other people, shop with friends, pay with any payment method, view products in 3D models. All in 1 app.",
+    "genres": [
+      "Multiplayer"
+    ],
+    "platforms": [
+      "VR",
+      "Mobile"
+    ]
+  },
+  {
+    "id": "Void Rift",
+    "description": "Multiplayer Co-op, player vs player game",
+    "name": "Void Rift",
+    "url": "https://youtu.be/daMawZSQKQc",
+    "genres": [],
+    "platforms": []
+  },
+  {
+    "id": "Wall Drawer",
+    "description": "A hypercasual mobile game, done as a freelance project.",
+    "url": "https://youtube.com/embed/qeVf-CJvJhY?autoplay=1",
+    "name": "Wall Drawer",
+    "genres": [
+      "Casual"
+    ],
+    "platforms": [
+      "Mobile"
+    ]
+  }
+]
