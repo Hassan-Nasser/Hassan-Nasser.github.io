@@ -4,7 +4,8 @@ import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import { Link } from 'react-router-dom';
 import { Play, Maximize2, X, ExternalLink, ChevronRight } from "lucide-react";
 
-import projectsDataRaw from "../../data/projects.json";
+const projectModules = import.meta.glob("../../data/projects/*.json", { eager: true });
+const projectsDataRaw = Object.values(projectModules).map(m => m.default || m);
 import highlightsDataRaw from "../../data/highlights.json";
 
 const ProjectRow = ({ project: initialProject }) => {
@@ -85,13 +86,6 @@ const ProjectRow = ({ project: initialProject }) => {
 
                     if (isMounted && updated) {
                         setProject(updatedProject);
-                        if (memoryProjectsCache) {
-                            const idx = memoryProjectsCache.findIndex(p => p.name === updatedProject.name);
-                            if (idx !== -1) {
-                                memoryProjectsCache[idx] = updatedProject;
-                                localStorage.setItem(CACHE_KEY_PROJECTS, JSON.stringify(memoryProjectsCache));
-                            }
-                        }
                     }
                 };
                 loadData();
