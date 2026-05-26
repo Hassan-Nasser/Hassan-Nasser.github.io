@@ -36,19 +36,11 @@
     margin-top: 1rem;
 }
 
-/* Mobile Performance Optimization: Disable backdrop-filter */
+/* Mobile Performance Optimization: Disable backdrop-filter only on massive elements */
 @media (max-width: 768px) {
-    .work, .project-card, .btn-glass-action, .lightbox-modal, .lightbox-content, .see-more-projects-btn, .image-overlay {
+    .work, .lightbox-modal, .lightbox-content {
         -webkit-backdrop-filter: none !important;
         backdrop-filter: none !important;
-    }
-
-    .project-card {
-        background: rgba(15, 23, 42, 0.95) !important;
-    }
-
-    .btn-glass-action {
-        background: linear-gradient(165deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%) !important;
     }
 
     .lightbox-modal {
@@ -57,10 +49,6 @@
     
     .lightbox-content {
         background: rgba(15, 23, 42, 0.98) !important;
-    }
-    
-    .see-more-projects-btn {
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(59, 130, 246, 0.12) 100%) !important;
     }
 }
 

@@ -137,55 +137,53 @@ const BackgroundNexus = () => {
         p.update(width, height, currentMouseY);
         p.draw(ctx, currentMouseY);
 
-        if (width > 768) {
-          for (let j = index + 1; j < particles.length; j++) {
-            const p2 = particles[j];
-            const dx = p.x - p2.x;
-            const dy = p.y - p2.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
+        for (let j = index + 1; j < particles.length; j++) {
+          const p2 = particles[j];
+          const dx = p.x - p2.x;
+          const dy = p.y - p2.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
 
-            if (dist < connectionDistance) {
-              const midX = (p.x + p2.x) / 2;
-              const midY = (p.y + p2.y) / 2;
-              const mdx = mouse.x - midX;
-              const mdy = currentMouseY - midY;
-              const mDist = Math.sqrt(mdx * mdx + mdy * mdy);
+          if (dist < connectionDistance) {
+            const midX = (p.x + p2.x) / 2;
+            const midY = (p.y + p2.y) / 2;
+            const mdx = mouse.x - midX;
+            const mdy = currentMouseY - midY;
+            const mDist = Math.sqrt(mdx * mdx + mdy * mdy);
 
-              ctx.beginPath();
-              let opacity = 0.18 * (1 - dist / connectionDistance);
+            ctx.beginPath();
+            let opacity = 0.18 * (1 - dist / connectionDistance);
 
-              if (mDist < mouse.radius) {
-                opacity += (1 - mDist / mouse.radius) * 0.25;
-                ctx.lineWidth = 1.2;
-                ctx.strokeStyle = `rgba(147, 197, 253, ${opacity})`;
-              } else {
-                ctx.lineWidth = 0.6;
-                ctx.strokeStyle = `rgba(59, 130, 246, ${opacity})`;
-              }
+            if (mDist < mouse.radius) {
+              opacity += (1 - mDist / mouse.radius) * 0.25;
+              ctx.lineWidth = 1.2;
+              ctx.strokeStyle = `rgba(147, 197, 253, ${opacity})`;
+            } else {
+              ctx.lineWidth = 0.6;
+              ctx.strokeStyle = `rgba(59, 130, 246, ${opacity})`;
+            }
 
-              ctx.moveTo(p.x, p.y);
-              ctx.lineTo(p2.x, p2.y);
-              ctx.stroke();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.stroke();
 
-              if (dist < triangleDistance) {
-                for (let k = j + 1; k < particles.length; k++) {
-                  const p3 = particles[k];
-                  const dx2 = p2.x - p3.x;
-                  const dy2 = p2.y - p3.y;
-                  const dist2 = Math.sqrt(dx2 * dx2 + dy2 * dy2);
-                  const dx3 = p.x - p3.x;
-                  const dy3 = p.y - p3.y;
-                  const dist3 = Math.sqrt(dx3 * dx3 + dy3 * dy3);
+            if (dist < triangleDistance) {
+              for (let k = j + 1; k < particles.length; k++) {
+                const p3 = particles[k];
+                const dx2 = p2.x - p3.x;
+                const dy2 = p2.y - p3.y;
+                const dist2 = Math.sqrt(dx2 * dx2 + dy2 * dy2);
+                const dx3 = p.x - p3.x;
+                const dy3 = p.y - p3.y;
+                const dist3 = Math.sqrt(dx3 * dx3 + dy3 * dy3);
 
-                  if (dist2 < triangleDistance && dist3 < triangleDistance) {
-                    ctx.beginPath();
-                    const triOpacity = 0.04 * (1 - dist / triangleDistance);
-                    ctx.fillStyle = `rgba(59, 130, 246, ${triOpacity})`;
-                    ctx.moveTo(p.x, p.y);
-                    ctx.lineTo(p2.x, p2.y);
-                    ctx.lineTo(p3.x, p3.y);
-                    ctx.fill();
-                  }
+                if (dist2 < triangleDistance && dist3 < triangleDistance) {
+                  ctx.beginPath();
+                  const triOpacity = 0.04 * (1 - dist / triangleDistance);
+                  ctx.fillStyle = `rgba(59, 130, 246, ${triOpacity})`;
+                  ctx.moveTo(p.x, p.y);
+                  ctx.lineTo(p2.x, p2.y);
+                  ctx.lineTo(p3.x, p3.y);
+                  ctx.fill();
                 }
               }
             }

@@ -319,18 +319,3 @@
 		margin-top: 22px;
 	}
 }
-
-/* Mobile Performance Optimization: Disable backdrop-filter */
-@media (max-width: 768px) {
-	.navbar, .navbar.top-nav-collapse {
-		-webkit-backdrop-filter: none !important;
-		backdrop-filter: none !important;
-		background-color: rgba(36, 38, 42, 0.95) !important;
-	}
-
-	.offcanvas-collapse {
-		-webkit-backdrop-filter: none !important;
-		backdrop-filter: none !important;
-		background: linear-gradient(160deg, rgba(15, 23, 42, 0.98) 0%, rgba(10, 10, 20, 1) 100%) !important;
-	}
-}
