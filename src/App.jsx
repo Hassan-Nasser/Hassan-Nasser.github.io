@@ -22,9 +22,9 @@ function App() {
   }, []);
 
   const getBackgroundColor = () => {
-    if (scrollProgress < 0.33) return 'rgb(15, 23, 42)';  // #0f172a
-    if (scrollProgress < 0.66) return 'rgb(12, 27, 61)';  // #0c1b3d
-    return 'rgb(26, 26, 46)';                              // #1a1a2e
+    if (scrollProgress < 0.33) return 'rgb(15, 23, 42)';
+    if (scrollProgress < 0.66) return 'rgb(12, 27, 61)';
+    return 'rgb(26, 26, 46)';
   };
 
   return (

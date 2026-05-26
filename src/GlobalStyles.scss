@@ -20,6 +20,7 @@ html {
 .blue {
 	color: #2259ec;
 }
+
 .white {
 	color: #ffffff;
 }
@@ -52,7 +53,6 @@ html {
 .btn-solid-reg:hover {
 	background-color: transparent;
 	color: #0b36a8;
-	/* needs to stay here because of the color property of a tag */
 	text-decoration: none;
 }
 
@@ -145,7 +145,6 @@ html {
 .form-control-input,
 .form-control-select {
 	display: block;
-	/* needed for proper display of the label in Firefox, IE, Edge */
 	width: 100%;
 	padding-top: 1.125rem;
 	padding-bottom: 0.125rem;
@@ -167,7 +166,6 @@ html {
 }
 
 select {
-	/* you should keep these first rules in place to maintain cross-browser behavior */
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	-ms-appearance: none;
@@ -181,10 +179,8 @@ select {
 
 .form-control-textarea {
 	display: block;
-	/* used to eliminate a bottom gap difference between Chrome and IE/FF */
 	width: 100%;
 	height: 14rem;
-	/* used instead of html rows to normalize height between Chrome and IE/FF */
 	padding-top: 1.5rem;
 	padding-left: 1.3125rem;
 	border: 1px solid #cbcbd1;
@@ -200,7 +196,6 @@ select {
 .form-control-textarea:focus {
 	border: 1px solid #a1a1a1;
 	outline: none;
-	/* Removes blue border on focus */
 }
 
 .form-control-input:hover,
@@ -239,7 +234,8 @@ input[type='checkbox'] {
 	background-color: transparent;
 	color: #24262a;
 }
-.italic{
+
+.italic {
 	font-style: italic;
 }
 
@@ -254,141 +250,21 @@ input[type='checkbox'] {
 .font-2 {
 	font-size: 1rem;
 }
-.font-3{
+
+.font-3 {
 	font-size: 2.5rem;
 }
 
-.left{
+.left {
 	text-align: left;
 }
-/* FONTS */
-@font-face {
-	font-family: "Play";
-	src: local('Play'), url("./Fonts/Play-Regular.ttf") format('woff');
-}
-
-.Play {
-	font-family: Play;
-}
-
-@font-face {
-	font-family: "BerkshireSwash";
-	src: local('BerkshireSwash'), url("./Fonts/BerkshireSwash-Regular.ttf") format('woff');
-}
-
-.BerkshireSwash {
-	font-family: BerkshireSwash;
-}
-
-@font-face {
-	font-family: "Merienda";
-	src: local('Merienda'), url("./Fonts/Merienda-VariableFont_wght.ttf") format('woff');
-}
-
-.Merienda {
-	font-family: Merienda;
-}
-
-@font-face {
-	font-family: "Alegreya";
-	src: local('Alegreya'), url("./Fonts/Alegreya-Regular.ttf") format('woff');
-}
-
-.Alegreya {
-	font-family: Alegreya;
-}
-
-@font-face {
-	font-family: "Holden";
-	src: local('Holden'), url("./Fonts/Holden-Medium-trial.ttf") format('woff');
-}
-
-.Holden {
-	font-family: Holden;
-}
-
-@font-face {
-	font-family: "lmromanslant10";
-	src: local('lmromanslant10'), url("./Fonts/lmromanslant10-regular.otf") format('woff');
-}
-
-.lmromanslant10 {
-	font-family: lmromanslant10;
-}
-
-@font-face {
-	font-family: "TechnaSans";
-	src: local('TechnaSans'), url("./Fonts/TechnaSans-Regular.otf") format('woff');
-}
-
-.TechnaSans {
-	font-family: TechnaSans;
-}
-
-
-@font-face {
-	font-family: "prototype";
-	src: local('prototype'), url("./Fonts/Prototype.ttf") format('woff');
-}
-
-.prototype {
-	font-family: prototype;
-}
-
-
-@font-face {
-	font-family: "montserrat";
-	src: local('montserrat'), url("./Fonts/Montserrat-Regular.ttf") format('woff');
-}
-
-.montserrat {
-	font-family: montserrat;
-}
-
-
-@font-face {
-	font-family: "blenda";
-	src: local('blenda'), url("./Fonts/Blenda\ Script.otf") format('woff');
-}
-
-.blenda {
-	font-family: blenda;
-}
-
-
-@font-face {
-	font-family: "timeline";
-	src: local('timeline'), url("./Fonts/Timeline.ttf") format('woff');
-}
-
-.timeline {
-	font-family: timeline;
-}
-
 
 @font-face {
 	font-family: "Poppins";
 	src: local('Poppins'), url("./Fonts/Poppins-Light.ttf") format('woff');
+	font-display: swap;
 }
 
 .Poppins {
 	font-family: Poppins;
-}
-
-@font-face {
-	font-family: "Platypi";
-	src: local('Platypi'), url("./Fonts/Platypi-VariableFont_wght.ttf") format('woff');
-}
-
-.Platypi {
-	font-family: Platypi;
-}
-
-@font-face {
-	font-family: "Mukta";
-	src: local('Mukta'), url("./Fonts/Mukta-Regular.ttf") format('woff');
-}
-
-.Mukta {
-	font-family: Mukta;
 }
