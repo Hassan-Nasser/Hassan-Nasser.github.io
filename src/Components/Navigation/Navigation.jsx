@@ -2,9 +2,12 @@ import React, { useEffect, useState, useRef } from "react";
 import "./Navigation.scss";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { HashLink } from "react-router-hash-link";
+import { useLocation } from "react-router-dom";
 import logoGif from "../../images/logo-Animated.gif";
 
 export function Navigation(props) {
+    const location = useLocation();
+    const isPortfolioPage = location.pathname === "/portfolio";
     const [classs, setClasss] = useState('');
     const [showNavbar, setShowNavbar] = useState(false);
     const navRef = useRef(null);
@@ -63,26 +66,16 @@ export function Navigation(props) {
 
                             <HashLink smooth className="nav-link page-scroll" to="/#portfolio">Portfolio</HashLink>
                         </li>
-                        <li className="nav-item" onClick={() => {
-
-                            setShowNavbar(false)
-                        }}>
-                            <HashLink smooth className="nav-link page-scroll" to="/#profile">Experience</HashLink>
-
-                        </li>
-                        {/* <li className="nav-item" onClick={() => setShowNavbar(false)}>
-                            <HashLink smooth className="nav-link page-scroll" to="/#services">Services</HashLink>
-
-                        </li> */}
-
-                        {/* <li className="nav-item" onClick={() => setShowNavbar(false)}>
-
-                            <HashLink smooth className="nav-link page-scroll" to="/#testimonial">Testimonial</HashLink>
-                        </li> */}
-                        <li className="nav-item" onClick={() => setShowNavbar(false)}>
-                            <HashLink smooth className="nav-link page-scroll" to="/#contact">Contact</HashLink>
-
-                        </li>
+                        {!isPortfolioPage && (
+                            <>
+                                <li className="nav-item" onClick={() => setShowNavbar(false)}>
+                                    <HashLink smooth className="nav-link page-scroll" to="/#profile">Experience</HashLink>
+                                </li>
+                                <li className="nav-item" onClick={() => setShowNavbar(false)}>
+                                    <HashLink smooth className="nav-link page-scroll" to="/#contact">Contact</HashLink>
+                                </li>
+                            </>
+                        )}
                     </ul>
 
                 </div>

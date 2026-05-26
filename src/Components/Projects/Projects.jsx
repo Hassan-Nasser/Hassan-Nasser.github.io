@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import "./Projects.scss";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import { Link } from 'react-router-dom';
-import { Play, Maximize2, X, ExternalLink, ChevronRight } from "lucide-react";
+import { Play, Maximize2, X, ExternalLink, ChevronRight, ChevronDown } from "lucide-react";
 
 const projectModules = import.meta.glob("../../data/projects/*.json", { eager: true });
 const projectsDataRaw = Object.values(projectModules).map(m => m.default || m);
@@ -282,8 +282,26 @@ const computeSpotlight = (projCache, highlightNames) => {
 
 const initialSpotlightProjects = computeSpotlight(freshProjects, highlightsDataRaw);
 
-const Projects = () => {
-    const [projects, setProjects] = useState(initialSpotlightProjects);
+export const sortedAllProjects = [
+    ...initialSpotlightProjects,
+    ...freshProjects.filter(p => !initialSpotlightProjects.includes(p))
+];
+
+const Projects = ({ projectsData, hideSeeMore = false }) => {
+    const [projects, setProjects] = useState(projectsData || initialSpotlightProjects);
+    const [isExpanded, setIsExpanded] = useState(hideSeeMore);
+
+    useEffect(() => {
+        if (projectsData) {
+            setProjects(projectsData);
+            setIsExpanded(true);
+        }
+    }, [projectsData]);
+
+    const handleExpand = () => {
+        setProjects(sortedAllProjects);
+        setIsExpanded(true);
+    };
 
     return (
         <div className="work" id="portfolio">
@@ -302,13 +320,15 @@ const Projects = () => {
                 ))}
             </div>
 
-            <div className={`see-more-section ${projects.length % 2 === 0 ? 'bg-even' : 'bg-odd'}`}>
-                <div className="container text-center">
-                    <Link className="see-more-projects-btn" to="/portfolio?tag=All">
-                        See More Projects <ChevronRight size={18} className="btn-arrow" />
-                    </Link>
+            {!isExpanded && (
+                <div className={`see-more-section ${projects.length % 2 === 0 ? 'bg-even' : 'bg-odd'}`}>
+                    <div className="container text-center">
+                        <button className="see-more-projects-btn" onClick={handleExpand} style={{ cursor: "pointer" }}>
+                            SEE ALL PROJECTS <ChevronDown size={18} className="btn-arrow" />
+                        </button>
+                    </div>
                 </div>
-            </div>
+            )}
         </div>
     );
 };
