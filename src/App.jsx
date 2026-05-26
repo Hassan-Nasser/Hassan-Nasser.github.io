@@ -10,15 +10,27 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 function App() {
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
     const handleScroll = () => {
+      if (window.innerWidth <= 768) return; // Disable scroll calculation on mobile
       const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
       const progress = window.scrollY / (totalHeight || 1);
       setScrollProgress(progress);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   const getBackgroundColor = () => {
@@ -41,48 +53,50 @@ function App() {
         }}
       />
 
-      {/* Layer 1: Atmospheric blur blobs */}
-      <div
-        style={{
-          position: 'fixed',
-          inset: 0,
-          overflow: 'hidden',
-          pointerEvents: 'none',
-          opacity: 0.2,
-          zIndex: 1,
-        }}
-      >
+      {/* Layer 1: Atmospheric blur blobs (Hidden on Mobile) */}
+      {!isMobile && (
         <div
           style={{
-            position: 'absolute',
-            top: '-20%',
-            left: '-10%',
-            width: '60%',
-            height: '60%',
-            backgroundColor: '#2563eb',
-            WebkitFilter: 'blur(200px)',
-            filter: 'blur(200px)',
-            borderRadius: '50%',
-            transition: 'transform 1000ms ease-out',
-            transform: `translateY(${scrollProgress * 200}px)`,
+            position: 'fixed',
+            inset: 0,
+            overflow: 'hidden',
+            pointerEvents: 'none',
+            opacity: 0.2,
+            zIndex: 1,
           }}
-        />
-        <div
-          style={{
-            position: 'absolute',
-            bottom: '-20%',
-            right: '-10%',
-            width: '60%',
-            height: '60%',
-            backgroundColor: '#9333ea',
-            WebkitFilter: 'blur(200px)',
-            filter: 'blur(200px)',
-            borderRadius: '50%',
-            transition: 'transform 1000ms ease-out',
-            transform: `translateY(${-scrollProgress * 200}px)`,
-          }}
-        />
-      </div>
+        >
+          <div
+            style={{
+              position: 'absolute',
+              top: '-20%',
+              left: '-10%',
+              width: '60%',
+              height: '60%',
+              backgroundColor: '#2563eb',
+              WebkitFilter: 'blur(200px)',
+              filter: 'blur(200px)',
+              borderRadius: '50%',
+              transition: 'transform 1000ms ease-out',
+              transform: `translateY(${scrollProgress * 200}px)`,
+            }}
+          />
+          <div
+            style={{
+              position: 'absolute',
+              bottom: '-20%',
+              right: '-10%',
+              width: '60%',
+              height: '60%',
+              backgroundColor: '#9333ea',
+              WebkitFilter: 'blur(200px)',
+              filter: 'blur(200px)',
+              borderRadius: '50%',
+              transition: 'transform 1000ms ease-out',
+              transform: `translateY(${-scrollProgress * 200}px)`,
+            }}
+          />
+        </div>
+      )}
 
       {/* Layer 2: Canvas particle animation (zIndex: 2 set inside BackgroundNexus) */}
       <BackgroundNexus />
