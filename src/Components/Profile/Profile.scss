@@ -938,3 +938,27 @@
     margin-top: 1rem;
     justify-content: center;
 }
+
+/* Mobile Performance Optimization: Disable backdrop-filter */
+@media (max-width: 768px) {
+    .portrait-slab, .btn-glass-portal, .resume-modal-overlay, .resume-close-btn-outside {
+        -webkit-backdrop-filter: none !important;
+        backdrop-filter: none !important;
+    }
+
+    .portrait-slab {
+        background-color: rgba(15, 23, 42, 0.95) !important;
+    }
+
+    .btn-glass-portal {
+        background: linear-gradient(160deg, rgba(255, 255, 255, 0.2) 0%, rgba(59, 130, 246, 0.15) 100%) !important;
+    }
+
+    .resume-modal-overlay {
+        background: rgba(2, 6, 23, 0.95) !important;
+    }
+
+    .resume-close-btn-outside {
+        background: rgba(255, 255, 255, 0.2) !important;
+    }
+}

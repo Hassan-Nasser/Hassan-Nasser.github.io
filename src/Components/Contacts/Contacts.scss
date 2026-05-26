@@ -285,3 +285,19 @@
         letter-spacing: 0.15em;
     }
 }
+
+/* Mobile Performance Optimization: Disable backdrop-filter */
+@media (max-width: 768px) {
+    .contact-section, .contact-card, .contact-cta-btn {
+        -webkit-backdrop-filter: none !important;
+        backdrop-filter: none !important;
+    }
+
+    .contact-card {
+        background: rgba(255, 255, 255, 0.08) !important;
+    }
+
+    .contact-cta-btn {
+        background: linear-gradient(160deg, rgba(255, 255, 255, 0.2) 0%, rgba(59, 130, 246, 0.15) 100%) !important;
+    }
+}

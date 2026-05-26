@@ -33,7 +33,31 @@
 .projects-list-container {
     display: flex;
     flex-direction: column;
-    margin-top: 3rem;
+    margin-top: 1rem;
+}
+
+/* Mobile Performance Optimization: Disable backdrop-filter */
+@media (max-width: 768px) {
+    .project-card, .btn-glass-action, .lightbox-modal, .lightbox-content {
+        -webkit-backdrop-filter: none !important;
+        backdrop-filter: none !important;
+    }
+
+    .project-card {
+        background: rgba(15, 23, 42, 0.95) !important;
+    }
+
+    .btn-glass-action {
+        background: linear-gradient(165deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%) !important;
+    }
+
+    .lightbox-modal {
+        background: rgba(0, 0, 0, 0.95) !important;
+    }
+    
+    .lightbox-content {
+        background: rgba(15, 23, 42, 0.98) !important;
+    }
 }
 
 // Scroll-fade trigger initial and ending states

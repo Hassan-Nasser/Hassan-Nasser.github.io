@@ -247,4 +247,10 @@
         font-size: 0.88rem;
         line-height: 1.7;
     }
+
+    /* Mobile Performance Optimization: Disable backdrop-filter */
+    .basic-1 {
+        -webkit-backdrop-filter: none !important;
+        backdrop-filter: none !important;
+    }
 }
