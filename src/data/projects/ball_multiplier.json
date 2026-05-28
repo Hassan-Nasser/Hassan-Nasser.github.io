@@ -2,9 +2,11 @@
   "id": "Ball Multiplier",
   "name": "Ball Multiplier",
   "url": "https://www.youtube.com/embed/BcgUUD3WKDU?autoplay=1",
-  "description": "A hypercasual mobile game, done as a freelance project.",
+  "description": "A hypercasual multiplier game engineered with highly optimized object pooling to support hundreds of active physics bodies simultaneously. Implemented dynamic mathematical gate logic, swarm behavior algorithms, and responsive mobile input systems to deliver smooth high-density gameplay.",
   "genres": [
-    "Casual"
+    "Casual",
+    "Hypercasual",
+    "Physics"
   ],
   "platforms": [
     "Mobile",

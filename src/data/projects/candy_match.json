@@ -1,7 +1,7 @@
 {
   "id": "Candy Match",
   "name": "Candy Triple Match",
-  "description": "A delightful 3D puzzle game where you match colorful candies, hearts, and treats to clear the board. Find and collect three identical items from a jumbled pile to complete challenging levels before the timer runs out. Unlock cute piñatas, use powerful boosters, and enjoy hours of relaxing matching fun!",
+  "description": "A 3D triple-matching puzzle game featuring custom physics-based interactions and optimized rendering for clustered dynamic objects. Engineered efficient object pooling systems to handle large volumes of 3D items, and implemented progressive difficulty algorithms alongside modular power-up mechanics.",
   "url": "https://www.youtube.com/embed/HgvPXiKnpE4",
   "genres": [
     "Puzzle",

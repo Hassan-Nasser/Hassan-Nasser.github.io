@@ -1,0 +1,19 @@
+{
+  "id": "Projectile System",
+  "description": "A versatile Unity Editor framework designed to engineer complex projectile mechanics. It features modular components for 2D and 3D physics, accompanied by real-time trajectory prediction and visualization systems.",
+  "name": "Projectile System",
+  "url": "https://www.youtube.com/embed/jb5SGuEw7Ac?autoplay=1",
+  "genres": [
+    "Tool",
+    "Physics",
+    "Framework"
+  ],
+  "platforms": [
+    "Editor Tool",
+    "Utility",
+    "PC",
+    "Mobile"
+  ],
+  "hasThumbnail": false,
+  "role": "Senior Game Developer"
+}
