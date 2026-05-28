@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./Projects.scss";
-import { getDownloadURL, getStorage, ref } from "firebase/storage";
+import { getDownloadURL, getStorage, ref, listAll } from "firebase/storage";
 import { Link } from 'react-router-dom';
 import { Play, Maximize2, X, ExternalLink, ChevronRight, ChevronDown } from "lucide-react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -17,7 +17,13 @@ export const ProjectRow = ({ project: initialProject }) => {
     const hasVideo = !!project.url || isCollection;
     const hasThumbnail = !!project.profile;
 
-    const screenshots = project.url ? [] : [project.profile].filter(Boolean);
+    const screenshots = [];
+    if (!project.url && project.profile) {
+        screenshots.push(project.profile);
+    }
+    if (project.galleryUrls && project.galleryUrls.length > 0) {
+        screenshots.push(...project.galleryUrls);
+    }
 
     const [activeType, setActiveType] = useState(isCollection ? "grid1" : (project.url ? "video" : "image"));
     const [activeSubProject, setActiveSubProject] = useState(null);
@@ -102,43 +108,62 @@ export const ProjectRow = ({ project: initialProject }) => {
                 }
             } else {
                 const needsImage = project.profile === undefined;
-                if (needsImage) {
+                const needsGallery = project.hasGallery && project.galleryUrls === undefined;
+
+                if (needsImage || needsGallery) {
                     const loadData = async () => {
                         let updatedProject = { ...project };
                         let updated = false;
 
-                        if (updatedProject.hasThumbnail === false) {
-                            updatedProject.profile = "";
-                            updated = true;
-                        } else {
-                        try {
-                            let url;
-                            const imageKey1 = updatedProject.id || updatedProject.name;
-                            const imageKey2 = updatedProject.name;
-                            try {
-                                url = await getDownloadURL(ref(getStorage(), `${imageKey1}.jpg`));
-                            } catch (err1) {
+                        if (needsImage) {
+                            if (updatedProject.hasThumbnail === false) {
+                                updatedProject.profile = "";
+                                updated = true;
+                            } else {
                                 try {
-                                    url = await getDownloadURL(ref(getStorage(), `${imageKey1}.png`));
-                                } catch (err2) {
-                                    if (imageKey1 !== imageKey2) {
+                                    let url;
+                                    const imageKey1 = updatedProject.id || updatedProject.name;
+                                    const imageKey2 = updatedProject.name;
+                                    try {
+                                        url = await getDownloadURL(ref(getStorage(), `${imageKey1}.jpg`));
+                                    } catch (err1) {
                                         try {
-                                            url = await getDownloadURL(ref(getStorage(), `${imageKey2}.jpg`));
-                                        } catch (err3) {
-                                            url = await getDownloadURL(ref(getStorage(), `${imageKey2}.png`));
+                                            url = await getDownloadURL(ref(getStorage(), `${imageKey1}.png`));
+                                        } catch (err2) {
+                                            if (imageKey1 !== imageKey2) {
+                                                try {
+                                                    url = await getDownloadURL(ref(getStorage(), `${imageKey2}.jpg`));
+                                                } catch (err3) {
+                                                    url = await getDownloadURL(ref(getStorage(), `${imageKey2}.png`));
+                                                }
+                                            } else {
+                                                throw err2;
+                                            }
                                         }
-                                    } else {
-                                        throw err2;
                                     }
+                                    updatedProject.profile = url;
+                                    updated = true;
+                                } catch (err) {
+                                    console.error(`Error fetching profile image for ${updatedProject.name}:`, err);
+                                    updatedProject.profile = ""; 
+                                    updated = true;
                                 }
                             }
-                            updatedProject.profile = url;
-                            updated = true;
-                        } catch (err) {
-                            console.error(`Error fetching profile image for ${updatedProject.name}:`, err);
-                            updatedProject.profile = ""; 
-                            updated = true;
                         }
+
+                        if (needsGallery) {
+                            try {
+                                const folderName = updatedProject.id || updatedProject.name;
+                                const folderRef = ref(getStorage(), folderName);
+                                const res = await listAll(folderRef);
+                                const urls = await Promise.all(res.items.map(itemRef => getDownloadURL(itemRef)));
+                                updatedProject.galleryUrls = urls;
+                                updated = true;
+                            } catch (err) {
+                                console.error(`Error fetching gallery for ${updatedProject.name}:`, err);
+                                updatedProject.galleryUrls = [];
+                                updated = true;
+                            }
                         }
 
                         if (isMounted && updated) {

@@ -1,7 +1,7 @@
 {
   "id": "Arena Rumble",
   "name": "Warrior Heroes: Arena Rumble",
-  "url": "https://www.youtube.com/embed/lBUrOBcgukw?autoplay=1",
+  "url": "https://www.youtube.com/embed/Q7ZtyuEwldE?autoplay=1",
   "description": "Multiplayer turn based strategy game with collectable cards. \nCollect cards and build you team of 4 strong fighters.\nBattle in 1v1 fights and gain rewards, loots and chests.\nRanked seasons, Unlockable cards, Unlockable characters and much more with in depth economy system with virtual currencies",
   "genres": [
     "Multiplayer",
@@ -14,5 +14,6 @@
     "IOS"
   ],
   "hasThumbnail": false,
+  "hasGallery": true,
   "role": "Senior Game Developer"
 }
