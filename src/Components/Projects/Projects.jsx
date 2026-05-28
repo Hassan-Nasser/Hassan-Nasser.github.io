@@ -9,6 +9,7 @@ import { faGooglePlay, faApple } from '@fortawesome/free-brands-svg-icons';
 const projectModules = import.meta.glob("../../data/projects/*.json", { eager: true });
 const projectsDataRaw = Object.values(projectModules).map(m => m.default || m);
 import highlightsDataRaw from "../../data/highlights.json";
+import secondaryOrderRaw from "../../data/secondary_order.json";
 
 export const ProjectRow = ({ project: initialProject }) => {
     const [project, setProject] = useState(initialProject);
@@ -450,9 +451,13 @@ const computeSpotlight = (projCache, highlightNames) => {
 
 const initialSpotlightProjects = computeSpotlight(freshProjects, highlightsDataRaw);
 
+const nonSpotlightProjects = freshProjects.filter(p => !initialSpotlightProjects.includes(p));
+const secondaryOrderedProjects = computeSpotlight(nonSpotlightProjects, secondaryOrderRaw);
+
 export const sortedAllProjects = [
     ...initialSpotlightProjects,
-    ...freshProjects.filter(p => !initialSpotlightProjects.includes(p))
+    ...secondaryOrderedProjects,
+    ...nonSpotlightProjects.filter(p => !secondaryOrderedProjects.includes(p))
 ];
 
 const Projects = ({ projectsData, hideSeeMore = false }) => {
