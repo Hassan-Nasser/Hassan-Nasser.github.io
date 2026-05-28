@@ -2,17 +2,18 @@
   "id": "Forest Knight",
   "description": "A tactical RPG game set in a fantasy medieval world.\nExplore the adventure mode and fight against the Skeleton Master's reign.\nRecruit unique heroes, each with their abilities and exclusive items.\nBuild your favorite team and defend the city of Chronville against the attackers. Fight for glory against other knights in the arena, explore the underworld, and so much more.",
   "googlePlay": "https://play.google.com/store/apps/details?id=com.ChronoGames.Forest.Knight&hl=en&gl=US",
+  "appStore": "https://apps.apple.com/us/app/forest-knight-turn-based-rpg/id6449786425",
   "name": "Forest Knight",
   "url": "https://www.youtube.com/embed/EmGmLHfY1v8?autoplay=1",
   "genres": [
     "Multiplayer",
-    "Turn Based",
-    "Collectible Cards"
+    "Turn Based"
   ],
   "platforms": [
     "Mobile",
     "Android",
     "IOS"
   ],
+  "hasThumbnail": false,
   "role": "Senior Game Developer"
 }

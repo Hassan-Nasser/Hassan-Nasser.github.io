@@ -1,0 +1,18 @@
+{
+  "id": "Cryptogram",
+  "name": "Cryptogram: Cipher Word Master",
+  "description": "A challenging word puzzle game where players decode ciphers and cryptograms to reveal hidden quotes and phrases.\nExercise your brain, improve your vocabulary, and enjoy hours of logic-based puzzle solving.",
+  "googlePlay": "https://play.google.com/store/apps/details?id=com.fun2play.cryptogram&hl=en",
+  "url": "https://www.youtube.com/embed/N-w_mmLOQrQ",
+  "genres": [
+    "Puzzle",
+    "Word"
+  ],
+  "platforms": [
+    "Mobile",
+    "Android",
+    "IOS"
+  ],
+  "hasThumbnail": true,
+  "role": "Senior Game Developer"
+}

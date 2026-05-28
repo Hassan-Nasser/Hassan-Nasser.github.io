@@ -3,6 +3,8 @@ import "./Projects.scss";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import { Link } from 'react-router-dom';
 import { Play, Maximize2, X, ExternalLink, ChevronRight, ChevronDown } from "lucide-react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGooglePlay, faApple } from '@fortawesome/free-brands-svg-icons';
 
 const projectModules = import.meta.glob("../../data/projects/*.json", { eager: true });
 const projectsDataRaw = Object.values(projectModules).map(m => m.default || m);
@@ -54,8 +56,30 @@ export const ProjectRow = ({ project: initialProject }) => {
                         const updatedSubProjects = await Promise.all(
                             updatedProject.subProjects.map(async (sp) => {
                                 if (!sp.profile) {
+                                    if (sp.hasThumbnail === false) {
+                                        return { ...sp, profile: "" };
+                                    }
                                     try {
-                                        const url = await getDownloadURL(ref(getStorage(), `${sp.name}.jpg`));
+                                        let url;
+                                        const imageKey1 = sp.id || sp.name;
+                                        const imageKey2 = sp.name;
+                                        try {
+                                            url = await getDownloadURL(ref(getStorage(), `${imageKey1}.jpg`));
+                                        } catch (err1) {
+                                            try {
+                                                url = await getDownloadURL(ref(getStorage(), `${imageKey1}.png`));
+                                            } catch (err2) {
+                                                if (imageKey1 !== imageKey2) {
+                                                    try {
+                                                        url = await getDownloadURL(ref(getStorage(), `${imageKey2}.jpg`));
+                                                    } catch (err3) {
+                                                        url = await getDownloadURL(ref(getStorage(), `${imageKey2}.png`));
+                                                    }
+                                                } else {
+                                                    throw err2;
+                                                }
+                                            }
+                                        }
                                         return { ...sp, profile: url };
                                     } catch (err) {
                                         return { ...sp, profile: "" };
@@ -82,14 +106,38 @@ export const ProjectRow = ({ project: initialProject }) => {
                         let updatedProject = { ...project };
                         let updated = false;
 
+                        if (updatedProject.hasThumbnail === false) {
+                            updatedProject.profile = "";
+                            updated = true;
+                        } else {
                         try {
-                            const url = await getDownloadURL(ref(getStorage(), `${updatedProject.name}.jpg`));
+                            let url;
+                            const imageKey1 = updatedProject.id || updatedProject.name;
+                            const imageKey2 = updatedProject.name;
+                            try {
+                                url = await getDownloadURL(ref(getStorage(), `${imageKey1}.jpg`));
+                            } catch (err1) {
+                                try {
+                                    url = await getDownloadURL(ref(getStorage(), `${imageKey1}.png`));
+                                } catch (err2) {
+                                    if (imageKey1 !== imageKey2) {
+                                        try {
+                                            url = await getDownloadURL(ref(getStorage(), `${imageKey2}.jpg`));
+                                        } catch (err3) {
+                                            url = await getDownloadURL(ref(getStorage(), `${imageKey2}.png`));
+                                        }
+                                    } else {
+                                        throw err2;
+                                    }
+                                }
+                            }
                             updatedProject.profile = url;
                             updated = true;
                         } catch (err) {
                             console.error(`Error fetching profile image for ${updatedProject.name}:`, err);
                             updatedProject.profile = ""; 
                             updated = true;
+                        }
                         }
 
                         if (isMounted && updated) {
@@ -130,7 +178,10 @@ export const ProjectRow = ({ project: initialProject }) => {
     }
 
     const baseVideoUrl = currentVideoUrl
-        ? currentVideoUrl.replace("?autoplay=1", "").replace("&autoplay=1", "")
+        ? currentVideoUrl
+            .replace("?autoplay=1", "")
+            .replace("&autoplay=1", "")
+            .replace("youtube.com", "youtube-nocookie.com")
         : "";
     const videoUrl = isPlayingVideo
         ? `${baseVideoUrl}${baseVideoUrl.includes("?") ? "&" : "?"}autoplay=1`
@@ -179,10 +230,20 @@ export const ProjectRow = ({ project: initialProject }) => {
                                 rel="noopener noreferrer"
                                 className="btn-glass-action"
                             >
-                                {meta.buttonText} <ExternalLink size={16} className="action-icon" />
+                                <FontAwesomeIcon icon={faGooglePlay} style={{ marginRight: '8px' }} /> Google Play
                             </a>
                         )}
-                        {project.url && !project.url.includes("youtube.com") && !project.url.includes("youtu.be") && !project.googlePlay && (
+                        {project.appStore && (
+                            <a
+                                href={project.appStore}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="btn-glass-action"
+                            >
+                                <FontAwesomeIcon icon={faApple} style={{ marginRight: '8px', fontSize: '1.2em', marginBottom: '2px' }} /> App Store
+                            </a>
+                        )}
+                        {project.url && !project.url.includes("youtube.com") && !project.url.includes("youtu.be") && !project.googlePlay && !project.appStore && (
                             <a
                                 href={project.url}
                                 target="_blank"

@@ -1,9 +1,10 @@
 {
-  "id": "Millionaires Deal",
+  "id": "Millionaire Deal",
   "description": "Multiplayer card game, Where you can collect more than 200 cards and play vs players in 1v1 matches or 4 players.Ranked seasons, Unlockable cards, Unlockable characters and much more with in depth economy system with virtual currencies.",
-  "googlePlay": "https://play.google.com/store/apps/details?id=com.FrontTech.millionairedeal&hl=en&gl=US",
-  "name": "Millionaires Deal",
-  "url": "https://youtube.com/embed/CxQfIo3i0-c?autoplay=1",
+  "googlePlay": "https://play.google.com/store/apps/details?id=com.FrontTech.millionaire.deal",
+  "appStore": "https://apps.apple.com/us/app/millionaire-deal-card-game/id1613519723",
+  "name": "Millionaire Deal",
+  "url": "https://www.youtube.com/embed/CxQfIo3i0-c?autoplay=1",
   "genres": [
     "Multiplayer",
     "Turn Based",
@@ -14,5 +15,6 @@
     "Android",
     "IOS"
   ],
+  "hasThumbnail": false,
   "role": "Senior Game Developer"
 }
