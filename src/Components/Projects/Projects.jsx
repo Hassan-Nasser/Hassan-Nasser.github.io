@@ -203,6 +203,14 @@ export const ProjectRow = ({ project: initialProject }) => {
         currentThumbnail = project.profile;
     }
 
+    // Derive YouTube thumbnail only for the carousel button (not the main display)
+    const getYouTubeThumbnail = (url) => {
+        if (!url) return "";
+        const match = url.match(/(?:youtube\.com\/embed\/|youtube-nocookie\.com\/embed\/|youtu\.be\/)([^?&]+)/);
+        return match ? `https://img.youtube.com/vi/${match[1]}/hqdefault.jpg` : "";
+    };
+    const carouselThumb = currentThumbnail || getYouTubeThumbnail(currentVideoUrl);
+
     const baseVideoUrl = currentVideoUrl
         ? currentVideoUrl
             .replace("?autoplay=1", "")
@@ -405,7 +413,7 @@ export const ProjectRow = ({ project: initialProject }) => {
                                         >
                                             <div
                                                 className="thumb-image"
-                                                style={{ backgroundImage: `url(${project.profile})` }}
+                                                style={{ backgroundImage: `url(${carouselThumb})` }}
                                             >
                                                 <div className="thumb-video-icon">
                                                     <Play size={18} fill="white" className="play-ico" />
