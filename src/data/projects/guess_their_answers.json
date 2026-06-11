@@ -1,0 +1,18 @@
+{
+  "id": "Guess-Their-Answers",
+  "description": "A competitive hypercasual trivia game featuring dynamic text-parsing algorithms for fuzzy string matching and answer validation. Engineered state-driven game loops, responsive UI systems for rapid input handling, and simulated AI opponent logic to create engaging, fast-paced trivia encounters.",
+  "name": "Guess Their Answers",
+  "url": "https://www.youtube.com/embed/VuTS5h3Qqi0?autoplay=1",
+  "genres": [
+    "Trivia",
+    "Casual",
+    "Word"
+  ],
+  "platforms": [
+    "Mobile",
+    "Android",
+    "IOS"
+  ],
+  "hasThumbnail": false,
+  "role": "Senior Game Developer"
+}

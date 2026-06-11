@@ -1,0 +1,15 @@
+{
+  "id": "A.M.R.B",
+  "name": "A.M.R.B",
+  "url": "https://www.youtube.com/embed/GOOo-1z1fAo?autoplay=1",
+  "description": "An augmented reality app made as a freelance project, part of a PhD in Innovative ways of teaching to help students of faculty of physical education to learn in more fun and innovative ways.\nThe app contains 35+ 3D animations and videos  and more content will be added for all 4 years students",
+  "genres": [],
+  "platforms": [
+    "AR",
+    "Mobile",
+    "Android",
+    "IOS"
+  ],
+  "hasThumbnail": false,
+  "role": "Junior Game Developer"
+}

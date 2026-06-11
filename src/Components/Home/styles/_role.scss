@@ -1,0 +1,33 @@
+.role-indicator {
+	display: flex;
+	grid-area: role;
+	align-items: center;
+	gap: 1.18em;
+	margin-top: 0.5rem;
+	width: 100%;
+	justify-content: center;
+	font-size: clamp(0.5rem, 2.5vw, 0.85rem);
+
+	@media (min-width: 1024px) {
+		justify-content: flex-start;
+	}
+
+	.line {
+		width: 1.76em;
+		height: 0.15em;
+		min-height: 1px;
+		background: linear-gradient(90deg, #3b82f6, #6366f1);
+		border-radius: 1px;
+	}
+
+	.role-text {
+		font-family: 'Inter', sans-serif;
+		font-size: 1em;
+		font-weight: 700;
+		letter-spacing: clamp(0.1em, 0.5vw, 0.3em);
+		text-transform: uppercase;
+		color: #e2e8f0;
+		-webkit-font-smoothing: antialiased;
+		white-space: nowrap;
+	}
+}

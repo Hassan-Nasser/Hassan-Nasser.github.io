@@ -1,0 +1,95 @@
+.timeline-item {
+    position: relative;
+    margin-bottom: 3.5rem;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    .timeline-marker {
+        position: absolute;
+        left: -1.5rem;
+        top: 0.65rem;
+        transform: translateX(-50%) scale(0);
+        opacity: 0;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #8b5cf6;
+        border: 3.5px solid #100624;
+        box-shadow: 0 0 12px #8b5cf6;
+        transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1),
+            opacity 0.8s ease,
+            background-color 0.4s ease,
+            box-shadow 0.4s ease,
+            border-color 0.4s ease;
+        z-index: 5;
+
+        @media (max-width: 768px) {
+            left: -1rem;
+            top: 0.55rem;
+            width: 14px;
+            height: 14px;
+            border-width: 2.5px;
+        }
+    }
+
+    .timeline-card {
+        background: none;
+        border: none;
+        border-radius: 0;
+        padding: 0;
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+        box-shadow: none;
+        position: relative;
+        overflow: visible;
+        text-align: left;
+
+        opacity: 0.001;
+        transform: translateX(-35px);
+        pointer-events: none;
+        transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+            opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        
+        @media (max-width: 768px) {
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+    }
+
+    &.revealed {
+        .timeline-marker {
+            opacity: 1;
+            transform: translateX(-50%) scale(1);
+        }
+
+        .timeline-card {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: auto;
+        }
+    }
+
+    &:hover {
+        .timeline-marker {
+            background: #ec4899;
+            box-shadow: 0 0 16px #ec4899;
+            transform: translateX(-50%) scale(1.2);
+            border-color: #1a082e;
+        }
+
+        .timeline-card {
+            transform: translateX(8px);
+
+            @media (max-width: 768px) {
+                transform: none;
+            }
+        }
+
+        .timeline-job-title {
+            color: #a78bfa;
+            text-shadow: 0 0 12px rgba(167, 139, 250, 0.4);
+        }
+    }
+}

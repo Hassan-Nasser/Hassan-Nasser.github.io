@@ -1,0 +1,59 @@
+{
+  "name": "hassan-portfolio",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "homepage": "https://hassan-nasser.github.io/",
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.5.2",
+    "@fortawesome/free-brands-svg-icons": "^6.5.2",
+    "@fortawesome/free-regular-svg-icons": "^6.5.2",
+    "@fortawesome/free-solid-svg-icons": "^6.5.2",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "firebase": "^12.13.0",
+    "lucide-react": "^1.16.0",
+    "puppeteer": "^25.1.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-loading-skeleton": "^3.4.0",
+    "react-router-dom": "^6.23.0",
+    "react-router-hash-link": "^2.4.3",
+    "sass": "^1.75.0",
+    "swiper": "^12.1.4"
+  },
+  "scripts": {
+    "start": "vite --host",
+    "build": "vite build",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.0",
+    "@vitejs/plugin-react": "^6.0.2",
+    "autoprefixer": "^10.5.0",
+    "gh-pages": "^6.1.1",
+    "postcss": "^8.5.15",
+    "tailwindcss": "^3.4.1",
+    "vite": "^8.0.14",
+    "vite-plugin-svgr": "^5.2.0"
+  }
+}

@@ -1,0 +1,56 @@
+.navbar {
+	background-color: transparent !important;
+	font-weight: 600;
+	font-size: 0.875rem;
+	line-height: 2rem;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+
+	&::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: -1;
+		background-color: rgba(0, 0, 0, 0);
+		-webkit-backdrop-filter: blur(8px);
+		backdrop-filter: blur(8px);
+
+		transform: translate3d(0, 0, 0);
+		-webkit-transform: translate3d(0, 0, 0);
+		pointer-events: none;
+	}
+
+	@media (min-width: 992px) {
+		box-shadow: none;
+		transition: padding 0.2s;
+
+		&::before {
+			background-color: transparent;
+			transition: background-color 0.2s, -webkit-backdrop-filter 0.2s, backdrop-filter 0.2s;
+		}
+	}
+}
+
+@media (min-width: 992px) {
+	.navbar.top-nav-collapse {
+		padding-top: 0.5rem;
+		padding-bottom: 0.5rem;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+		box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+
+		&::before {
+			background-color: rgba(36, 38, 42, 0.15);
+			-webkit-backdrop-filter: blur(12px);
+			backdrop-filter: blur(12px);
+		}
+	}
+}
+
+@media (min-width: 1200px) {
+	.navbar .container {
+		max-width: 1330px;
+	}
+}

@@ -1,0 +1,425 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .row {
+    @apply flex flex-wrap -mx-[15px];
+  }
+
+  .row>* {
+    @apply px-[15px];
+  }
+
+  .col {
+    @apply flex-1 max-w-full;
+  }
+
+  .col-12 {
+    @apply w-full;
+  }
+
+  .col-11 {
+    @apply w-[91.666667%];
+  }
+
+  .col-10 {
+    @apply w-[83.333333%];
+  }
+
+  .col-9 {
+    @apply w-[75%];
+  }
+
+  .col-8 {
+    @apply w-[66.666667%];
+  }
+
+  .col-7 {
+    @apply w-[58.333333%];
+  }
+
+  .col-6 {
+    @apply w-[50%];
+  }
+
+  .col-5 {
+    @apply w-[41.666667%];
+  }
+
+  .col-4 {
+    @apply w-[33.333333%];
+  }
+
+  .col-3 {
+    @apply w-[25%];
+  }
+
+  .col-2 {
+    @apply w-[16.666667%];
+  }
+
+  .col-1 {
+    @apply w-[8.333333%];
+  }
+
+  @media (min-width: 576px) {
+    .col-sm-12 {
+      @apply w-full;
+    }
+
+    .col-sm-6 {
+      @apply w-[50%];
+    }
+
+    .col-sm-4 {
+      @apply w-[33.333333%];
+    }
+  }
+
+  @media (min-width: 768px) {
+    .col-md-12 {
+      @apply w-full;
+    }
+
+    .col-md-10 {
+      @apply w-[83.333333%];
+    }
+
+    .col-md-8 {
+      @apply w-[66.666667%];
+    }
+
+    .col-md-6 {
+      @apply w-[50%];
+    }
+
+    .col-md-4 {
+      @apply w-[33.333333%];
+    }
+
+    .col-md-3 {
+      @apply w-[25%];
+    }
+  }
+
+  @media (min-width: 992px) {
+    .col-lg-12 {
+      @apply w-full;
+    }
+
+    .col-lg-10 {
+      @apply w-[83.333333%];
+    }
+
+    .col-lg-8 {
+      @apply w-[66.666667%];
+    }
+
+    .col-lg-6 {
+      @apply w-[50%];
+    }
+
+    .col-lg-5 {
+      @apply w-[41.666667%];
+    }
+
+    .col-lg-4 {
+      @apply w-[33.333333%];
+    }
+
+    .col-lg-3 {
+      @apply w-[25%];
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .col-xl-12 {
+      @apply w-full;
+    }
+
+    .col-xl-10 {
+      @apply w-[83.333333%];
+    }
+
+    .col-xl-8 {
+      @apply w-[66.666667%];
+    }
+
+    .col-xl-6 {
+      @apply w-[50%];
+    }
+
+    .col-xl-5 {
+      @apply w-[41.666667%];
+    }
+
+    .col-xl-4 {
+      @apply w-[33.333333%];
+    }
+
+    .col-xl-3 {
+      @apply w-[25%];
+    }
+  }
+}
+
+@layer utilities {
+
+  .justify-content-center {
+    @apply justify-center;
+  }
+
+  .justify-content-between {
+    @apply justify-between;
+  }
+
+  .align-items-center {
+    @apply items-center;
+  }
+
+  .text-start {
+    @apply text-left;
+  }
+
+  .text-end {
+    @apply text-right;
+  }
+
+  .d-flex {
+    @apply flex;
+  }
+
+  .d-none {
+    @apply hidden;
+  }
+
+  .d-block {
+    @apply block;
+  }
+
+  .img-fluid {
+    @apply max-w-full h-auto;
+  }
+
+  .w-100 {
+    @apply w-full;
+  }
+
+  .h-100 {
+    @apply h-full;
+  }
+
+  @media (min-width: 992px) {
+    .d-lg-flex {
+      @apply flex;
+    }
+
+    .d-lg-none {
+      @apply hidden;
+    }
+
+    .d-lg-block {
+      @apply block;
+    }
+  }
+
+  .mt-3 {
+    @apply mt-4;
+  }
+
+  .mt-4 {
+    @apply mt-6;
+  }
+
+  .mt-5 {
+    @apply mt-12;
+  }
+
+  .mb-3 {
+    @apply mb-4;
+  }
+
+  .mb-4 {
+    @apply mb-6;
+  }
+
+  .mb-5 {
+    @apply mb-12;
+  }
+
+  .my-3 {
+    @apply my-4;
+  }
+
+  .my-4 {
+    @apply my-6;
+  }
+
+  .my-5 {
+    @apply my-12;
+  }
+
+  .me-2 {
+    @apply mr-2;
+  }
+
+  .ms-2 {
+    @apply ml-2;
+  }
+
+  .pt-3 {
+    @apply pt-4;
+  }
+
+  .pt-4 {
+    @apply pt-6;
+  }
+
+  .pt-5 {
+    @apply pt-12;
+  }
+
+  .pb-3 {
+    @apply pb-4;
+  }
+
+  .pb-4 {
+    @apply pb-6;
+  }
+
+  .pb-5 {
+    @apply pb-12;
+  }
+
+  .py-3 {
+    @apply py-4;
+  }
+
+  .py-4 {
+    @apply py-6;
+  }
+
+  .py-5 {
+    @apply py-12;
+  }
+
+  /* Misc */
+  .fixed-top {
+    @apply fixed top-0 left-0 right-0 z-[1030];
+  }
+}
+
+@layer components {
+
+  .navbar {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .navbar>.container {
+    display: flex;
+    flex-wrap: inherit;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .navbar-brand {
+    padding-top: 0.3125rem;
+    padding-bottom: 0.3125rem;
+    margin-right: 1rem;
+    font-size: 1.25rem;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .navbar-nav {
+    display: flex;
+    flex-direction: column;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+  }
+
+  .nav-link {
+    display: block;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out;
+  }
+
+  .navbar-collapse {
+    flex-basis: 100%;
+    flex-grow: 1;
+    align-items: center;
+  }
+
+  .navbar-toggler {
+    padding: 0.25rem 0.75rem;
+    font-size: 1.25rem;
+    line-height: 1;
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 0.375rem;
+    transition: none;
+  }
+
+  .navbar-toggler-icon {
+    display: inline-block;
+    width: 1.5em;
+    height: 1.5em;
+    vertical-align: middle;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+  }
+
+  .navbar-dark .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  }
+
+  .navbar-dark .navbar-toggler {
+    color: rgba(255, 255, 255, 0.55);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  @media (min-width: 992px) {
+    .navbar-expand-lg {
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+    }
+
+    .navbar-expand-lg .navbar-nav {
+      flex-direction: row;
+    }
+
+    .navbar-expand-lg .navbar-nav .nav-link {
+      padding-right: 0.5rem;
+      padding-left: 0.5rem;
+    }
+
+    .navbar-expand-lg .navbar-collapse {
+      display: flex !important;
+      flex-basis: auto;
+    }
+  }
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}

@@ -1,0 +1,19 @@
+{
+  "id": "Forest Knight",
+  "description": "A multiplayer turn-based tactical RPG featuring a highly modular combat engine and scalable hero ability systems. Engineered core gameplay mechanics for grid-based strategy encounters, dynamic inventory management, and integrated backend services for PvP arena matchmaking and persistent player progression.",
+  "googlePlay": "https://play.google.com/store/apps/details?id=com.ChronoGames.Forest.Knight&hl=en&gl=US",
+  "appStore": "https://apps.apple.com/us/app/forest-knight-turn-based-rpg/id6449786425",
+  "name": "Forest Knight",
+  "url": "https://www.youtube.com/embed/EmGmLHfY1v8?autoplay=1",
+  "genres": [
+    "Multiplayer",
+    "Turn Based"
+  ],
+  "platforms": [
+    "Mobile",
+    "Android",
+    "IOS"
+  ],
+  "hasThumbnail": false,
+  "role": "Senior Game Developer"
+}

@@ -1,0 +1,79 @@
+// Scroll-fade trigger initial and ending states
+.project-row {
+    width: 100%;
+    padding: 5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+
+    &:last-child {
+        border-bottom: none;
+    }
+
+    &.reveal-hidden {
+        opacity: 0.001;
+        transform: translateY(60px);
+        pointer-events: none;
+        transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+            opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    &.revealed {
+        opacity: 1;
+        transform: translateY(0);
+        transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+            opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    &:nth-child(even) {
+        background: rgba(255, 255, 255, 0.01);
+
+        .project-row-inner {
+            flex-direction: row-reverse;
+        }
+    }
+
+    @media (max-width: 991px) {
+        padding: 3.5rem 0;
+
+        &:nth-child(even) .project-row-inner {
+            flex-direction: column-reverse;
+        }
+    }
+
+    @media (max-width: 991px) {
+        &.reveal-hidden, &.revealed {
+            opacity: 1 !important;
+            transform: translate3d(0, 0, 0) !important;
+            pointer-events: auto !important;
+            transition: none !important;
+            
+            .main-media-display {
+                transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1) !important;
+            }
+        }
+
+        &.reveal-hidden .main-media-display {
+            opacity: 0.001;
+            transform: translate3d(0, 100px, 0);
+            pointer-events: none;
+        }
+
+        &.revealed .main-media-display {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+            pointer-events: auto;
+        }
+    }
+}
+
+.project-row-inner {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 4rem;
+
+    @media (max-width: 991px) {
+        flex-direction: column-reverse;
+        gap: 2.5rem;
+    }
+}

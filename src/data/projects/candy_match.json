@@ -1,0 +1,19 @@
+{
+  "id": "Candy Match",
+  "name": "Candy Triple Match",
+  "description": "A 3D triple-matching puzzle game featuring custom physics-based interactions and optimized rendering for clustered dynamic objects. Engineered efficient object pooling systems to handle large volumes of 3D items, and implemented progressive difficulty algorithms alongside modular power-up mechanics.",
+  "url": "https://www.youtube.com/embed/HgvPXiKnpE4",
+  "genres": [
+    "Puzzle",
+    "Casual",
+    "Match 3"
+  ],
+  "platforms": [
+    "Mobile",
+    "Android",
+    "IOS"
+  ],
+  "hasThumbnail": true,
+  "profile": "https://firebasestorage.googleapis.com/v0/b/hassan-portfolio-1.appspot.com/o/Candy%20Match.png?alt=media",
+  "role": "Senior Game Developer"
+}

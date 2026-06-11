@@ -1,0 +1,98 @@
+{
+  "id": "Hyper-Casual Games",
+  "name": "Hyper-Casual Games",
+  "description": "I worked on a massive collection of 20+ Hyper-Casual games as part of a freelance contract. Each project was rapidly prototyped and fully developed in Unity, focusing on addictive core loops and polished mechanics. From dynamic platformers to fast-paced endless runners, this collection demonstrates my ability to consistently deliver highly engaging mobile experiences.",
+  "genres": [
+    "Hyper-Casual",
+    "Multiplayer"
+  ],
+  "platforms": [
+    "Mobile",
+    "Android",
+    "IOS"
+  ],
+  "isCollection": true,
+  "subProjects": [
+    {
+      "name": "Plate Former",
+      "url": "https://youtube.com/shorts/wyPy5FwaPbg?autoplay=1"
+    },
+    {
+      "name": "Surf n Go",
+      "url": "https://youtube.com/shorts/SxFoDpVymQs?autoplay=1"
+    },
+    {
+      "name": "Shizard",
+      "url": "https://youtube.com/shorts/gYqpvTg8DFg?autoplay=1"
+    },
+    {
+      "name": "Farm Clearing",
+      "url": "https://youtube.com/shorts/xn5islLX-Fo?autoplay=1"
+    },
+    {
+      "name": "Samu Runner",
+      "url": "https://youtube.com/shorts/cEJ7qqCd_y0?autoplay=1"
+    },
+    {
+      "name": "Throwfest",
+      "url": "https://youtube.com/shorts/dhemryXeoR8?autoplay=1"
+    },
+    {
+      "name": "Roadtate",
+      "url": "https://youtube.com/shorts/SfVqK4ZNeBs?autoplay=1"
+    },
+    {
+      "name": "Ring Roller",
+      "url": "https://youtube.com/shorts/zStD-znkqfU?autoplay=1"
+    },
+    {
+      "name": "Fruit Runner",
+      "url": "https://youtube.com/shorts/X5m3ET6mLMc?autoplay=1"
+    },
+    {
+      "name": "Circle Match",
+      "url": "https://youtube.com/shorts/_krgAt7xoFU?autoplay=1"
+    },
+    {
+      "name": "Competitrivia",
+      "url": "https://youtube.com/shorts/R1DNk5gdjIk?autoplay=1"
+    },
+    {
+      "name": "Blend Builder",
+      "url": "https://youtube.com/shorts/mmeKgBz4hvY?autoplay=1"
+    },
+    {
+      "name": "Rolling Ball",
+      "url": "https://youtube.com/shorts/lCRThd6Zd8I?autoplay=1"
+    },
+    {
+      "name": "Drawing Fight",
+      "url": "https://youtube.com/shorts/09OtNUt8ueQ?autoplay=1"
+    },
+    {
+      "name": "Spooky Night",
+      "url": "https://youtube.com/shorts/efswIMSTOJ8?autoplay=1"
+    },
+    {
+      "name": "Socker Judgement",
+      "url": "https://youtube.com/shorts/WzwgRZ2-QBs?autoplay=1"
+    },
+    {
+      "name": "Lumber Ninja",
+      "url": "https://youtube.com/shorts/yCLf5y4OqqQ?autoplay=1"
+    },
+    {
+      "name": "Squeeze Climb",
+      "url": "https://youtube.com/shorts/YPuoJfmf_zk?autoplay=1"
+    },
+    {
+      "name": "Wall Drawer",
+      "url": "https://youtube.com/shorts/qeVf-CJvJhY?autoplay=1"
+    },
+    {
+      "name": "Goal Catcher",
+      "url": "https://youtube.com/shorts/sujuaw3_qEs?autoplay=1"
+    }
+  ],
+  "role": "Senior Game Developer"
+}

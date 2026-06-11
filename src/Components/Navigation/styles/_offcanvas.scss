@@ -1,0 +1,90 @@
+.offcanvas-collapse {
+	position: fixed;
+	top: 2.9rem;
+	bottom: 0;
+	left: 100%;
+	width: 100%;
+	padding-right: 1rem;
+	padding-left: 1rem;
+	overflow-y: auto;
+	visibility: hidden;
+	background-color: #24262a;
+	transition: visibility .3s ease-in-out, -webkit-transform .3s ease-in-out;
+	transition: transform .3s ease-in-out, visibility .3s ease-in-out;
+	transition: transform .3s ease-in-out, visibility .3s ease-in-out, -webkit-transform .3s ease-in-out;
+}
+
+.offcanvas-collapse.open {
+	visibility: visible;
+	-webkit-transform: translateX(-100%);
+	transform: translateX(-100%);
+}
+
+@media (max-width: 991px) {
+	.offcanvas-collapse {
+		position: absolute;
+		display: block !important;
+		top: calc(100% + 0.5rem);
+		right: 1rem;
+		left: auto;
+		bottom: auto;
+		width: 260px;
+		height: auto !important;
+		max-height: calc(100vh - 6rem);
+		padding: 1.25rem 1rem;
+		overflow: hidden;
+		overflow-y: auto;
+		visibility: hidden;
+		opacity: 0;
+		pointer-events: none;
+		background: linear-gradient(160deg, rgba(15, 23, 42, 0.98) 0%, rgba(10, 10, 20, 0.99) 100%);
+		-webkit-backface-visibility: hidden;
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		border-radius: 1.5rem;
+		box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 20px rgba(139, 92, 246, 0.15);
+		transform: translateY(-1rem) scale(0.95) translateZ(0);
+		-webkit-transform: translateY(-1rem) scale(0.95) translateZ(0);
+		transform-origin: top right;
+		transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+	}
+
+	.offcanvas-collapse.open {
+		visibility: visible;
+		opacity: 1;
+		pointer-events: auto;
+		-webkit-transform: translateY(0) scale(1) translateZ(0);
+		transform: translateY(0) scale(1) translateZ(0);
+	}
+}
+
+@media (min-width: 992px) {
+	.offcanvas-collapse {
+		position: static;
+		top: auto;
+		bottom: auto;
+		left: auto;
+		width: auto;
+		padding-right: 0;
+		padding-left: 0;
+		background-color: transparent;
+		overflow-y: visible;
+		visibility: visible;
+	}
+
+	.offcanvas-collapse.open {
+		-webkit-transform: none;
+		transform: none;
+	}
+}
+
+.navbar .navbar-toggler {
+	padding: 0;
+	border: none;
+	font-size: 1.25rem;
+}
+
+@media (min-width: 992px) {
+	.navbar .navbar-toggler {
+		display: none !important;
+	}
+}

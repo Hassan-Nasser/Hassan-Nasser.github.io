@@ -1,0 +1,17 @@
+.manifest-grid {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	gap: 2rem;
+
+	@media (min-width: 1024px) {
+		display: grid;
+		grid-template-columns: 7fr 5fr;
+		grid-template-areas:
+			"role portrait"
+			"name portrait"
+			"bio  portrait";
+		gap: 3rem;
+		align-items: center;
+	}
+}
