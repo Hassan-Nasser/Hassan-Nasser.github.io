@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 import { ProjectInfo } from "./ProjectInfo";
 import { ProjectMedia } from "./ProjectMedia";
@@ -132,7 +133,7 @@ export const ProjectRow = React.memo(({ initialProject, isVisible = true, isLast
                     carouselRef={carouselRef}
                 />
             </div>
-            {lightboxOpen && (
+            {lightboxOpen && createPortal(
                 <div className="lightbox-modal" onClick={() => setLightboxOpen(false)}>
                     <div className="lightbox-content animate-zoom-in" onClick={(e) => e.stopPropagation()}>
                         <button className="lightbox-close-btn" onClick={() => setLightboxOpen(false)}>
@@ -141,7 +142,8 @@ export const ProjectRow = React.memo(({ initialProject, isVisible = true, isLast
                         <img className="lightbox-img" src={activeImg} alt={`${project.name} Fullscreen`} />
                         <div className="lightbox-caption">{project.name} - Gameplay Screenshot</div>
                     </div>
-                </div>
+                </div>,
+                document.body
             )}
         </div>
     );
