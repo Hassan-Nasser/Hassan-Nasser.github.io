@@ -25,5 +25,10 @@
     "https://firebasestorage.googleapis.com/v0/b/hassan-portfolio-1.appspot.com/o/Cryptogram%2F5.jpg?alt=media",
     "https://firebasestorage.googleapis.com/v0/b/hassan-portfolio-1.appspot.com/o/Cryptogram%2F6.jpg?alt=media"
   ],
-  "role": "Senior Game Developer"
+  "role": "Senior Game Developer",
+  "highlights": [
+    "Designed a substitution cipher generation algorithm ensuring valid solvable puzzle states.",
+    "Developed a parser to load and structure puzzle levels from local JSON datasets of popular quotes.",
+    "Implemented an adaptive hint system providing context-aware help during cipher solving."
+  ]
 }

@@ -2,7 +2,7 @@
   "id": "House Designer",
   "name": "House Designer",
   "url": "https://www.youtube.com/embed/YhcBwb5yHRs?autoplay=1",
-  "description": "An immersive PropTech visualization platform engineered to accelerate real estate sales. Developed a high-fidelity interactive web experience integrating WebXR capabilities, allowing clients to dynamically explore and configure properties through seamless Virtual and Augmented Reality tours.",
+  "description": "An immersive PropTech visualization platform engineered to accelerate real estate sales.",
   "genres": [
     "Software"
   ],
@@ -12,5 +12,10 @@
     "VR"
   ],
   "hasThumbnail": false,
-  "role": "Intermediate Game Developer"
+  "role": "Intermediate Game Developer",
+  "highlights": [
+    "Developed a multi-platform house builder and visualization client running across Web, AR, and VR.",
+    "Engineered real-time runtime furniture placement and materials configuration systems.",
+    "Optimized lighting and 3D rendering to maintain high performance across all targeted runtimes."
+  ]
 }

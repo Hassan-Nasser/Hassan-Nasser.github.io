@@ -1,0 +1,22 @@
+{
+  "id": "Virtual Shopping Town",
+  "url": "https://www.youtube.com/embed/_8VD-rYpTPs?autoplay=1",
+  "name": "Virtual Shopping Town",
+  "description": "A virtual spatial shopping application featuring a large multiplayer city environment, real-time social networking, and integrated e-commerce.",
+  "genres": [
+    "Multiplayer"
+  ],
+  "platforms": [
+    "VR",
+    "Mobile",
+    "Android",
+    "IOS"
+  ],
+  "hasThumbnail": false,
+  "role": "Senior Game Developer",
+  "highlights": [
+    "Delivered a 3D multi-user shopping experience featuring interactive products, live carts, and checkout systems.",
+    "Architected and developed real-time multiplayer synchronization using Photon.",
+    "Integrated with custom backend APIs via a REST client to synchronize player accounts, catalog details, and checkout actions."
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "id": "Guess-Their-Answers",
-  "description": "A competitive hypercasual trivia game featuring dynamic text-parsing algorithms for fuzzy string matching and answer validation. Engineered state-driven game loops, responsive UI systems for rapid input handling, and simulated AI opponent logic to create engaging, fast-paced trivia encounters.",
+  "description": "A competitive hypercasual trivia game featuring dynamic text-parsing algorithms for fuzzy string matching and answer validation.",
   "name": "Guess Their Answers",
   "url": "https://www.youtube.com/embed/VuTS5h3Qqi0?autoplay=1",
   "genres": [
@@ -14,5 +14,10 @@
     "IOS"
   ],
   "hasThumbnail": false,
-  "role": "Senior Game Developer"
+  "role": "Senior Game Developer",
+  "highlights": [
+    "Developed fuzzy matching algorithms to dynamically validate diverse player text inputs.",
+    "Created AI opponent logic simulating human behaviors, including variable typing speeds and decision times.",
+    "Engineered a scalable state-machine pattern to handle round phases and real-time score tallies."
+  ]
 }

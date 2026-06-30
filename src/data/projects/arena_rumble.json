@@ -2,7 +2,7 @@
   "id": "Arena Rumble",
   "name": "Warrior Heroes: Arena Rumble",
   "url": "https://www.youtube.com/embed/Q7ZtyuEwldE?autoplay=1",
-  "description": "Multiplayer turn based strategy game with collectable cards. \nCollect cards and build you team of 4 strong fighters.\nBattle in 1v1 fights and gain rewards, loots and chests.\nRanked seasons, Unlockable cards, Unlockable characters and much more with in depth economy system with virtual currencies",
+  "description": "A multiplayer turn-based tactical strategy card game with real-time PvP, ranked progression, and dynamic reward systems.",
   "genres": [
     "Multiplayer",
     "Turn Based",
@@ -22,5 +22,10 @@
     "https://firebasestorage.googleapis.com/v0/b/hassan-portfolio-1.appspot.com/o/Arena%20Rumble%2F3.png?alt=media",
     "https://firebasestorage.googleapis.com/v0/b/hassan-portfolio-1.appspot.com/o/Arena%20Rumble%2F4.png?alt=media"
   ],
-  "role": "Senior Game Developer"
+  "role": "Senior Game Developer",
+  "highlights": [
+    "Designed and built turn-based card gameplay, hero leveling systems, and character combat skills integrated with the backend.",
+    "Architected authoritative multiplayer synchronization using Mirror and AWS for server orchestration.",
+    "Developed custom backend services for user login, secure player data storage, in-app purchases (IAP), and server-validated loot chests."
+  ]
 }

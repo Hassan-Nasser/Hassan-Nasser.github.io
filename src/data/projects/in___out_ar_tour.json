@@ -1,6 +1,6 @@
 {
   "id": "In & Out AR Tour",
-  "description": "A 360 Tour app for In & Out Furniture , made as part of marketing project at NASNAV, I worked as an intermediate unity developer on the project. Implemented 360 panorama viewer for the furniture showrooms, developed UI and navigation systems to allow users to explore virtual showroom environments. Created interactive elements for product visualization and guided tour experiences.",
+  "description": "A virtual showroom 360-degree tour application developed to showcase high-end furniture lines interactively.",
   "url": "https://www.youtube.com/embed/e3VO16OFZt0?autoplay=1",
   "name": "In & Out AR Tour",
   "genres": [],
@@ -10,5 +10,10 @@
     "Mobile"
   ],
   "hasThumbnail": false,
-  "role": "Intermediate Game Developer"
+  "role": "Intermediate Game Developer",
+  "highlights": [
+    "Built AR/3D apps, including a virtual mall with navigation and a 360-degree showroom for furniture shopping.",
+    "Developed UI and spatial navigation systems to allow users to explore virtual showroom environments.",
+    "Integrated mobile gyroscopic orientation features for hands-free spatial exploration."
+  ]
 }

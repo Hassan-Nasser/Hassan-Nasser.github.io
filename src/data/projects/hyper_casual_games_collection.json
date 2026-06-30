@@ -1,7 +1,7 @@
 {
   "id": "Hyper-Casual Games",
   "name": "Hyper-Casual Games",
-  "description": "I worked on a massive collection of 20+ Hyper-Casual games as part of a freelance contract. Each project was rapidly prototyped and fully developed in Unity, focusing on addictive core loops and polished mechanics. From dynamic platformers to fast-paced endless runners, this collection demonstrates my ability to consistently deliver highly engaging mobile experiences.",
+  "description": "A portfolio of 20+ rapidly prototyped and fully engineered hyper-casual mobile games, built under strict deadlines for freelance clients.",
   "genres": [
     "Hyper-Casual",
     "Multiplayer"
@@ -94,5 +94,10 @@
       "url": "https://youtube.com/shorts/sujuaw3_qEs?autoplay=1"
     }
   ],
-  "role": "Senior Game Developer"
+  "role": "Senior Game Developer",
+  "highlights": [
+    "Maintained rapid production cycles under tight timeframes, delivering 20+ playable game iterations from concept to deployment.",
+    "Created modular toolkits and dynamic physics components allowing artists and designers to easily tweak mechanics without code.",
+    "Rapidly integrated new gameplay features and ad networks to evaluate market viability within 5-10 day iteration windows."
+  ]
 }

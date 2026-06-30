@@ -15,5 +15,10 @@
     "IOS"
   ],
   "hasThumbnail": false,
-  "role": "Senior Game Developer"
+  "role": "Senior Game Developer",
+  "highlights": [
+    "Rebuilt the multiplayer architecture using Unity and Photon for scalability and stability, cutting server costs by over 70%.",
+    "Overhauled core gameplay systems, reducing lag, lowering memory usage, and optimizing build size for faster mobile downloads.",
+    "Developed a campaign progression system enabling tracking of 1,000+ custom events and actions, including unlocking achievements."
+  ]
 }

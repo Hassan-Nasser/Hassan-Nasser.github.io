@@ -2,7 +2,7 @@
   "id": "Void Rift",
   "name": "Void Rift",
   "url": "https://www.youtube.com/embed/daMawZSQKQc?autoplay=1",
-  "description": "Multiplayer Co-op, player vs player game.",
+  "description": "A multiplayer Co-op and PvP MOBA (Multiplayer Online Battle Arena) game featuring complex class abilities and real-time networking.",
   "genres": [
     "Multiplayer",
     "PvP",
@@ -15,5 +15,10 @@
     "IOS"
   ],
   "hasThumbnail": false,
-  "role": "Senior Game Developer"
+  "role": "Senior Game Developer",
+  "highlights": [
+    "Developed authoritative multiplayer synchronization using Mirror to handle server-validated PvP matches and actions.",
+    "Engineered a real-time weapon and skill inventory system, allowing players to dynamically equip and update active abilities mid-game.",
+    "Created modular combat state machines synchronizing real-time skill execution and server-side damage validation."
+  ]
 }

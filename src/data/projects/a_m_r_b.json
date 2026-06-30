@@ -2,7 +2,7 @@
   "id": "A.M.R.B",
   "name": "A.M.R.B",
   "url": "https://www.youtube.com/embed/GOOo-1z1fAo?autoplay=1",
-  "description": "An augmented reality app made as a freelance project, part of a PhD in Innovative ways of teaching to help students of faculty of physical education to learn in more fun and innovative ways.\nThe app contains 35+ 3D animations and videos  and more content will be added for all 4 years students",
+  "description": "An interactive Augmented Reality educational application engineered to aid physical education students in dynamic learning.",
   "genres": [],
   "platforms": [
     "AR",
@@ -11,5 +11,10 @@
     "IOS"
   ],
   "hasThumbnail": false,
-  "role": "Junior Game Developer"
+  "role": "Junior Game Developer",
+  "highlights": [
+    "Programmed AR tracking and image recognition routines to trigger interactive 3D displays.",
+    "Optimized 3D asset bundles and packaging configurations for minimal memory footprints and high-speed local reads.",
+    "Designed a curriculum-based touch navigation portal grouping educational animation assets."
+  ]
 }

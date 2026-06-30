@@ -1,6 +1,6 @@
 {
   "id": "Millionaire Deal",
-  "description": "Multiplayer card game, Where you can collect more than 200 cards and play vs players in 1v1 matches or 4 players. Ranked seasons, Unlockable cards, Unlockable characters and much more with in depth economy system with virtual currencies.",
+  "description": "A multiplayer collectible card game featuring real-time online matchmaking, card collection management, and a secure virtual economy system.",
   "googlePlay": "https://play.google.com/store/apps/details?id=com.FrontTech.millionaire.deal",
   "appStore": "https://apps.apple.com/us/app/millionaire-deal-card-game/id1613519723",
   "name": "Millionaire Deal",
@@ -16,5 +16,10 @@
     "IOS"
   ],
   "hasThumbnail": false,
-  "role": "Senior Game Developer"
+  "role": "Senior Game Developer",
+  "highlights": [
+    "Led and coordinated development from prototype to production, managing card gameplay, systems, and server infrastructure.",
+    "Developed scalable real-time multiplayer, ranked matchmaking, and user management backend using Unity and Photon.",
+    "Planned and built core systems like card stores, virtual currencies, and 50+ unique animated action cards."
+  ]
 }

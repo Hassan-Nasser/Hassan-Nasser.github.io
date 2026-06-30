@@ -2,7 +2,7 @@
   "id": "Football Merge",
   "name": "Football Merge",
   "url": "https://www.youtube.com/embed/-nW5GzRaesQ",
-  "description": "A hypercasual multiplier game engineered with highly optimized object pooling to support hundreds of active physics bodies simultaneously. Implemented dynamic mathematical gate logic, swarm behavior algorithms, and responsive mobile input systems to deliver smooth high-density gameplay.",
+  "description": "A hypercasual multiplier game engineered with highly optimized object pooling to support hundreds of active physics bodies simultaneously.",
   "genres": [
     "Casual",
     "Hypercasual",
@@ -15,5 +15,10 @@
   ],
   "hasThumbnail": true,
   "profile": "https://firebasestorage.googleapis.com/v0/b/hassan-portfolio-1.appspot.com/o/Football%20Merge.png?alt=media",
-  "role": "Senior Game Developer"
+  "role": "Senior Game Developer",
+  "highlights": [
+    "Designed a custom, high-performance object pooling system to support high densities of active physics spheres.",
+    "Programmed mathematical collision gates and dynamic sphere multiplication math algorithms.",
+    "Optimized physics collision layers and FixedUpdate update rates to prevent CPU thermal throttling on mobile."
+  ]
 }

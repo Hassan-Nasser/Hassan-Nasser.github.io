@@ -19,6 +19,17 @@ export const ProjectInfo = ({ project, meta }) => {
 
             <p className="project-desc">{project.description}</p>
 
+            {project.highlights && project.highlights.length > 0 && (
+                <div className="project-highlights-container">
+                    <h4 className="highlights-title">Technical Contributions</h4>
+                    <ul className="highlights-list">
+                        {project.highlights.map((h, i) => (
+                            <li key={i} className="highlight-item">{h}</li>
+                        ))}
+                    </ul>
+                </div>
+            )}
+
             <div className="project-tags">
                 {project.platforms && project.platforms.map((platformName, idx) => (
                     <span key={`p-${idx}`} className="project-tag-badge platform-badge">

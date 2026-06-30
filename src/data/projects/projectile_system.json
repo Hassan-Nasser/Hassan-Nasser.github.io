@@ -15,5 +15,10 @@
     "Mobile"
   ],
   "hasThumbnail": false,
-  "role": "Senior Game Developer"
+  "role": "Senior Game Developer",
+  "highlights": [
+    "Created a modular SDK/toolkit allowing designers to configure complex physics-based projectile paths without code.",
+    "Derived trajectory calculations handling multi-bounce paths integrated with Unity's physics engine variables.",
+    "Programmed a custom Unity Editor GUI and Editor Window for real-time visualization and parameter adjustments."
+  ]
 }
