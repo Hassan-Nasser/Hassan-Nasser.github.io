@@ -13,25 +13,25 @@ import whiteGlow from './images/white-glow.webp';
 import { LoadingScreen } from './Components/LoadingScreen/LoadingScreen';
 
 function App() {
-  const isTabletOrMobile = () => window.innerWidth <= 1200 || ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
+  const isTabletOrMobile = () => window.innerWidth < 1024;
   const [isMobile, setIsMobile] = useState(isTabletOrMobile());
   const [isLoading, setIsLoading] = useState(true);
   const bgRef = useRef(null);
   const blob1Ref = useRef(null);
   const blob2Ref = useRef(null);
-
+ 
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 2000);
-
+ 
     const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 1200 || ('ontouchstart' in window) || navigator.maxTouchPoints > 0);
+      setIsMobile(window.innerWidth < 1024);
     };
     window.addEventListener('resize', checkMobile);
-
+ 
     const handleScroll = () => {
-      if (window.innerWidth <= 1200 || ('ontouchstart' in window) || navigator.maxTouchPoints > 0) return;
+      if (window.innerWidth < 1024) return;
       const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
       const progress = window.scrollY / (totalHeight || 1);
 
@@ -89,7 +89,7 @@ function App() {
           right: '-10vw',
           overflow: 'hidden',
           pointerEvents: 'none',
-          opacity: isMobile ? 0.5 : 0.45,
+          opacity: isMobile ? 0.35 : 0.45,
           zIndex: 1,
         }}
       >
@@ -97,11 +97,11 @@ function App() {
           ref={blob1Ref}
           style={{
             position: 'absolute',
-            top: isMobile ? 'calc(-10% - 100vw)' : '-80%',
-            left: isMobile ? 'calc(0% - 100vw)' : '-70%',
-            width: isMobile ? '250vw' : '150%',
-            height: isMobile ? '250vw' : '150%',
-            backgroundColor: isMobile ? 'rgba(37,99,235,0.9)' : '#2563eb',
+            top: '-80%',
+            left: '-70%',
+            width: '150%',
+            height: '150%',
+            backgroundColor: '#2563eb',
             WebkitMaskImage: `url(${whiteGlow})`,
             WebkitMaskSize: 'contain',
             WebkitMaskPosition: 'center',
@@ -118,11 +118,11 @@ function App() {
           ref={blob2Ref}
           style={{
             position: 'absolute',
-            bottom: isMobile ? 'calc(-10% - 100vw)' : '-80%',
-            right: isMobile ? 'calc(0% - 100vw)' : '-70%',
-            width: isMobile ? '250vw' : '150%',
-            height: isMobile ? '250vw' : '150%',
-            backgroundColor: isMobile ? 'rgba(147,51,234,0.9)' : '#9333ea',
+            bottom: '-80%',
+            right: '-70%',
+            width: '150%',
+            height: '150%',
+            backgroundColor: '#9333ea',
             WebkitMaskImage: `url(${whiteGlow})`,
             WebkitMaskSize: 'contain',
             WebkitMaskPosition: 'center',

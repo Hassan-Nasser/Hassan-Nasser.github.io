@@ -70,26 +70,4 @@
             pointer-events: auto;
         }
     }
-
-    &:hover {
-        .timeline-marker {
-            background: #ec4899;
-            box-shadow: 0 0 16px #ec4899;
-            transform: translateX(-50%) scale(1.2);
-            border-color: #1a082e;
-        }
-
-        .timeline-card {
-            transform: translateX(8px);
-
-            @media (max-width: 768px) {
-                transform: none;
-            }
-        }
-
-        .timeline-job-title {
-            color: #a78bfa;
-            text-shadow: 0 0 12px rgba(167, 139, 250, 0.4);
-        }
-    }
 }

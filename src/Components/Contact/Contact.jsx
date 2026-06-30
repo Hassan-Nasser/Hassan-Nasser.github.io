@@ -44,6 +44,10 @@ function Contact() {
                         <p className="contact-subtitle">
                             Have a project in mind or want to collaborate? I'd love to hear from you.
                         </p>
+                        <div className="contact-location contact-hidden" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', marginTop: '1.25rem' }}>
+                            <MapPin size={18} className="location-icon" />
+                            <span>Cairo, Egypt</span>
+                        </div>
                     </div>
                 </div>
 
@@ -67,16 +71,6 @@ function Contact() {
                             <span className="contact-card-label">Phone</span>
                             <span className="contact-card-value">+2 0106 562 2685</span>
                         </a>
-                    </div>
-
-                    <div className="contact-card-wrapper contact-hidden">
-                        <div className="contact-card">
-                            <div className="contact-card-icon">
-                                <MapPin size={24} />
-                            </div>
-                            <span className="contact-card-label">Location</span>
-                            <span className="contact-card-value">Cairo, Egypt</span>
-                        </div>
                     </div>
                 </div>
 
@@ -118,15 +112,7 @@ function Contact() {
                     </div>
                 </div>
 
-                {/* CTA Button */}
-                <div className="contact-hidden">
-                    <div className="contact-cta">
-                        <a href="mailto:Hassan.h.nasser@gmail.com" className="contact-cta-btn">
-                            <Send size={18} className="cta-icon" />
-                            SEND ME A MESSAGE
-                        </a>
-                    </div>
-                </div>
+
             </div>
         </section>
     );
